@@ -6691,19 +6691,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Amir\\.nuget\\packages\\": {}
+    "C:\\Users\\armaghan\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Amir\\source\\repos\\blzZmq1\\blzZmq1\\blzZmq1.csproj",
+      "projectUniqueName": "C:\\Users\\armaghan\\source\\repos\\blzZmq1\\blzZmq1\\blzZmq1.csproj",
       "projectName": "blzZmq1",
-      "projectPath": "C:\\Users\\Amir\\source\\repos\\blzZmq1\\blzZmq1\\blzZmq1.csproj",
-      "packagesPath": "C:\\Users\\Amir\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Amir\\source\\repos\\blzZmq1\\blzZmq1\\obj\\",
+      "projectPath": "C:\\Users\\armaghan\\source\\repos\\blzZmq1\\blzZmq1\\blzZmq1.csproj",
+      "packagesPath": "C:\\Users\\armaghan\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\armaghan\\source\\repos\\blzZmq1\\blzZmq1\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Amir\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\armaghan\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
