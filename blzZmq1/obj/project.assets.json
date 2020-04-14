@@ -30,6 +30,31 @@
           "buildMultiTargeting/BlazorInputFile.props": {}
         }
       },
+      "Capnp.Net.Runtime/1.2.189": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Logging": "2.2.0"
+        },
+        "compile": {
+          "lib/netcoreapp2.1/Capnp.Net.Runtime.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/Capnp.Net.Runtime.dll": {}
+        }
+      },
+      "CapnpC.CSharp.MsBuild.Generation/1.2.138": {
+        "type": "package",
+        "dependencies": {
+          "Capnp.Net.Runtime": "1.0.0"
+        },
+        "build": {
+          "build/CapnpC.CSharp.MsBuild.Generation.props": {},
+          "build/CapnpC.CSharp.MsBuild.Generation.targets": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/CapnpC.CSharp.MsBuild.Generation.props": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/3.0.0-preview9.19424.4": {
         "type": "package",
         "dependencies": {
@@ -387,6 +412,42 @@
           }
         }
       },
+      "Microsoft.Extensions.Configuration/2.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "2.2.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Extensions.Configuration.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.Configuration.dll": {}
+        }
+      },
+      "Microsoft.Extensions.Configuration.Abstractions/2.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "2.2.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Extensions.Configuration.Abstractions.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.Configuration.Abstractions.dll": {}
+        }
+      },
+      "Microsoft.Extensions.Configuration.Binder/2.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration": "2.2.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Extensions.Configuration.Binder.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.Configuration.Binder.dll": {}
+        }
+      },
       "Microsoft.Extensions.DependencyInjection/3.1.0": {
         "type": "package",
         "dependencies": {
@@ -406,6 +467,21 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {}
+        }
+      },
+      "Microsoft.Extensions.Logging/2.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Binder": "2.2.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.2.0",
+          "Microsoft.Extensions.Logging.Abstractions": "2.2.0",
+          "Microsoft.Extensions.Options": "2.2.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Extensions.Logging.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.Logging.dll": {}
         }
       },
       "Microsoft.Extensions.Logging.Abstractions/3.0.0-preview9.19423.4": {
@@ -2067,6 +2143,128 @@
         "staticwebassets/inputfile.js"
       ]
     },
+    "Capnp.Net.Runtime/1.2.189": {
+      "sha512": "Kjm15ymuBVoWN/qntHUQTIA02WrcQgn5V624IbbMe2jZn1ciCIb11nqukBz3ukzwjwK6MEUqvESUGvYDNlBrxQ==",
+      "type": "package",
+      "path": "capnp.net.runtime/1.2.189",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "capnp.net.runtime.1.2.189.nupkg.sha512",
+        "capnp.net.runtime.nuspec",
+        "lib/netcoreapp2.1/Capnp.Net.Runtime.dll",
+        "lib/netcoreapp2.1/Capnp.Net.Runtime.xml",
+        "lib/netstandard2.0/Capnp.Net.Runtime.dll",
+        "lib/netstandard2.0/Capnp.Net.Runtime.xml"
+      ]
+    },
+    "CapnpC.CSharp.MsBuild.Generation/1.2.138": {
+      "sha512": "O5cQtLJAJOT3Fab3krMipxlitN87YJWJLEXnb0jGTZc/Do8X9VPQKhT0dP4rdZhbwjvee3YPP5wY+cdtNpGS4Q==",
+      "type": "package",
+      "path": "capnpc.csharp.msbuild.generation/1.2.138",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "build/CPS/Buildsystem/CpsExtension.DesignTime.targets",
+        "build/CPS/Buildsystem/Rules/CapnpFileType.xaml",
+        "build/CPS/Buildsystem/Rules/ProjectItemsSchema.xaml",
+        "build/CapnpC.CSharp.MsBuild.Generation.props",
+        "build/CapnpC.CSharp.MsBuild.Generation.targets",
+        "build/CapnpC.CSharp.MsBuild.Generation.tasks",
+        "buildMultiTargeting/CapnpC.CSharp.MsBuild.Generation.props",
+        "capnpc.csharp.msbuild.generation.1.2.138.nupkg.sha512",
+        "capnpc.csharp.msbuild.generation.nuspec",
+        "licenses/SpecFlow-LICENSE-NewBSD.txt",
+        "tasks/net471/Capnp.Net.Runtime.dll",
+        "tasks/net471/CapnpC.CSharp.Generator.dll",
+        "tasks/net471/CapnpC.CSharp.MsBuild.Generation.dll",
+        "tasks/net471/Microsoft.Build.Framework.dll",
+        "tasks/net471/Microsoft.Build.Tasks.Core.dll",
+        "tasks/net471/Microsoft.Build.Utilities.Core.dll",
+        "tasks/net471/Microsoft.Build.dll",
+        "tasks/net471/Microsoft.CodeAnalysis.CSharp.dll",
+        "tasks/net471/Microsoft.CodeAnalysis.dll",
+        "tasks/net471/Microsoft.Extensions.Configuration.Abstractions.dll",
+        "tasks/net471/Microsoft.Extensions.Configuration.Binder.dll",
+        "tasks/net471/Microsoft.Extensions.Configuration.dll",
+        "tasks/net471/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "tasks/net471/Microsoft.Extensions.Logging.Abstractions.dll",
+        "tasks/net471/Microsoft.Extensions.Logging.dll",
+        "tasks/net471/Microsoft.Extensions.Options.dll",
+        "tasks/net471/Microsoft.Extensions.Primitives.dll",
+        "tasks/net471/Microsoft.VisualStudio.Composition.NetFxAttributes.dll",
+        "tasks/net471/Microsoft.VisualStudio.Composition.dll",
+        "tasks/net471/Microsoft.VisualStudio.ProjectSystem.Interop.dll",
+        "tasks/net471/Microsoft.VisualStudio.ProjectSystem.VS.dll",
+        "tasks/net471/Microsoft.VisualStudio.ProjectSystem.dll",
+        "tasks/net471/Microsoft.VisualStudio.Setup.Configuration.Interop.dll",
+        "tasks/net471/Microsoft.VisualStudio.Threading.dll",
+        "tasks/net471/Microsoft.VisualStudio.Validation.dll",
+        "tasks/net471/Microsoft.Win32.Registry.dll",
+        "tasks/net471/System.Buffers.dll",
+        "tasks/net471/System.Collections.Immutable.dll",
+        "tasks/net471/System.ComponentModel.Annotations.dll",
+        "tasks/net471/System.Composition.AttributedModel.dll",
+        "tasks/net471/System.Composition.Convention.dll",
+        "tasks/net471/System.Composition.Hosting.dll",
+        "tasks/net471/System.Composition.Runtime.dll",
+        "tasks/net471/System.Composition.TypedParts.dll",
+        "tasks/net471/System.Data.Common.dll",
+        "tasks/net471/System.Diagnostics.StackTrace.dll",
+        "tasks/net471/System.Diagnostics.Tracing.dll",
+        "tasks/net471/System.Globalization.Extensions.dll",
+        "tasks/net471/System.IO.Compression.dll",
+        "tasks/net471/System.Memory.dll",
+        "tasks/net471/System.Net.Http.dll",
+        "tasks/net471/System.Net.Sockets.dll",
+        "tasks/net471/System.Numerics.Vectors.dll",
+        "tasks/net471/System.Reflection.Metadata.dll",
+        "tasks/net471/System.Runtime.CompilerServices.Unsafe.dll",
+        "tasks/net471/System.Runtime.Serialization.Primitives.dll",
+        "tasks/net471/System.Security.AccessControl.dll",
+        "tasks/net471/System.Security.Cryptography.Algorithms.dll",
+        "tasks/net471/System.Security.Principal.Windows.dll",
+        "tasks/net471/System.Security.SecureString.dll",
+        "tasks/net471/System.Text.Encoding.CodePages.dll",
+        "tasks/net471/System.Threading.Overlapped.dll",
+        "tasks/net471/System.Threading.Tasks.Dataflow.dll",
+        "tasks/net471/System.Threading.Tasks.Extensions.dll",
+        "tasks/net471/System.Xml.XPath.XDocument.dll",
+        "tasks/netcoreapp2.1/Capnp.Net.Runtime.dll",
+        "tasks/netcoreapp2.1/CapnpC.CSharp.Generator.dll",
+        "tasks/netcoreapp2.1/CapnpC.CSharp.MsBuild.Generation.deps.json",
+        "tasks/netcoreapp2.1/CapnpC.CSharp.MsBuild.Generation.dll",
+        "tasks/netcoreapp2.1/Microsoft.Build.Framework.dll",
+        "tasks/netcoreapp2.1/Microsoft.Build.Tasks.Core.dll",
+        "tasks/netcoreapp2.1/Microsoft.Build.Utilities.Core.dll",
+        "tasks/netcoreapp2.1/Microsoft.Build.dll",
+        "tasks/netcoreapp2.1/Microsoft.CodeAnalysis.CSharp.dll",
+        "tasks/netcoreapp2.1/Microsoft.CodeAnalysis.dll",
+        "tasks/netcoreapp2.1/Microsoft.Extensions.Configuration.Abstractions.dll",
+        "tasks/netcoreapp2.1/Microsoft.Extensions.Configuration.Binder.dll",
+        "tasks/netcoreapp2.1/Microsoft.Extensions.Configuration.dll",
+        "tasks/netcoreapp2.1/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "tasks/netcoreapp2.1/Microsoft.Extensions.Logging.Abstractions.dll",
+        "tasks/netcoreapp2.1/Microsoft.Extensions.Logging.dll",
+        "tasks/netcoreapp2.1/Microsoft.Extensions.Options.dll",
+        "tasks/netcoreapp2.1/Microsoft.Extensions.Primitives.dll",
+        "tasks/netcoreapp2.1/Microsoft.VisualStudio.Composition.NetFxAttributes.dll",
+        "tasks/netcoreapp2.1/Microsoft.VisualStudio.Composition.dll",
+        "tasks/netcoreapp2.1/Microsoft.VisualStudio.Threading.dll",
+        "tasks/netcoreapp2.1/Microsoft.VisualStudio.Validation.dll",
+        "tasks/netcoreapp2.1/System.CodeDom.dll",
+        "tasks/netcoreapp2.1/System.ComponentModel.Composition.dll",
+        "tasks/netcoreapp2.1/System.Composition.AttributedModel.dll",
+        "tasks/netcoreapp2.1/System.Composition.Convention.dll",
+        "tasks/netcoreapp2.1/System.Composition.Hosting.dll",
+        "tasks/netcoreapp2.1/System.Composition.Runtime.dll",
+        "tasks/netcoreapp2.1/System.Composition.TypedParts.dll",
+        "tasks/netcoreapp2.1/System.Runtime.CompilerServices.Unsafe.dll",
+        "tasks/netcoreapp2.1/System.Security.Permissions.dll",
+        "tasks/netcoreapp2.1/System.Text.Encoding.CodePages.dll"
+      ]
+    },
     "Microsoft.AspNetCore.Authorization/3.0.0-preview9.19424.4": {
       "sha512": "GdKUkS36YPrJvmpQdpKCkoE4NtwCDHmPOAZy1ws/oyB+in7SrTD/b/K9TzV8QX3OUZWJzf5dJcuhyWp/jvPrwA==",
       "type": "package",
@@ -2406,6 +2604,45 @@
         "microsoft.codeanalysis.workspaces.common.nuspec"
       ]
     },
+    "Microsoft.Extensions.Configuration/2.2.0": {
+      "sha512": "nOP8R1mVb/6mZtm2qgAJXn/LFm/2kMjHDAg/QJLFG6CuWYJtaD3p1BwQhufBVvRzL9ceJ/xF0SQ0qsI2GkDQAA==",
+      "type": "package",
+      "path": "microsoft.extensions.configuration/2.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.Extensions.Configuration.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Configuration.xml",
+        "microsoft.extensions.configuration.2.2.0.nupkg.sha512",
+        "microsoft.extensions.configuration.nuspec"
+      ]
+    },
+    "Microsoft.Extensions.Configuration.Abstractions/2.2.0": {
+      "sha512": "65MrmXCziWaQFrI0UHkQbesrX5wTwf9XPjY5yFm/VkgJKFJ5gqvXRoXjIZcf2wLi5ZlwGz/oMYfyURVCWbM5iw==",
+      "type": "package",
+      "path": "microsoft.extensions.configuration.abstractions/2.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.Extensions.Configuration.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Configuration.Abstractions.xml",
+        "microsoft.extensions.configuration.abstractions.2.2.0.nupkg.sha512",
+        "microsoft.extensions.configuration.abstractions.nuspec"
+      ]
+    },
+    "Microsoft.Extensions.Configuration.Binder/2.2.0": {
+      "sha512": "vJ9xvOZCnUAIHcGC3SU35r3HKmHTVIeHzo6u/qzlHAqD8m6xv92MLin4oJntTvkpKxVX3vI1GFFkIQtU3AdlsQ==",
+      "type": "package",
+      "path": "microsoft.extensions.configuration.binder/2.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.Extensions.Configuration.Binder.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Configuration.Binder.xml",
+        "microsoft.extensions.configuration.binder.2.2.0.nupkg.sha512",
+        "microsoft.extensions.configuration.binder.nuspec"
+      ]
+    },
     "Microsoft.Extensions.DependencyInjection/3.1.0": {
       "sha512": "KVkv3aF2MQpmGFRh4xRx2CNbc2sjDFk+lH4ySrjWSOS+XoY1Xc+sJphw3N0iYOpoeCCq8976ceVYDH8sdx2qIQ==",
       "type": "package",
@@ -2438,6 +2675,19 @@
         "microsoft.extensions.dependencyinjection.abstractions.3.1.0.nupkg.sha512",
         "microsoft.extensions.dependencyinjection.abstractions.nuspec",
         "packageIcon.png"
+      ]
+    },
+    "Microsoft.Extensions.Logging/2.2.0": {
+      "sha512": "Nxqhadc9FCmFHzU+fz3oc8sFlE6IadViYg8dfUdGzJZ2JUxnCsRghBhhOWdM4B2zSZqEc+0BjliBh/oNdRZuig==",
+      "type": "package",
+      "path": "microsoft.extensions.logging/2.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.Extensions.Logging.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Logging.xml",
+        "microsoft.extensions.logging.2.2.0.nupkg.sha512",
+        "microsoft.extensions.logging.nuspec"
       ]
     },
     "Microsoft.Extensions.Logging.Abstractions/3.0.0-preview9.19423.4": {
@@ -6686,6 +6936,8 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "BlazorInputFile >= 0.1.0-preview-00002",
+      "Capnp.Net.Runtime >= 1.2.189",
+      "CapnpC.CSharp.MsBuild.Generation >= 1.2.138",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.1",
       "NetMQ >= 4.0.0.207"
     ]
@@ -6730,6 +6982,14 @@
           "BlazorInputFile": {
             "target": "Package",
             "version": "[0.1.0-preview-00002, )"
+          },
+          "Capnp.Net.Runtime": {
+            "target": "Package",
+            "version": "[1.2.189, )"
+          },
+          "CapnpC.CSharp.MsBuild.Generation": {
+            "target": "Package",
+            "version": "[1.2.138, )"
           },
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",

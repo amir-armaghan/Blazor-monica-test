@@ -1,0 +1,26 @@
+﻿@page "/consumer"
+@using blzZmq1.Services
+@using NetMQ
+
+
+<h3>Consumer</h3>
+<button @onclick="Consumerf">Recive via ZMQ and show the content</button>
+<p class="fixwidth">@answer</p>
+
+@code {
+    private string answer { get; set; } = "the answer";
+    private void Consumerf()
+    {
+        using (var consumer = new PullSocket())
+        //using (var producer = new RequestSocket())
+        {
+            consumer.Connect("tcp://localhost:7777");
+            answer = consumer.ReceiveFrameString();
+
+            System.Threading.Thread.Sleep(5000);
+
+
+        }
+    }
+
+}

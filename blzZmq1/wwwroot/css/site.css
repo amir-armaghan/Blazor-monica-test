@@ -180,4 +180,8 @@ app {
         /* Never collapse the sidebar for wide screens */
         display: block;
     }
+    .fixwidth {
+        word-wrap: break-word; /* old name */
+        overflow-wrap: break-word;
+    }
 }
