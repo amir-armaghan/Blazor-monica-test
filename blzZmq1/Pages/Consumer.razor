@@ -1,6 +1,7 @@
 ﻿@page "/consumer"
 @using blzZmq1.Services
 @using NetMQ
+@inject Services.AppData AppData
 
 
 <h3>Consumer</h3>
@@ -14,10 +15,11 @@
         using (var consumer = new PullSocket())
         //using (var producer = new RequestSocket())
         {
-            consumer.Connect("tcp://localhost:7777");
+            //consumer.Connect("tcp://localhost:7777");
+            consumer.Connect(AppData.ServerPullAddress + ":" + AppData.ServerPullPort);
             answer = consumer.ReceiveFrameString();
 
-            System.Threading.Thread.Sleep(5000);
+            System.Threading.Thread.Sleep(3000);
 
 
         }
