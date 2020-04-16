@@ -1,0 +1,49 @@
+﻿@page "/setting"
+@using System.IO;
+@using System.Linq;
+@inject Services.AppData AppData
+@using blzZmq1.Services
+
+<h3>Setting</h3>
+
+Server Push Address:
+<input type="text" @bind="AppData.ServerPushAddress" />
+<br />
+Server Push Port:
+<input type="number" @bind="AppData.ServerPushPort" />
+<br />
+Server Pull Address:
+<input type="text" @bind="AppData.ServerPullAddress" />
+<br />
+Server Pull Port:
+<input type="number" @bind="AppData.ServerPullPort" />
+
+
+<p></p>
+
+@code {
+
+
+
+
+
+    // // it is supposed later makeing this code to read settings from an ini file.
+    /*private const String ConfigFileName = "Config.ini";
+
+
+    public Dictionary<string, string> readConfigFile()
+    {
+        var lines = File.ReadAllLines(ConfigFileName);
+        Dictionary<string, string> dict = new Dictionary<string, string>();
+        foreach (string s in lines)
+        {
+            string[] split = s.Split("=");
+            dict.Add(split[0], split[1]);
+        }
+
+        return dict;
+    }*/
+
+    // //string s = string.Join(";", dict.Select(x => x.Key + "=" + x.Value).ToArray());
+
+}
