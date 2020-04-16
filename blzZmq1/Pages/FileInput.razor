@@ -62,7 +62,8 @@
             //string text1 = "push message from blazor";
             // producer.SendFrame(text1);
             //var message = producer.ReceiveFrameString();
-            System.Threading.Thread.Sleep(3000);  // it needs some time to send the request so made a delay
+            System.Threading.Thread.Sleep(2000);  // it needs some time to send the request so made a delay
+            producer.Disconnect(AppData.ServerPushAddress + ":" + AppData.ServerPushPort);
 
         }
 
