@@ -57,6 +57,10 @@
             "NetMQ": {
               "target": "Package",
               "version": "[4.0.0.207, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
             }
           },
           "imports": [

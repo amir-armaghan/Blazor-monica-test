@@ -19,7 +19,8 @@
             consumer.Connect(AppData.ServerPullAddress + ":" + AppData.ServerPullPort);
             answer = consumer.ReceiveFrameString();
 
-            System.Threading.Thread.Sleep(3000);
+            System.Threading.Thread.Sleep(2000);
+            consumer.Disconnect(AppData.ServerPullAddress + ":" + AppData.ServerPullPort);
 
 
         }
