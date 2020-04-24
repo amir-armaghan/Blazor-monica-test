@@ -6,27 +6,33 @@
 </Highchart>
 @code{
 
-
+    public static string chartTypeName = "area";  // has to get from json 
+    public static string chartTitleName = "Monica Model from json message";
+    public static string chartOrigSpec = "Daily";
     string chartjson = @" {
+    chart: {
+        type: '" + chartTypeName + @"'
+    },
         
     title: {
-        text: 'Solar Employment Growth by Sector, 2010-2016'
+        text: '" + chartTitleName + @"'
     },
 
     subtitle: {
-        text: 'Source: thesolarfoundation.com'
+        text: '" + chartOrigSpec + @"'
     },
 
     yAxis: {
         title: {
-            text: 'Number of Employees'
+            text: 'Crop'
         }
     },
 
     xAxis: {
-        accessibility: {
-            rangeDescription: 'Range: 2010 to 2017'
-        }
+        title: {
+            text: 'Date'
+        },
+         categories: ['1750', '1800', '1850', '1900', '1950', '1999', '2020', '2050'],
     },
 
     legend: {
@@ -40,7 +46,7 @@
             label: {
                 connectorAllowed: false
             },
-            pointStart: 2010
+            
         }
     },
 
@@ -81,5 +87,5 @@
 
 }";
 
-    }";
+
 }
