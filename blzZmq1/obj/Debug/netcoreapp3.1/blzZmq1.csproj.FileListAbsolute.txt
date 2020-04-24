@@ -286,3 +286,4 @@ C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\Razor\Com
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\Razor\Pages\HighCharts.razor.g.cs
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\bin\Debug\netcoreapp3.1\Data\1.json
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\bin\Debug\netcoreapp3.1\Data\2.json
+C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\bin\Debug\netcoreapp3.1\Upload\1.json
