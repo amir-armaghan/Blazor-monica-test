@@ -287,3 +287,5 @@ C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\Razor\Pag
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\bin\Debug\netcoreapp3.1\Data\1.json
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\bin\Debug\netcoreapp3.1\Data\2.json
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\bin\Debug\netcoreapp3.1\Upload\1.json
+C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\bin\Debug\netcoreapp3.1\Data\fromServer.json
+C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\bin\Debug\netcoreapp3.1\Data\jsonSchema.schema.json

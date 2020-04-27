@@ -30,6 +30,8 @@ namespace blzZmq1
             services.AddServerSideBlazor();
             services.AddScoped<IFileUpload, FileUpload>();
             services.AddSingleton<Services.AppData>();  //for clientside App -  for serverside app use: services.AddScoped<Services.AppData>();
+            services.AddScoped<JsonToChart>();
+            services.AddSingleton<Services.JsonToChart>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
