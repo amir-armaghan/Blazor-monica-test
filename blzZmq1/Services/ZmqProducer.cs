@@ -47,6 +47,7 @@ namespace blzZmq1.Services
             crop_site_sim.Add("site", site_json);
             crop_site_sim.Add("sim", sim_json);
             crop_site_sim.Add("climate", "");
+            //crop_site_sim.Add("climate", climate_csv);
 
             var env = MonicaIO.create_env_json_from_json_config(crop_site_sim);
             if (env != null)

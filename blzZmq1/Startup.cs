@@ -33,6 +33,7 @@ namespace blzZmq1
             services.AddScoped<JsonToChart>();
             services.AddSingleton<Services.JsonToChart>();
             services.AddSingleton<Services.ZmqProducer>();
+            services.AddSingleton<Services.ZmqConsumer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,0 +1,41 @@
+﻿@page "/zmqconsumer"
+@using blzZmq1.Services
+@using NetMQ
+@inject Services.AppData AppData
+@inject Services.ZmqConsumer RunConsumer
+
+<h3>Recive ENV via ZMQ</h3>
+
+<button @onclick="GetMassage">Recieve message from server and put in CSV</button>
+<p>@CsvLink</p>
+<p class="fixwidth">@answer</p>
+
+
+@code {
+
+
+    private string answer { get; set; } = "the answer";
+    private string CsvLink { get; set; } = "No Link";
+
+    async Task GetMassage() // call ZmqProducer calss
+    {
+
+        //RunConsumer();
+
+        using (var consumer = new PullSocket())
+        //using (var producer = new RequestSocket())
+        {
+            //consumer.Connect("tcp://localhost:7777");
+            consumer.Connect(AppData.ServerPullAddress + ":" + AppData.ServerPullPort);
+            answer = consumer.ReceiveFrameString();
+
+            System.Threading.Thread.Sleep(2000);
+            consumer.Disconnect(AppData.ServerPullAddress + ":" + AppData.ServerPullPort);
+
+            // call runConsumer Method()
+            string CsvLink = Services.ZmqConsumer.RunConsumer(answer);
+
+        }
+    }
+
+}
