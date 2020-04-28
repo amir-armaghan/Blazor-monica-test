@@ -39,48 +39,27 @@ namespace blzZmq1.Services
         }
         private static string op_to_string(int op)
         {
-            var dic = new Dictionary<int, string>();
-            dic.Add(OP_AVG, "AVG");
-            dic.Add(OP_MEDIAN, "MEDIAN");
-            dic.Add(OP_SUM, "SUM");
-            dic.Add(OP_MIN, "MIN");
-            dic.Add(OP_MAX, "MAX");
-            dic.Add(OP_FIRST, "FIRST");
-            dic.Add(OP_LAST, "LAST");
-            dic.Add(OP_NONE, "NONE");
-            dic.Add(OP_UNDEFINED_OP_, "undef");
+            if (op == OP_AVG) return "AVG";
+            if (op == OP_MEDIAN) return "MEDIAN";
+            if (op == OP_SUM) return "SUM";
+            if (op == OP_MIN) return "MIN";
+            if (op == OP_MAX) return "MAX";
+            if (op == OP_FIRST) return "FIRST";
+            if (op == OP_LAST) return "LAST";
+            if (op == OP_NONE) return "NONE";
 
-            if (dic.ContainsKey(op))
-                return dic[op];
-            else
-                return "undef";
+            return "undef";
         }
         private static string organ_to_string(int organ)
         {
-            var dic = new Dictionary<int, string>();
-            dic.Add(ORGAN_ROOT, "Root");
-            dic.Add(ORGAN_LEAF, "Leaf");
-            dic.Add(ORGAN_SHOOT, "Shoot");
-            dic.Add(ORGAN_FRUIT, "Fruit");
-            dic.Add(ORGAN_STRUCT, "Struct");
-            dic.Add(ORGAN_SUGAR, "Sugar");
-            dic.Add(ORGAN_UNDEFINED_ORGAN_, "undef");
+            if (organ == ORGAN_ROOT) return "Root";
+            if (organ == ORGAN_LEAF) return "Leaf";
+            if (organ == ORGAN_SHOOT) return "Shoot";
+            if (organ == ORGAN_FRUIT) return "Fruit";
+            if (organ == ORGAN_STRUCT) return "Struct";
+            if (organ == ORGAN_SUGAR) return "Sugar";
 
-            /*var dic = new Dictionary<int, string>
-            {
-                { ORGAN_ROOT, "Root" },
-                { ORGAN_LEAF, "Leaf" },
-                { ORGAN_SHOOT, "Shoot" },
-                { ORGAN_FRUIT, "Fruit" },
-                { ORGAN_STRUCT, "Struct" },
-                { ORGAN_SUGAR, "Sugar" },
-                { ORGAN_UNDEFINED_ORGAN_, "undef" },
-            };*/
-
-            if (dic.ContainsKey(organ))
-                return dic[organ];
-            else
-                return "undef";
+            return "undef";
         }
         private static string oid_to_string(dynamic oid, bool include_time_agg)
         {
@@ -112,20 +91,19 @@ namespace blzZmq1.Services
 
             return oss.ToString();
         }
-        // write header rows
-        private static List<string> write_output_header_rows(JObject output_ids,
+        public static JArray write_output_header_rows(JArray output_ids,
             bool include_header_row = true,
             bool include_units_row = true,
             bool include_time_agg = false)
         {
-            var row1 = new List<string>();
-            var row2 = new List<string>();
-            var row3 = new List<string>();
-            var row4 = new List<string>();
+            var row1 = new JArray();
+            var row2 = new JArray();
+            var row3 = new JArray();
+            var row4 = new JArray();
             foreach (var __item in output_ids)
             {
-                string key = __item.Key;
-                JObject oid = __item.Value as JObject;
+                //string key = __item.Key;
+                JObject oid = __item as JObject;
                 var from_layer = Convert.ToInt32(oid["fromLayer"]);
                 var to_layer = Convert.ToInt32(oid["toLayer"]);
                 var is_organ = oid_is_organ(oid);
@@ -165,52 +143,51 @@ namespace blzZmq1.Services
                     row2.Add("[" + oid["unit"] + "]");
                 }
             }
-            var res = new List<string>();
+            var res = new JArray();
             if (include_header_row)
             {
-                res.AddRange(row1);
+                res.Add(row1);
             }
             if (include_units_row)
             {
-                res.AddRange(row4);
+                res.Add(row4);
             }
             if (include_time_agg)
             {
-                res.AddRange(row3);
-                res.AddRange(row2);
+                res.Add(row3);
+                res.Add(row2);
             }
             return res;
         }
-        // write actual output lines
-        private static object write_output(JObject output_ids, JArray values)
+        public static JArray write_output(JArray output_ids, JArray values)
         {
-            var @out = new List<object>();
+            var res = new JArray();
             if (values.Count > 0)
             {
                 foreach (var k in Enumerable.Range(0, values[0].Count()))
                 {
                     var i = 0;
-                    var row = new List<object>();
+                    var row = new JArray();
                     foreach (var _ in output_ids)
                     {
-                        var @j__ = values[i][k];
-                        if (@j__ is JArray)
+                        var cju = values[i][k];
+                        if (cju is JArray)
                         {
-                            foreach (var jv_ in @j__)
+                            foreach (var jv_ in cju)
                             {
                                 row.Add(jv_);
                             }
                         }
                         else
                         {
-                            row.Add(@j__);
+                            row.Add(cju);
                         }
                         i += 1;
                     }
-                    @out.Add(row);
+                    res.Add(row);
                 }
             }
-            return @out;
+            return res;
         }
         private static bool is_absolute_path(string p)
         {
@@ -450,7 +427,8 @@ namespace blzZmq1.Services
                 }
             }
 
-            var path_to_parameters = crop_site_sim["sim"]["include-file-base-path"];
+            //var path_to_parameters = crop_site_sim["sim"]["include-file-base-path"];
+            var path_to_parameters = "Data/monica-parameters/";
 
             var crop_site_sim2 = new JObject();
 
@@ -482,10 +460,10 @@ namespace blzZmq1.Services
 
             if (errors.Count > 0)
             {
-                foreach (var err in errors)
+                /*foreach (var err in errors)
                 {
                     Console.WriteLine(err);
-                }
+                }*/
                 return null;
             }
             var cropj = crop_site_sim2["crop"];

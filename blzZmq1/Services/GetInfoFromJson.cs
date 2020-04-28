@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 
-
+// To convert json result from server to array to send to Highchart
 namespace blzZmq1.Services
 {
     public class GetInfoFromJson
