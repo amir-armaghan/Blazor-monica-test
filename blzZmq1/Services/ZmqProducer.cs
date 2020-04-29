@@ -53,13 +53,14 @@ namespace blzZmq1.Services
             if (env != null)
             {
                 //env.Add("csvViaHeaderOptions", sim_json["climate.csv-options"]);
-                //env.Add("pathToClimateCSV", "Data/climate.csv");
+                //env.Add("pathToClimateCSV", "C:/Users/armaghan/source/repos/blzZmq1/blzZmq1/Data/climate.csv");
+                env["pathToClimateCSV"] = "C:/Users/armaghan/source/repos/blzZmq1/blzZmq1/Data/climate.csv";
 
                 //socket.SendFrame(new ZFrame(Encoding.UTF8.GetBytes(env.ToString())));
                 // Send frame by NetMQ
 
                 //Console.WriteLine("Done!");
-               string env2 = env.ToString();
+                string env2 = env.ToString();
                 return env2;
             }
             return null;  // when env is null
