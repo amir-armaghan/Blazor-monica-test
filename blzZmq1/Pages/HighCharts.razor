@@ -10,14 +10,22 @@
 <div> @series1</div>
 @code{
 
-    //public object chartData = blzZmq1.Services.JsonToChart.ConvertJson();
-    //public static object
-    //
-    //           var firstItems = (chartData.Data[0].OutputIds[9].Result as List<object[]>).ToList<float[]>().Select(x => x[0]).ToList();
+            //public object chartData = blzZmq1.Services.JsonToChart.ConvertJson();
+            //public static object
+            //
+            //           var firstItems = (chartData.Data[0].OutputIds[9].Result as List<object[]>).ToList<float[]>().Select(x => x[0]).ToList();
 
-    public static string xAxsis = blzZmq1.Services.GetInfoFromJson.GetDate();
-    public static string series1 = blzZmq1.Services.GetInfoFromJson.GetPrecip();
+        public static string xAxsis = blzZmq1.Services.GetInfoFromJson.GetDate();
+        public static string series1 = blzZmq1.Services.GetInfoFromJson.GetPrecip();
 
+
+        // Highchart HELP
+        // xAxis
+        // xAxis: {
+        //   type: 'datetime'
+
+        // yAxis: {
+        //    maxZoom: 0.1
 
 
 
@@ -26,7 +34,9 @@
     public static string chartOrigSpec = "Daily";
     string chartjson = @" {
                     chart: {
-                        type: '" + chartTypeName + @"'
+                        zoomType: 'x',
+                        type: '" + chartTypeName + @"',
+
                     },
 
                     title: {
@@ -40,7 +50,8 @@
                     yAxis: {
                         title: {
                             text: 'Crop'
-                        }
+                        },
+                        maxZoom: 2
                     },
 
                     xAxis: {
@@ -57,11 +68,29 @@
                     },
 
                     plotOptions: {
-                        series: {
-                            label: {
-                                connectorAllowed: false
+                        area: {
+                            fillColor: {
+                                linearGradient: {
+                                    x1: 0,
+                                    y1: 0,
+                                    x2: 0,
+                                    y2: 1
+                                },
+                                stops: [
+                                    [0, Highcharts.getOptions().colors[0]],
+                                    [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                                ]
                             },
-
+                            marker: {
+                                radius: 2
+                            },
+                            lineWidth: 1,
+                            states: {
+                                hover: {
+                                    lineWidth: 1
+                                }
+                            },
+                            threshold: null
                         }
                     },
 

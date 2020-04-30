@@ -17,7 +17,8 @@
     {
         if (!string.IsNullOrEmpty(Json))
         {
-            await jsruntime.InvokeAsync<string>("loadHighchart", new object[] { id, Json });
+            await jsruntime.InvokeAsync<string>("loadHighchart", new object[] { id, Json }); 
+            //await jsruntime.InvokeAsync<string>("loadStockchart", new object[] { id, Json });
         }
 
         await base.OnAfterRenderAsync(firstRender);
