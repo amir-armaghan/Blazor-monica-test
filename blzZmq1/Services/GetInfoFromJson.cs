@@ -21,8 +21,9 @@ namespace blzZmq1.Services
         var chartData = JsonToChart.ConvertJson();
         
         // get the dates to have it as xAxsis
-        foreach (var x in chartData.Data[0].OutputIds[0].Result)
-                if (x != null)
+        //foreach (var x in chartData.Data[0].OutputIds[0].Result)
+        foreach (var x in chartData.Data[0].Results[0].Result)
+                    if (x != null)
                 {
                     //Console.Write("'" + Convert.ToString(x) + "' , ");
                     // Highchart understands this array if it is separated by , 
@@ -42,8 +43,9 @@ namespace blzZmq1.Services
             //string chartString = string.Join(",", chartData.Data[0].OutputIds[8].Result as List<object[]>.ToList<float[]>());
             //var y = chartData.Data[0].OutputIds[8].Result[550]; // 8.5
 
-             foreach (var x in chartData.Data[0].OutputIds[8].Result)
-                 if (x != null)
+            //foreach (var x in chartData.Data[0].OutputIds[8].Result)
+            foreach (var x in chartData.Data[0].Results[8].Result)
+                if (x != null)
                  {
                     // float numbers for highchart should be like 2.5 not 2,5
                     chartString = chartString + Convert.ToString(x).Replace(",", ".") + ", ";
@@ -52,5 +54,54 @@ namespace blzZmq1.Services
             return chartString;
 
         }
+        public static string GetTavg() //only for test
+        {
+            string chartString = "";
+            var chartData = JsonToChart.ConvertJson();
+
+            //string chartString = string.Join(",", chartData.Data[0].OutputIds[8].Result as List<object[]>.ToList<float[]>());
+
+            //foreach (var x in chartData.Data[0].OutputIds[12].Result)
+            foreach (var x in chartData.Data[0].Results[12].Result)
+                if (x != null)
+                {
+                    // float numbers for highchart should be like 2.5 not 2,5
+                    chartString = chartString + Convert.ToString(x).Replace(",", ".") + ", ";
+                }
+
+            return chartString;
+
+        }
+        public static string GetGlobalrad() //only for test
+        {
+            string chartString = "";
+            var chartData = JsonToChart.ConvertJson();
+            //foreach (var x in chartData.Data[0].OutputIds[13].Result)
+            foreach (var x in chartData.Data[0].Results[13].Result)
+                if (x != null)
+                {
+                    chartString = chartString + Convert.ToString(x).Replace(",", ".") + ", ";
+                }
+
+            return chartString;
+
+        }
+
+        public static string GetMois1() //only for test
+        {
+            string chartString = "";
+            var chartData = JsonToChart.ConvertJson();
+            //foreach (var x in chartData.Data[0].OutputIds[9].Result)
+            foreach (var x in chartData.Data[0].Results[9].Result)
+                if (x != null)
+                {
+                   //put in an array [0,1,2]
+                }
+            // for each in above array
+            // give the text [0]
+            return chartString;
+
+        }
+
     }
 }

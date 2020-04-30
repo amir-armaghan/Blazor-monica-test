@@ -66,9 +66,21 @@ namespace blzZmq1.Services
                                 outputId.Type = (string)outId[ConvertToPascalCase(nameof(outputId.Type))];
                                 outputId.Unit = (string)outId[ConvertToPascalCase(nameof(outputId.Unit))];
 
-                                outputId.Result = ((JArray)mData[ConvertToPascalCase("results")][resultIndex++]).ToList<object>();
+                                //outputId.Result = ((JArray)mData[ConvertToPascalCase("results")][resultIndex++]).ToList<object>();
 
                                 mainData.OutputIds.Add(outputId);
+                            }
+
+                            foreach (var resId in mData[ConvertToPascalCase(nameof(mainData.Results))])
+                            {
+                                if (mainData.Results == null)
+                                    mainData.Results = new List<Results>();
+
+                                var results = new Results();
+
+                                results.Result = ((JArray)mData[ConvertToPascalCase("results")][resultIndex++]).ToList<object>();
+
+                                mainData.Results.Add(results);
                             }
 
                             chartData.Data.Add(mainData);
@@ -103,6 +115,7 @@ namespace blzZmq1.Services
     {
         public string OrigSpec { get; set; }
         public IList<OutputId> OutputIds { get; set; }
+        public IList<Results> Results { get; set; }
     }
 
     public class OutputId
@@ -118,8 +131,18 @@ namespace blzZmq1.Services
         public int ToLayer { get; set; }
         public string Type { get; set; }
         public string Unit { get; set; }
-        public IList<object> Result { get; set; }
+        //public IList<object> Result { get; set; }
+    }
 
+    public  class Results
+    {
+        public IList<object> Result { get; set; }
+        //public IList<Results2> Result { get; set; }
+    }
+
+    public class Results2
+    {
+        public float Result2 { get; set; }
     }
 
 }
