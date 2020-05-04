@@ -14,7 +14,7 @@
 	"output": { 
 	  "write-file?": true,
 
-		"path-to-output": "",
+		"path-to-output": "./",
 		"file-name": "sim-min-out.csv",
 	
 		"csv-options": {

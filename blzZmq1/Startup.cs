@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using blzZmq1.Services;
+using blzZmq1.Services.ChartData;
 
 namespace blzZmq1
 {
@@ -30,10 +31,12 @@ namespace blzZmq1
             services.AddServerSideBlazor();
             services.AddScoped<IFileUpload, FileUpload>();
             services.AddSingleton<Services.AppData>();  //for clientside App -  for serverside app use: services.AddScoped<Services.AppData>();
-            services.AddScoped<JsonToChart>();
-            services.AddSingleton<Services.JsonToChart>();
+            services.AddTransient<JsonToChart>();
             services.AddSingleton<Services.ZmqProducer>();
             services.AddSingleton<Services.ZmqConsumer>();
+
+            // My Services
+            services.AddTransient<IDailyChartService, DailyChartService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

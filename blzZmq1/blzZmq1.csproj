@@ -6,9 +6,10 @@
 
   <ItemGroup>
     <PackageReference Include="BlazorInputFile" Version="0.1.0-preview-00002" />
+    <PackageReference Include="BlazorPro.Spinkit" Version="1.2.0" />
     <PackageReference Include="Capnp.Net.Runtime" Version="1.2.189" />
     <PackageReference Include="CapnpC.CSharp.MsBuild.Generation" Version="1.2.138" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
     <PackageReference Include="NetMQ" Version="4.0.0.207" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
@@ -18,6 +19,11 @@
     <Folder Include="Components\" />
     <Folder Include="Upload\" />
     <Folder Include="wwwroot\js\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Application\Application.csproj" />
+    <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
 
 </Project>

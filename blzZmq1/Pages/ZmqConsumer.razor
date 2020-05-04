@@ -1,21 +1,27 @@
 ﻿@page "/zmqconsumer"
 @using blzZmq1.Services
 @using NetMQ
+@using System.IO
 @inject Services.AppData AppData
 @inject Services.ZmqConsumer RunConsumer
 
 <h3>Recive ENV via ZMQ</h3>
 
 <button @onclick="GetMassage">Recieve message from server and put in CSV</button>
-<p>@CsvLink</p>
+@if (gotAnswer) { 
+<p><a href="@CsvLink">Download CSV file</a></p>
+} else
+{
+<p>@CsvLink</p> 
+}
 <p class="fixwidth">@answer</p>
 
 
 @code {
 
-
-    private string answer { get; set; } = "the answer";
-    private string CsvLink { get; set; } = "No Link";
+    Boolean gotAnswer = false;
+    public string answer { get; set; } = "No Answer yet";
+    private string CsvLink { get; set; } = "No Link yet";
 
     async Task GetMassage() // call ZmqProducer calss
     {
@@ -30,12 +36,20 @@
             answer = consumer.ReceiveFrameString();
 
             System.Threading.Thread.Sleep(2000);
+            gotAnswer = true;
             consumer.Disconnect(AppData.ServerPullAddress + ":" + AppData.ServerPullPort);
 
+            //write the answer into a file
+            string jsonFile = ("wwwroot/export/1.json");   // static address for export for test perpose at first run
+            if (!File.Exists(jsonFile))
+                File.WriteAllText("wwwroot/export/1.json", answer);
+
             // call runConsumer Method()
-            string CsvLink = Services.ZmqConsumer.RunConsumer(answer);
+            CsvLink = Services.ZmqConsumer.RunConsumer(answer);
+            CsvLink = CsvLink.Substring(CsvLink.IndexOf("/"));
 
         }
+
     }
 
 }

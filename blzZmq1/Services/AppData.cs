@@ -10,24 +10,13 @@ namespace blzZmq1.Services
     {
 
         // creating variables which we can access in all components (The configuration data)
+        // ZMQ pull and push addresses and ports
         public string ServerPushAddress { get; set; } = "tcp://localhost";
         public int ServerPushPort { get; set; } = 6666;
         public string ServerPullAddress { get; set; } = "tcp://localhost";
         public int ServerPullPort { get; set; } = 7777;
 
 
-        /*private const String ConfigFileName = "Config.ini";  // If a day needed an ini for storing the configuration
-        
-        public void readConfigFile()
-        {
-            var lines = File.ReadAllLines(ConfigFileName);
-            Dictionary<string, string> dict = new Dictionary<string, string>();
-            foreach (string s in lines)
-            {
-                string[] split = s.Split("=");
-                dict.Add(split[0], split[1]);
-            }
-        }*/
 
 
 

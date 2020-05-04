@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.Daily;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
@@ -13,12 +14,12 @@ namespace blzZmq1.Services
         {    
            
 
-    public static ChartData ConvertJson()
+    public static ChartData1 ConvertJson()
         {
             string schemaJson = File.ReadAllText(@"Data/jsonSchema.schema.json");
             JsonSchema schema = JsonSchema.Parse(schemaJson);
-            var chartData = new ChartData();
-
+            var chartData = new ChartData1();
+            
             using (StreamReader file = File.OpenText(@"Data/fromServer.json"))
             {
                 using (JsonTextReader reader = new JsonTextReader(file))
@@ -32,10 +33,10 @@ namespace blzZmq1.Services
                     }
                     else
                     {
-                        chartData.CustomId = jObject[ConvertToPascalCase(nameof(ChartData.CustomId))];
-                        chartData.Errors = jObject[ConvertToPascalCase(nameof(ChartData.Errors))] as IList<object>;
-                        chartData.Type = (string)jObject[ConvertToPascalCase(nameof(ChartData.Type))];
-                        chartData.Warnings = jObject[ConvertToPascalCase(nameof(ChartData.Warnings))] as IList<object>;
+                        chartData.CustomId = jObject[ConvertToPascalCase(nameof(ChartData1.CustomId))];
+                        chartData.Errors = jObject[ConvertToPascalCase(nameof(ChartData1.Errors))] as IList<object>;
+                        chartData.Type = (string)jObject[ConvertToPascalCase(nameof(ChartData1.Type))];
+                        chartData.Warnings = jObject[ConvertToPascalCase(nameof(ChartData1.Warnings))] as IList<object>;
 
                         foreach (var mData in jObject["data"])
                         {
@@ -100,9 +101,9 @@ namespace blzZmq1.Services
 
     }
 
- 
 
-    public class ChartData
+
+    public class ChartData1
     {
         public object CustomId { get; set; }
         public IList<MainData> Data { get; set; }
