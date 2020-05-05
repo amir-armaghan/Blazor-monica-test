@@ -39,13 +39,16 @@
             gotAnswer = true;
             consumer.Disconnect(AppData.ServerPullAddress + ":" + AppData.ServerPullPort);
 
-            //write the answer into a file
-            string jsonFile = ("wwwroot/export/1.json");   // static address for export for test perpose at first run
-            if (!File.Exists(jsonFile))
-                File.WriteAllText("wwwroot/export/1.json", answer);
+            // create path
+            string filePath = "wwwroot/export/" + DateTime.Now.ToString("yyyyMMdd_hhmmss");
 
-            // call runConsumer Method()
-            CsvLink = Services.ZmqConsumer.RunConsumer(answer);
+            //write the answer into a file
+            string jsonFile = (filePath + ".json");
+            if (!File.Exists(jsonFile))
+                File.WriteAllText(jsonFile, answer);
+
+            // call runConsumer Method(). get ths csv path, remove wwwroot and use the link in razor section
+            CsvLink = Services.ZmqConsumer.RunConsumer(answer, filePath);
             CsvLink = CsvLink.Substring(CsvLink.IndexOf("/"));
 
         }

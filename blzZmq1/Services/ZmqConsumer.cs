@@ -30,7 +30,7 @@ namespace blzZmq1.Services
 
 
         public static int env_count = 0;
-        public static string RunConsumer(string msg)
+        public static string RunConsumer(string msg, string csvPath)
         {
             JObject msgObj = JObject.Parse(msg);
 
@@ -50,7 +50,8 @@ namespace blzZmq1.Services
 
                 var varval = "";
                 //string csvFile = Path.Combine(config["out"].ToString(), env_count.ToString() + ".csv");
-                string csvFile = ("wwwroot/export/1.csv");   // static address for export for test perpose at first run
+                //string csvFile = ("wwwroot/export/1.csv");   // static address for export for test perpose at first run
+                string csvFile = (csvPath + ".csv");
                 if (File.Exists(csvFile))
                     varval = File.ReadAllText(csvFile);
                 StreamWriter strWrite = new StreamWriter(csvFile);
@@ -104,7 +105,7 @@ namespace blzZmq1.Services
                 leave = true;
                
                 strWrite.Close();
-                return csvFile;
+                return csvFile;  // this method execute and produce csv file and just returns the csv path
             }
             return "Error";
         }

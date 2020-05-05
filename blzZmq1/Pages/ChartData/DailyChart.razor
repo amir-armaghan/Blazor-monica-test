@@ -17,8 +17,7 @@
     </LoadingTemplate>
     <ContentTemplate>
         <Highchart Json="@chartjson">
-        </Highchart>
-       
+        </Highchart>    
     </ContentTemplate>
 </SpinLoader>
 
@@ -27,7 +26,6 @@
 
 @code{
 
-    
     Boolean isLoading = true;
     private DailyData dailyData = null;
     string chartjson;
@@ -52,6 +50,7 @@
                 xAxsis += "'" + dailyData.Dates[i] + "' , ";
             }
 
+            Boolean isFirstSerie = true;
             string series = "[";
             foreach (var outputId in dailyData.DailyOutputIds)
             {
@@ -65,7 +64,18 @@
                     series += outputId.Results[i].ToString().Replace(",", ".") + " , ";
                 }
 
-                series += "] },";
+                // Only enable the first serie & let the user enable the rest if wants
+                //series += "], visible: false },";  
+                series += "]";
+                if (isFirstSerie)
+                {
+                    series += " },";
+                    isFirstSerie = false;
+                }
+                else
+                {
+                    series += ", visible: false },";
+                }
 
             }
             series += "]";
@@ -93,6 +103,10 @@ colors: [
 '#92A8CD',
 '#A47D7C',
 '#B5CA92'],
+loading: {
+        hideDuration: 1000,
+        showDuration: 1000
+    },
 title: {
 text: '" + chartTitleName + @"'
 },

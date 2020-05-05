@@ -49,8 +49,9 @@ namespace Application.Convertor
                             outputId = GetOutputId(outId);
 
                             int resultLenght = outputId.ToLayer - outputId.FromLayer;
+                            int resultAggregation = outputId.LayerAggOp; 
 
-                            if (resultLenght > 0)
+                            if (resultAggregation == 7 && resultLenght > 0) // only when LayerAggOp is 7 and layer differences is more than 0 then the result is an array
                             {
                                 string outputIdName = outputId.Name;
 
