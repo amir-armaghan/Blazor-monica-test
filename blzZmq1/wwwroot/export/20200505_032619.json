@@ -1,0 +1,1 @@
+{"customId": null, "data": [], "errors": ["Climate data error: No data could be read from file!", "Read timeseries data between 1991-01-01 and 1997-12-31 (2557 days) is incomplete. There are just 0 days in read dataset."], "type": "Output", "warnings": []}

@@ -11,10 +11,12 @@ namespace blzZmq1.Services.ChartData
 {
     public class DailyChartService : IDailyChartService
     {
-        public async Task<DailyData> GetDailyChartDataAsync()
+        //public async Task<DailyData> GetDailyChartDataAsync()
+        public async Task<DailyData> GetDailyChartDataAsync(string jsonToChartPath)
         {
             var dailyChartDataApp = new DailyChartDataApp(new DailyOutputConvertor());
-            return dailyChartDataApp.GetChartDataFromFile(@"Data/fromServer.json");
+            //return dailyChartDataApp.GetChartDataFromFile(@"Data/fromServer.json");
+            return dailyChartDataApp.GetChartDataFromFile(jsonToChartPath);
         }
     }
 }

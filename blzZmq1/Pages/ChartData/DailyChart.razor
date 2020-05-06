@@ -36,7 +36,7 @@
         if (firstRender)
         {
 
-            dailyData = await DailyChartService.GetDailyChartDataAsync();
+            dailyData = await DailyChartService.GetDailyChartDataAsync(@"Data/fromServer.json");
 
             string chartTypeName = "area";  // has to get from json
             string chartTitleName = "Monica Model from json message";

@@ -8,6 +8,7 @@ namespace blzZmq1.Services.ChartData
 {
     interface IDailyChartService
     {
-        Task<DailyData> GetDailyChartDataAsync();
+        //Task<DailyData> GetDailyChartDataAsync();
+        Task<DailyData> GetDailyChartDataAsync(string jsonToChartPath);
     }
 }
