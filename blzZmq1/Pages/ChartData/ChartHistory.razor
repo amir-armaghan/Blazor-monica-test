@@ -12,17 +12,20 @@
 
 <h3>Daily Chart</h3>
 
-<div class="form-group">
-    <select class="form-control" @bind="selectedButton">
-        @for (int i = (dirsLenght > 10) ? dirsLenght - 10 : 0; i < dirsLenght; i++)
-        {
-            var buttonNumber = i;
-            <option value=@System.IO.Path.GetFileNameWithoutExtension(dirs[i])>@System.IO.Path.GetFileNameWithoutExtension(dirs[i])</option>
-        }
-    </select>
-    <div><button @onclick="@(() => LoadChart(selectedButton))">Load Chart</button></div>
+@if  (dirsLenght > 0) 
+    { 
+        <div class="form-group">
+            <select class="form-control" @bind="selectedButton">
+                @for (int i = (dirsLenght > 10) ? dirsLenght - 10 : 0; i < dirsLenght; i++)
+                {
+                    var buttonNumber = i;
+                    <option value=@System.IO.Path.GetFileNameWithoutExtension(dirs[i])>@System.IO.Path.GetFileNameWithoutExtension(dirs[i])</option>
+                }
+            </select>
+            <div><button @onclick="@(() => LoadChart(selectedButton))">Load Chart</button></div>
 
-</div>
+        </div>
+    }
 <table class="table">
     <thead>
         <tr>

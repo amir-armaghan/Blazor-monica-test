@@ -4,6 +4,7 @@
 @using blzZmq1.Components
 @using blzZmq1.Services.ChartData
 @using Core.Daily
+@using System.Text
 
 @* Injects *@
 @inject IDailyChartService DailyChartService
@@ -26,7 +27,7 @@
 
 @code{
 
-    Boolean isLoading = true;
+    bool isLoading = true;
     private DailyData dailyData = null;
     string chartjson;
 
@@ -36,7 +37,7 @@
         if (firstRender)
         {
 
-            dailyData = await DailyChartService.GetDailyChartDataAsync(@"Data/fromServer.json");
+            dailyData = await DailyChartService.GetDailyChartDataAsync(@"wwwroot/export/fromServer.json");
 
             string chartTypeName = "area";  // has to get from json
             string chartTitleName = "Monica Model from json message";
@@ -51,34 +52,35 @@
             }
 
             Boolean isFirstSerie = true;
-            string series = "[";
+            StringBuilder series = new StringBuilder("[");
+
             foreach (var outputId in dailyData.DailyOutputIds)
             {
                 if (outputId.Name == Core.Share.MonicaConstFields.Crop)
                     continue;
 
-                series += "{ name: '" + outputId.Name + "', data: [";
+                series.Append("{ name: '" + outputId.Name + "', data: [");
 
                 for (int i = 0; i < outputId.Results.Count; i++)
                 {
-                    series += outputId.Results[i].ToString().Replace(",", ".") + " , ";
+                    series.Append(outputId.Results[i] + " , ");
                 }
 
                 // Only enable the first serie & let the user enable the rest if wants
                 //series += "], visible: false },";  
-                series += "]";
+                series.Append("]");
                 if (isFirstSerie)
                 {
-                    series += " },";
+                    series.Append(" },");
                     isFirstSerie = false;
                 }
                 else
                 {
-                    series += ", visible: false },";
+                    series.Append(", visible: false },");
                 }
 
             }
-            series += "]";
+            series.Append("]");
 
             chartjson = @" {
 chart: {

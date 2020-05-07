@@ -9,9 +9,9 @@ namespace Core.Daily
     {
         public DailyOutputId()
         {
-            Results = new List<object>();
+            Results = new List<string>();
         }
 
-        public List<object> Results { get; set; }
+        public List<string> Results { get; set; }
     }
 }

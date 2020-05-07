@@ -48,34 +48,39 @@ namespace Application.Convertor
                             var outputId = new DailyOutputId();
                             outputId = GetOutputId(outId);
 
-                            int resultLenght = outputId.ToLayer - outputId.FromLayer;
-                            int resultAggregation = outputId.LayerAggOp; 
-
-                            if (resultAggregation == 7 && resultLenght > 0) // only when LayerAggOp is 7 and layer differences is more than 0 then the result is an array
+                            var results = (JArray)mData[MonicaConstFields.Results][outputIdIndex];
+                            
+                            if (results.Count > 0)
                             {
-                                string outputIdName = outputId.Name;
+                                var firstResult = results[0];
 
-                                for (int i = 0; i <= resultLenght; i++)
+                                if (firstResult is JArray)
                                 {
-                                    var newOutputId = GetOutputId(outId);
-                                    newOutputId.Name = outputIdName + "-" + (i + 1);
+                                    string outputIdName = outputId.Name;
 
-                                    foreach (var result in mData[MonicaConstFields.Results][outputIdIndex])
+                                    for (int i = 0; i < ((JArray)firstResult).Count; i++)
                                     {
-                                        newOutputId.Results.Add(result[i]);
+                                        var newOutputId = GetOutputId(outId);
+                                        newOutputId.Name = outputIdName + "-" + (i + 1);
+
+                                        foreach (var result in results)
+                                        {
+                                            
+                                            newOutputId.Results.Add(result[i].ToString().Replace(",", "."));
+                                        }
+
+                                        dailyData.DailyOutputIds.Add(newOutputId);
+                                    }
+                                }
+                                else
+                                {
+                                    foreach (var result in results)
+                                    {
+                                        outputId.Results.Add(result.ToString().Replace(",", "."));
                                     }
 
-                                    dailyData.DailyOutputIds.Add(newOutputId);
+                                    dailyData.DailyOutputIds.Add(outputId);
                                 }
-                            }
-                            else // simple result
-                            {
-                                foreach (var result in mData[MonicaConstFields.Results][outputIdIndex])
-                                {
-                                    outputId.Results.Add(result);
-                                }
-
-                                dailyData.DailyOutputIds.Add(outputId);
                             }
                         }
                         outputIdIndex++;
