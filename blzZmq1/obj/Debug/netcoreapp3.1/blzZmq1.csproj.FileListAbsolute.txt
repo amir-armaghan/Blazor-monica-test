@@ -521,3 +521,4 @@ C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\Razor\_Im
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\ChartData\ChartHistory.razor.g.cs
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\Razor\Pages\ChartData\ChartHistory.razor.g.cs
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\bin\Debug\netcoreapp3.1\Data\fromServer2c.json
+C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\bin\Debug\netcoreapp3.1\Data\fromServerCopy.json

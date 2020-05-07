@@ -12,6 +12,17 @@
 
 <h3>Daily Chart</h3>
 
+<div class="form-group">
+    <select class="form-control" @bind="selectedButton">
+        @for (int i = (dirsLenght > 10) ? dirsLenght - 10 : 0; i < dirsLenght; i++)
+        {
+            var buttonNumber = i;
+            <option value=@System.IO.Path.GetFileNameWithoutExtension(dirs[i])>@System.IO.Path.GetFileNameWithoutExtension(dirs[i])</option>
+        }
+    </select>
+    <div><button @onclick="@(() => LoadChart(selectedButton))">Load Chart</button></div>
+
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -21,7 +32,7 @@
         </tr>
     </thead>
     <tbody>
-        @for (int i = 0; i < dirsLenght; i++)
+        @for (int i = (dirsLenght > 10) ? dirsLenght - 10 : 0; i < dirsLenght; i++)
         {
             var buttonNumber = i;
             <tr>
@@ -45,8 +56,9 @@
 </SpinLoader>
 
 
-@code{
 
+@code{
+    int selectedButton;
     string str;
     string filesTable = "";
     int dirsLenght;
@@ -59,15 +71,17 @@
     }
 
 
+
     Boolean isLoading = true;
     private DailyData dailyData = null;
     string chartjson;
-    //public string jsonToChartPath = "Data/fromServer.json"; 
-    public string jsonToChartPath = "wwwroot/export/last.json";
+    //public string jsonToChartPath = "Data/fromServer.json";
+    public string jsonToChartPath = "wwwroot/export/fromServer.json";
 
     protected async Task LoadChart(int item)
     {
         isLoading = true;
+        StateHasChanged();
         // get back the file name from item number:
         jsonToChartPath = dirs[item];
         await DrawChart();
@@ -203,15 +217,15 @@ plotOptions: {
 area: {
 fillColor: {
 linearGradient: {
-    x1: 0,
-    y1: 0,
-    x2: 0,
-    y2: 0.6
- },
+x1: 0,
+y1: 0,
+x2: 0,
+y2: 0.6
+},
 stops: [
-        [0, Highcharts.getOptions().colors[0]],
-        [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-    ]
+    [0, Highcharts.getOptions().colors[0]],
+    [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+]
 },
 marker: {
 radius: 2
@@ -255,4 +269,4 @@ scale: 1
 
 }";
     }
-    }
+}
