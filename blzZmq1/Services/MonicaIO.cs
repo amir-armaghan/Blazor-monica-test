@@ -111,7 +111,8 @@ namespace blzZmq1.Services
                 if (is_organ)
                 {
                     // organ is being represented just by the value of fromLayer currently
-                    to_layer = Convert.ToInt32(oid["organ"]);
+                    //to_layer = Convert.ToInt32(oid["organ"]);
+                    to_layer = from_layer = Convert.ToInt32(oid["organ"]);
                 }
                 else if (is_range)
                 {
@@ -122,23 +123,32 @@ namespace blzZmq1.Services
                 {
                     to_layer = from_layer;
                 }
-                foreach (var i in Enumerable.Range(from_layer, to_layer + 1 - from_layer))
+                //foreach (var i in Enumerable.Range(from_layer, to_layer + 1 - from_layer))
+                for (int i = from_layer; i <= to_layer; i++)
                 {
                     var str1 = "";
                     if (is_organ)
                     {
-                        str1 += oid["displayName"].Count() == 0 ? oid["name"] + "/" + organ_to_string(Convert.ToInt32(oid["organ"])) : oid["displayName"];
+                        // str1 += oid["displayName"].Count() == 0 ? oid["name"] + "/" + organ_to_string(Convert.ToInt32(oid["organ"])) : oid["displayName"];
+                        str1 += (oid["displayName"].ToString().Length == 0) ? oid["name"] + "/" + organ_to_string(Convert.ToInt32(oid["organ"])) : oid["displayName"];
                     }
                     else if (is_range)
                     {
-                        str1 += oid["displayName"].Count() == 0 ? oid["name"] + "_" + i.ToString() : oid["displayName"];
+                        // str1 += oid["displayName"].Count() == 0 ? oid["name"] + "_" + i.ToString() : oid["displayName"];
+                        str1 += (oid["displayName"].ToString().Length == 0) ? oid["name"] + "_" + i.ToString() : oid["displayName"];
                     }
                     else
                     {
-                        str1 += oid["displayName"].Count() == 0 ? oid["name"] : oid["displayName"];
+                        //str1 += oid["displayName"].Count() == 0 ? oid["name"] : oid["displayName"];
+                        str1 += (oid["displayName"].ToString().Length == 0) ? oid["name"] : oid["displayName"];
                     }
                     row1.Add(str1);
-                    row4.Add("j:" + oid["jsonInput"].ToString().Replace("\"", ""));
+                    //row4.Add("j:" + oid["jsonInput"].ToString().Replace("\"", ""));
+                    var row4value = "j:" + oid["jsonInput"].ToString().Replace("\"", "");
+                    if (row4value.Contains("["))
+                        row4.Add("\"" + row4value + "\"");
+                    else
+                        row4.Add(row4value);
                     row3.Add("m:" + oid_to_string(oid, include_time_agg));
                     row2.Add("[" + oid["unit"] + "]");
                 }
