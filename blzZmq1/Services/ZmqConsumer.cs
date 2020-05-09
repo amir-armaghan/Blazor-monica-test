@@ -30,8 +30,10 @@ namespace blzZmq1.Services
 
 
         public static int env_count = 0;
+        [STAThread]
         public static string RunConsumer(string msg, string csvPath)
         {
+            System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
             JObject msgObj = JObject.Parse(msg);
 
             var leave = false;
