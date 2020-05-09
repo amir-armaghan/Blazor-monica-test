@@ -7,19 +7,35 @@ namespace blzZmq1.Services
     public class FileUpload : IFileUpload
     {
         private readonly IWebHostEnvironment _environment;
+        private readonly string UploadPath;
+
         public FileUpload(IWebHostEnvironment env)
         {
             _environment = env;
+            UploadPath = Path.Combine(_environment.ContentRootPath, "Upload");
         }
-        public async Task UploadAsync(IFileListEntry fileEntry)
+
+        public void DeleteExistingFiles()
         {
-            var path = Path.Combine(_environment.ContentRootPath, "Upload", fileEntry.Name);
+            var files = Directory.GetFiles(UploadPath);
+            foreach (var file in files)
+            {
+                File.Delete(file);
+            }
+        }
+
+        public async Task<string> UploadAsync(IFileListEntry fileEntry)
+        {
+            var filePath = Path.Combine(UploadPath, fileEntry.Name);
             var ms = new MemoryStream();
             await fileEntry.Data.CopyToAsync(ms);
-            using (FileStream file = new FileStream(path, FileMode.Create, FileAccess.Write))
+
+            using (FileStream file = new FileStream(filePath, FileMode.Create, FileAccess.Write))
             {
                 ms.WriteTo(file);
             }
+
+            return filePath;
         }
     }
 }

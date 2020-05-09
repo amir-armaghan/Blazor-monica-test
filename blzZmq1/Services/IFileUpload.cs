@@ -4,6 +4,8 @@ namespace blzZmq1.Services
 {
     public interface IFileUpload
     {
-        Task UploadAsync(IFileListEntry file);
+        void DeleteExistingFiles();
+
+        Task<string> UploadAsync(IFileListEntry file);
     }
 }

@@ -2,7 +2,8 @@
 @using blzZmq1.Services
 @using Mas.Rpc
 @inject IFileUpload fileUpload
-@inject Services.AppData AppData
+
+
 @inject Services.ZmqProducer RunProducer
 
 <h3>Send ENV via ZMQ</h3>
@@ -22,20 +23,13 @@
         //var envService = EnvClient.GetMain<Mas.Rpc.Monica.IEnv>();
         //env = await envService.Create("bla", "bli", "blo");
 
-        envContent = Services.ZmqProducer.RunProducer();
+        //envContent = Services.ZmqProducer.RunProducer();
         //RunProducer();
 
 
 
         //push msg here...
-        using (var producer = new PushSocket())
-        {
-            producer.Connect(AppData.ServerPushAddress + ":" + AppData.ServerPushPort);
-            producer.SendFrame(envContent);
-            System.Threading.Thread.Sleep(2000);
-            isSent = "Message sent successfully";
-            producer.Disconnect(AppData.ServerPushAddress + ":" + AppData.ServerPushPort);
-        }
+        
 
     }
 

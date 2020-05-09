@@ -5,15 +5,15 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Threading.Tasks;
-
+using BlazorInputFile;
 
 namespace blzZmq1.Services
 {
     public class ZmqProducer
     {
-        public static string RunProducer()            
+        public async Task<string> RunProducerAsync(List<string> files)
         {
-           
+
 
             /* string currentDir = Path.GetDirectoryName(Application.ExecutablePath);
              Dictionary<string, string> config = new Dictionary<string, string>();
@@ -35,12 +35,49 @@ namespace blzZmq1.Services
             //var crop_json = JObject.Parse(File.ReadAllText(config["crop.json"]));
             //string climate_csv = File.ReadAllText(config["climate.csv"]);
 
-            var sim_json = JObject.Parse(File.ReadAllText("Data/sim.json"));
-            var site_json = JObject.Parse(File.ReadAllText("Data/site.json"));
-            var crop_json = JObject.Parse(File.ReadAllText("Data/crop.json"));
-            string climate_csv = File.ReadAllText("Data/climate.csv");
+            JObject sim_json;
+            string? simFile = files.FirstOrDefault(file => Path.GetFileName(file).Contains("sim"));
+            if (simFile != null)
+            {
+                sim_json = JObject.Parse(File.ReadAllText(simFile));
+            }
+            else
+            {
+                sim_json = JObject.Parse(File.ReadAllText("Data/sim.json"));
+            }
 
+            JObject site_json;
+            string? siteFile = files.FirstOrDefault(file => Path.GetFileName(file).Contains("site"));
+            if (siteFile != null)
+            {
+                site_json = JObject.Parse(File.ReadAllText(siteFile));
+            }
+            else
+            {
+                site_json = JObject.Parse(File.ReadAllText("Data/site.json"));
+            }
 
+            JObject crop_json = null;
+            string? cropFile = files.FirstOrDefault(file => Path.GetFileName(file).Contains("crop"));
+            if (cropFile != null)
+            {
+                site_json = JObject.Parse(File.ReadAllText(cropFile));
+            }
+            else
+            {
+                crop_json = JObject.Parse(File.ReadAllText("Data/crop.json"));
+            }
+
+            string climate_csv;
+            string? climateFile = files.FirstOrDefault(file => Path.GetFileName(file).Contains("climate"));
+            if (cropFile != null)
+            {
+                climate_csv = File.ReadAllText(climateFile);
+            }
+            else
+            {
+                climate_csv = File.ReadAllText("Data/climate.csv");
+            }
 
             JObject crop_site_sim = new JObject();
             crop_site_sim.Add("crop", crop_json);

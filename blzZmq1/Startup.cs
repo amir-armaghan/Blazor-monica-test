@@ -30,10 +30,11 @@ namespace blzZmq1
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<IFileUpload, FileUpload>();
-            services.AddSingleton<Services.AppData>();  //for clientside App -  for serverside app use: services.AddScoped<Services.AppData>();
+            //services.AddSingleton<Services.AppData>();  //for clientside App -  for serverside app use: services.AddScoped<Services.AppData>();
             services.AddTransient<JsonToChart>();
             services.AddSingleton<Services.ZmqProducer>();
             services.AddSingleton<Services.ZmqConsumer>();
+            services.AddTransient<IMonicaZmqService, MonicaZmqService>();
 
             // My Services
             services.AddTransient<IDailyChartService, DailyChartService>();

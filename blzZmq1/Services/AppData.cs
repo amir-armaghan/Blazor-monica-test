@@ -6,15 +6,15 @@ using System.IO;
 
 namespace blzZmq1.Services
 {
-    public class AppData
+    public static class AppData
     {
 
         // creating variables which we can access in all components (The configuration data)
         // ZMQ pull and push addresses and ports
-        public string ServerPushAddress { get; set; } = "tcp://localhost";
-        public int ServerPushPort { get; set; } = 6666;
-        public string ServerPullAddress { get; set; } = "tcp://localhost";
-        public int ServerPullPort { get; set; } = 7777;
+        public static string ServerPushAddress { get; set; } = "tcp://localhost";
+        public static int ServerPushPort { get; set; } = 6666;
+        public static string ServerPullAddress { get; set; } = "tcp://localhost";
+        public static int ServerPullPort { get; set; } = 7777;
 
 
 

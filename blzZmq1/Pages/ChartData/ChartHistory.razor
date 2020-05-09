@@ -1,4 +1,5 @@
 ﻿@page "/chartdata/charthistory"
+
 @* Usings *@
 @using blzZmq1.Services
 @using blzZmq1.Components
@@ -15,7 +16,8 @@
 @if (dirsLenght > 0)
 {
 <div class="form-group">
-    <select class="form-control p-2 m-2" @bind="_selectedFile">
+    <select class="form-control p-2 m-2" @onchange="ChangeFile">
+        <option value="">Select a file</option>
         @for (int i = (dirsLenght > 10) ? dirsLenght - 10 : 0; i < dirsLenght; i++)
         {
             var fileIndex = i;
@@ -113,25 +115,17 @@
 
         private async Task LoadDailyChartAsync()
         {
-            _chartType = ChartType.None;
-            StateHasChanged();
             ParentDailyData = await DailyChartService.GetDailyChartDataAsync(_selectedFile);
             _chartType = ChartType.Daily;
         }
 
-
-
-        protected async Task LoadChart(int item)
+        private void ChangeFile(ChangeEventArgs e)
         {
-            isLoading = true;
-            StateHasChanged();
-            // get back the file name from item number:
-            jsonToChartPath = dirs[item];
-            //await DrawChart();
-            isLoading = false;
-            StateHasChanged();
-
+            _selectedFile = e.Value.ToString();
+            UnloadChart();
         }
+
+
 
         //protected override async Task OnInitializedAsync()
         protected override async Task OnAfterRenderAsync(bool firstRender)
