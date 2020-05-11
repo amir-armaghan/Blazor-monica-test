@@ -6,4 +6,3 @@ C:\Users\armaghan\source\repos\blzZmq1\Core\obj\Debug\netcoreapp3.1\Core.Assembl
 C:\Users\armaghan\source\repos\blzZmq1\Core\obj\Debug\netcoreapp3.1\Core.AssemblyInfo.cs
 C:\Users\armaghan\source\repos\blzZmq1\Core\obj\Debug\netcoreapp3.1\Core.dll
 C:\Users\armaghan\source\repos\blzZmq1\Core\obj\Debug\netcoreapp3.1\Core.pdb
-C:\Users\armaghan\source\repos\blzZmq1\Core\obj\Debug\netcoreapp3.1\Core.csprojAssemblyReference.cache

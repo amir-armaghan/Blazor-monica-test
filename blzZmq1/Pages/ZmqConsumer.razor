@@ -5,15 +5,18 @@
 
 
 @inject Services.ZmqConsumer RunConsumer
+@inject AppData AppData
 
 <h3>Recive ENV via ZMQ</h3>
 
 <button @onclick="GetMassage">Recieve message from server and put in CSV</button>
-@if (gotAnswer) { 
-<p><a href="@CsvLink">Download CSV file</a></p>
-} else
+@if (gotAnswer)
 {
-<p>@CsvLink</p> 
+    <p><a href="@CsvLink">Download CSV file</a></p>
+}
+else
+{
+    <p>@CsvLink</p>
 }
 <p class="fixwidth">@answer</p>
 

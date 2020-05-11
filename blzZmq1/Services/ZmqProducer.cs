@@ -61,7 +61,7 @@ namespace blzZmq1.Services
             string? cropFile = files.FirstOrDefault(file => Path.GetFileName(file).Contains("crop"));
             if (cropFile != null)
             {
-                site_json = JObject.Parse(File.ReadAllText(cropFile));
+                crop_json = JObject.Parse(File.ReadAllText(cropFile));
             }
             else
             {
@@ -70,7 +70,7 @@ namespace blzZmq1.Services
 
             string climate_csv;
             string? climateFile = files.FirstOrDefault(file => Path.GetFileName(file).Contains("climate"));
-            if (cropFile != null)
+            if (climateFile != null)
             {
                 climate_csv = File.ReadAllText(climateFile);
             }
@@ -80,9 +80,9 @@ namespace blzZmq1.Services
             }
 
             JObject crop_site_sim = new JObject();
-            crop_site_sim.Add("crop", crop_json);
-            crop_site_sim.Add("site", site_json);
             crop_site_sim.Add("sim", sim_json);
+            crop_site_sim.Add("site", site_json);           
+            crop_site_sim.Add("crop", crop_json);
             crop_site_sim.Add("climate", "");
             //crop_site_sim.Add("climate", climate_csv);
 

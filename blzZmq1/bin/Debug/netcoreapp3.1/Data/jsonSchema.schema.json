@@ -1,0 +1,206 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The Root Schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "additionalProperties": true,
+    "properties": {
+        "customId": {
+            "$id": "#/properties/customId",
+            "type": "null",
+            "title": "The Customid Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": null
+        },
+        "data": {
+            "$id": "#/properties/data",
+            "type": "array",
+            "title": "The Data Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": [],
+            "additionalItems": true,
+            "items": {
+                "$id": "#/properties/data/items",
+                "type": "object",
+                "title": "The Items Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": {},
+                "additionalProperties": true,
+                "properties": {
+                    "origSpec": {
+                        "$id": "#/properties/data/items/properties/origSpec",
+                        "type": "string",
+                        "title": "The Origspec Schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": ""
+                    },
+                    "outputIds": {
+                        "$id": "#/properties/data/items/properties/outputIds",
+                        "type": "array",
+                        "title": "The Outputids Schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": [],
+                        "additionalItems": true,
+                        "items": {
+                            "$id": "#/properties/data/items/properties/outputIds/items",
+                            "type": "object",
+                            "title": "The Items Schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": {},
+                            "additionalProperties": true,
+                            "properties": {
+                                "displayName": {
+                                    "$id": "#/properties/data/items/properties/outputIds/items/properties/displayName",
+                                    "type": "string",
+                                    "title": "The Displayname Schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": ""
+                                },
+                                "fromLayer": {
+                                    "$id": "#/properties/data/items/properties/outputIds/items/properties/fromLayer",
+                                    "type": "integer",
+                                    "title": "The Fromlayer Schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": 0
+                                },
+                                "id": {
+                                    "$id": "#/properties/data/items/properties/outputIds/items/properties/id",
+                                    "type": "integer",
+                                    "title": "The Id Schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": 0
+                                },
+                                "jsonInput": {
+                                    "$id": "#/properties/data/items/properties/outputIds/items/properties/jsonInput",
+                                    "type": "string",
+                                    "title": "The Jsoninput Schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": ""
+                                },
+                                "layerAggOp": {
+                                    "$id": "#/properties/data/items/properties/outputIds/items/properties/layerAggOp",
+                                    "type": "integer",
+                                    "title": "The Layeraggop Schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": 0
+                                },
+                                "name": {
+                                    "$id": "#/properties/data/items/properties/outputIds/items/properties/name",
+                                    "type": "string",
+                                    "title": "The Name Schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": ""
+                                },
+                                "organ": {
+                                    "$id": "#/properties/data/items/properties/outputIds/items/properties/organ",
+                                    "type": "integer",
+                                    "title": "The Organ Schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": 0
+                                },
+                                "timeAggOp": {
+                                    "$id": "#/properties/data/items/properties/outputIds/items/properties/timeAggOp",
+                                    "type": "integer",
+                                    "title": "The Timeaggop Schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": 0
+                                },
+                                "toLayer": {
+                                    "$id": "#/properties/data/items/properties/outputIds/items/properties/toLayer",
+                                    "type": "integer",
+                                    "title": "The Tolayer Schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": 0
+                                },
+                                "type": {
+                                    "$id": "#/properties/data/items/properties/outputIds/items/properties/type",
+                                    "type": "string",
+                                    "title": "The Type Schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": ""
+                                },
+                                "unit": {
+                                    "$id": "#/properties/data/items/properties/outputIds/items/properties/unit",
+                                    "type": "string",
+                                    "title": "The Unit Schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": ""
+                                }
+                            }
+                        }
+                    },
+                    "results": {
+                        "$id": "#/properties/data/items/properties/results",
+                        "type": "array",
+                        "title": "The Results Schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": [],
+                        "additionalItems": true,
+                        "items": {
+                            "$id": "#/properties/data/items/properties/results/items",
+                            "type": "array",
+                            "title": "The Items Schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": [],
+                            "additionalItems": true,
+                            "items": {
+                                "$id": "#/properties/data/items/properties/results/items/items",
+                                "type": "integer",
+                                "title": "The Items Schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": 0,
+                                "examples": [
+                                    1.0,
+                                    2.0,
+                                    3.0
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "errors": {
+            "$id": "#/properties/errors",
+            "type": "array",
+            "title": "The Errors Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": [],
+            "additionalItems": true,
+            "items": {
+                "$id": "#/properties/errors/items",
+                "type": "null",
+                "title": "The Items Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": null
+            }
+        },
+        "type": {
+            "$id": "#/properties/type",
+            "type": "string",
+            "title": "The Type Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": ""
+        },
+        "warnings": {
+            "$id": "#/properties/warnings",
+            "type": "array",
+            "title": "The Warnings Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": [],
+            "examples": [
+                []
+            ],
+            "additionalItems": true,
+            "items": {
+                "$id": "#/properties/warnings/items",
+                "type": "null",
+                "title": "The Items Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": null
+            }
+        }
+    }
+}

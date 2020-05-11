@@ -50,11 +50,11 @@
 
             string xAxsis = "";
 
-
             for (int i = 0; i < DailyData.Dates.Count; i++)
             {
                 xAxsis += "'" + DailyData.Dates[i] + "' , ";
             }
+
 
             Boolean isFirstSerie = true;
             StringBuilder series = new StringBuilder("[");
@@ -129,12 +129,19 @@ text: ' '
 maxZoom: 2
 },
 
-xAxis: {
-title: {
-text: 'Date'
-},
-categories: [" + xAxsis + @"],
-},
+
+xAxis: [{
+            title: {
+              text: ' '
+            },
+            categories: [" + xAxsis + @"],
+        },
+        {
+            title: {
+              text: ' '
+            },
+            categories: [' '],
+        }],
 
 legend: {
 layout: 'vertical',
