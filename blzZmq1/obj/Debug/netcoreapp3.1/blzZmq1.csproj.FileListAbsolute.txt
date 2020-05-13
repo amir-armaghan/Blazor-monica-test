@@ -142,14 +142,10 @@ C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\RazorDecl
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\ChartData\DailyChart.razor.g.cs
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Consumer.razor.g.cs
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Error.razor.g.cs
-C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\HighCharts.razor.g.cs
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Index.razor.g.cs
-C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\JsonLoad.razor.g.cs
-C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Producer.razor.g.cs
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Setting.razor.g.cs
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\UploadData\UploadData.razor.g.cs
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\ZmqConsumer.razor.g.cs
-C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\ZmqProducer.razor.g.cs
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\RazorDeclaration\Shared\MainLayout.razor.g.cs
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\RazorDeclaration\Shared\NavMenu.razor.g.cs
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\RazorDeclaration\Shared\SurveyPrompt.razor.g.cs
@@ -173,7 +169,6 @@ C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\bin\Debug\netcoreapp3.1\Data\crop
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\bin\Debug\netcoreapp3.1\Data\fromServer.json
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\bin\Debug\netcoreapp3.1\Data\fromServer2c.json
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\bin\Debug\netcoreapp3.1\Data\fromServerCopy.json
-C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\bin\Debug\netcoreapp3.1\Data\jsonSchema.schema.json
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\bin\Debug\netcoreapp3.1\Data\monica-parameters\crop-residues\alfalfa.json
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\bin\Debug\netcoreapp3.1\Data\monica-parameters\crop-residues\artichoke.json
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\bin\Debug\netcoreapp3.1\Data\monica-parameters\crop-residues\Bacharia.json
@@ -497,14 +492,10 @@ C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\Razor\Pag
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\Razor\Pages\ChartData\DailyChart.razor.g.cs
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\Razor\Pages\Consumer.razor.g.cs
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\Razor\Pages\Error.razor.g.cs
-C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\Razor\Pages\HighCharts.razor.g.cs
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\Razor\Pages\Index.razor.g.cs
-C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\Razor\Pages\JsonLoad.razor.g.cs
-C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\Razor\Pages\Producer.razor.g.cs
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\Razor\Pages\Setting.razor.g.cs
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\Razor\Pages\UploadData\UploadData.razor.g.cs
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\Razor\Pages\ZmqConsumer.razor.g.cs
-C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\Razor\Pages\ZmqProducer.razor.g.cs
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\Razor\Shared\MainLayout.razor.g.cs
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\Razor\Shared\NavMenu.razor.g.cs
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\Razor\Shared\SurveyPrompt.razor.g.cs
@@ -527,3 +518,7 @@ C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\bin\Debug\netcoreapp3.1\Data\sim-
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\bin\Debug\netcoreapp3.1\Upload\crop.json
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\bin\Debug\netcoreapp3.1\Upload\sim.json
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\bin\Debug\netcoreapp3.1\Upload\site.json
+C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\MonicaCharts\MonicaChart.razor.g.cs
+C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\Razor\Pages\MonicaCharts\MonicaChart.razor.g.cs
+C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\MonicaCharts\MonicaHighchart.razor.g.cs
+C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\Razor\Pages\MonicaCharts\MonicaHighchart.razor.g.cs

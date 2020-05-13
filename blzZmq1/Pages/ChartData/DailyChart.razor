@@ -61,7 +61,7 @@
 
             foreach (var outputId in DailyData.DailyOutputIds)
             {
-                if (outputId.Name == Core.Share.MonicaConstFields.Crop)
+                if (outputId.Name == Core.Share.MonicaConstFields.Crop) // because crop has string values which is not possible to be on yAxsis
                     continue;
 
                 series.Append("{ name: '" + outputId.Name + "', data: [");

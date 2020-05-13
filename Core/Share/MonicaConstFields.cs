@@ -21,6 +21,20 @@ namespace Core.Share
         public const string Type = "type";
         public const string Unit = "unit";
         public const string Crop = "Crop";
-        
+        //added
+        public const string Monthly = "monthly";
+        public const string Yearly = "yearly";
+        public const string Year = "year";
+        public const string Month = "month";
+
+        public readonly List<string> XAxiesNames;
+
+        public MonicaConstFields()
+        {
+            XAxiesNames = new List<string>();
+            XAxiesNames.Add(MonicaConstFields.Date);
+            XAxiesNames.Add(MonicaConstFields.Year);
+            XAxiesNames.Add(MonicaConstFields.Month);
+        }
     }
 }

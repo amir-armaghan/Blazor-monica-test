@@ -30,7 +30,7 @@ namespace Application.Convertor
                         continue;
 
                     int outputIdIndex = 0;
-
+                    //if (OrigSpec == MonicaConstFields.Daily)
                     foreach (var outId in mData[MonicaConstFields.OutputIds])
                     {
                         string jsonInput = (string)outId[MonicaConstFields.JsonInput];
@@ -43,7 +43,7 @@ namespace Application.Convertor
                             }
                         }
                         // Other OutputIds
-                        else  // the result is a series of arrays
+                        else  
                         {
                             var outputId = new DailyOutputId();
                             outputId = GetOutputId(outId);
@@ -54,7 +54,7 @@ namespace Application.Convertor
                             {
                                 var firstResult = results[0];
 
-                                if (firstResult is JArray)
+                                if (firstResult is JArray) // the result is a series of arrays
                                 {
                                     string outputIdName = outputId.Name;
 
@@ -85,10 +85,16 @@ namespace Application.Convertor
                         }
                         outputIdIndex++;
                     }
+                    //else if (OrigSpec == MonicaConstFields.Yearly)
+                    // Do for yearly
+                    //else if (OrigSpec == MonicaConstFields.Monthly)
+                    //Do for Monthly
+                    //else 
+                        //Do something for the rest
                 }
             }
 
-            return dailyData;
+            return dailyData; //return data for selected chart
         }
 
         private DailyOutputId GetOutputId(JToken jToken)
