@@ -1,4 +1,5 @@
 ﻿@page "/monicaCharts/monicaChart"
+
 @* Usings *@
 @using blzZmq1.Services
 @using blzZmq1.Components
@@ -95,21 +96,26 @@
 </SpinLoader>
 
 
-
 @code{
-    int selectedButton;
-    string str;
-    string filesTable = "";
-    int dirsLenght;
-    string[] dirs;
-    long length;
+    private int dirsLenght;
+    private string[] dirs;
+    private bool isLoading = true;
+    private string _selectedFile;
+    private int? _selectedCategoryId = null;
+    private Guid? _selectedXAxisId = null;
+    private bool CanLoadChart = false;
 
+    public List<MonicaBaseData> MonicaBaseDatas { get; set; } = null;
 
-    private long GetTheLength()
-    {
-        length = new System.IO.FileInfo(System.IO.Path.GetFullPath(_selectedFile)).Length / 1024;
-        return (length);
-    }
+    public Dictionary<int, string> MonicaDataCategories { get; set; } = null;
+
+    public List<MonicaSerie> ChartXAxises { get; set; } = null;
+
+    [Parameter]
+    public MonicaSerie ChartXAxise { get; set; } = null;
+
+    [Parameter]
+    public List<MonicaSerie> ChartSeries { get; set; } = null;
 
     protected override async Task OnInitializedAsync()
     {
@@ -118,35 +124,11 @@
         isLoading = false;
     }
 
-
-    private bool isLoading = true;
-    private string _selectedFile;
-    private int? _selectedCategoryId = null;
-    private Guid? _selectedXAxisId = null;
-    private bool CanLoadChart = false;
-    private string chartjson;
-    //public bool IsChartTheRun = false;
-
-
-
-    //public string jsonToChartPath = "Data/fromServer.json";
-    //public string jsonToChartPath = "wwwroot/export/fromServer.json";
-
-    [Parameter]
-    public List<MonicaBaseData> MonicaBaseDatas { get; set; } = null;
-
-
-    [Parameter]
-    public Dictionary<int, string> MonicaDataCategories { get; set; } = null;
-
-    [Parameter]
-    public List<MonicaSerie> ChartXAxises { get; set; } = null;
-
-    [Parameter]
-    public MonicaSerie ChartXAxise { get; set; } = null;
-
-    [Parameter]
-    public List<MonicaSerie> ChartSeries { get; set; } = null;
+    private long GetTheLength()
+    {
+        long length = new System.IO.FileInfo(System.IO.Path.GetFullPath(_selectedFile)).Length / 1024;
+        return (length);
+    }
 
 
     private void UnloadChart()
@@ -170,6 +152,12 @@
         MonicaBaseDatas = await MonicaChartService.GetBaseDataAsync(_selectedFile);
         MonicaDataCategories = MonicaBaseDatas.ToDictionary(s => s.Id, o => o.OrigSpec);
 
+        //var result = new Dictionary<int, string>();
+        //foreach (var s in MonicaBaseDatas)
+        //{
+        //    result.Add(s.Id, s.OrigSpec);
+        //}
+        //MonicaDataCategories = result;
     }
 
     private void ChangeDataCategory(ChangeEventArgs e)

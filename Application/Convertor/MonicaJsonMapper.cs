@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using Application.Share;
-using Core.Daily;
 using Core.MonicaData;
 using Core.Share;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Schema;
 
 namespace Application.Convertor
 {
@@ -25,8 +22,7 @@ namespace Application.Convertor
 
                 foreach (var mData in jObject["data"])
                 {
-                    var monicaBaseData = new MonicaBaseData();
-                    monicaBaseData.Id = dataCounter++;
+                    var monicaBaseData = new MonicaBaseData(dataCounter++);
 
                     string OrigSpec = (string)mData[MonicaConstFields.OrigSpec];
                     OrigSpec = OrigSpec.RemoveQuotation();
@@ -49,7 +45,6 @@ namespace Application.Convertor
                                 for (int i = 0; i < ((JArray)firstResult).Count; i++)
                                 {
                                     monicaSerie = new MonicaSerie();
-                                    monicaSerie.Id = Guid.NewGuid();
                                     monicaSerie.SerieTitle = outIdName + "-" + (i + 1);
 
                                     foreach (var result in results)
@@ -62,7 +57,6 @@ namespace Application.Convertor
                             }
                             else
                             {
-                                monicaSerie.Id = Guid.NewGuid();
                                 monicaSerie.SerieTitle = outIdName;
                                 foreach (var result in results)
                                 {

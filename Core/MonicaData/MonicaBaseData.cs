@@ -6,8 +6,9 @@ namespace Core.MonicaData
 {
     public class MonicaBaseData
     {
-        public MonicaBaseData()
+        public MonicaBaseData(int id)
         {
+            Id = id;
             MonicaSeries = new List<MonicaSerie>();
         }
 

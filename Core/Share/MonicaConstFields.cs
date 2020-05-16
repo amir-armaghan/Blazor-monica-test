@@ -32,9 +32,9 @@ namespace Core.Share
         public MonicaConstFields()
         {
             XAxiesNames = new List<string>();
-            XAxiesNames.Add(MonicaConstFields.Date);
-            XAxiesNames.Add(MonicaConstFields.Year);
-            XAxiesNames.Add(MonicaConstFields.Month);
+            XAxiesNames.Add(Date);
+            XAxiesNames.Add(Year);
+            XAxiesNames.Add(Month);
         }
     }
 }

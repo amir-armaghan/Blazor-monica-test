@@ -1,21 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using blzZmq1.Services;
-using blzZmq1.Services.ChartData;
-using Application;
 using Application.Convertor;
 using Application.MonicaCharts;
 using blzZmq1.Services.MonicaCharts;
-using blzZmq1.Services.FileFolders;
 
 namespace blzZmq1
 {
@@ -34,6 +25,7 @@ namespace blzZmq1
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+
             services.AddScoped<IFileUpload, FileUpload>();
             services.AddSingleton<Services.AppData>();  //for clientside App -  for serverside app use: services.AddScoped<Services.AppData>();
             services.AddSingleton<Services.ZmqProducer>();
@@ -42,7 +34,6 @@ namespace blzZmq1
             services.AddTransient<IMonicaZmqService, MonicaParameters>();
 
             // My Services
-            services.AddTransient<IDailyChartService, DailyChartService>();
             services.AddTransient<IMonicaJsonMapper, MonicaJsonMapper>();
             services.AddTransient<IMonicaChartApp, MonicaChartApp>();
             services.AddTransient<IMonicaChartService, MonicaChartService>();

@@ -8,6 +8,7 @@ namespace Core.MonicaData
     {
         public MonicaSerie()
         {
+            Id = Guid.NewGuid();
             Values = new List<string>();
         }
 
