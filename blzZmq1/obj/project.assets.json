@@ -720,6 +720,24 @@
           "ref/netstandard1.3/Microsoft.Win32.Primitives.dll": {}
         }
       },
+      "MW.Blazor.Tree/1.1.6": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "3.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/MW.Blazor.TreeComponent.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/MW.Blazor.TreeComponent.dll": {}
+        },
+        "build": {
+          "buildTransitive/MW.Blazor.Tree.props": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/MW.Blazor.Tree.props": {}
+        }
+      },
       "NetMQ/4.0.0.207": {
         "type": "package",
         "dependencies": {
@@ -3446,6 +3464,23 @@
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
         "ref/xamarinwatchos10/_._"
+      ]
+    },
+    "MW.Blazor.Tree/1.1.6": {
+      "sha512": "Xz2o/HA2tBMCBNfLEtsXXw/7OntgnMfWX4b76l0IPF6W1ieboEZQ0sSGeT2IyohrZdCbaj2Yc9Jbn0R+NYQMLg==",
+      "type": "package",
+      "path": "mw.blazor.tree/1.1.6",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/MW.Blazor.Tree.props",
+        "build/Microsoft.AspNetCore.StaticWebAssets.props",
+        "buildMultiTargeting/MW.Blazor.Tree.props",
+        "buildTransitive/MW.Blazor.Tree.props",
+        "lib/netstandard2.0/MW.Blazor.TreeComponent.dll",
+        "mw.blazor.tree.1.1.6.nupkg.sha512",
+        "mw.blazor.tree.nuspec",
+        "staticwebassets/styles.css"
       ]
     },
     "NetMQ/4.0.0.207": {
@@ -7174,6 +7209,7 @@
       "Capnp.Net.Runtime >= 1.2.189",
       "CapnpC.CSharp.MsBuild.Generation >= 1.2.138",
       "Core >= 1.0.0",
+      "MW.Blazor.Tree >= 1.1.6",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.2",
       "NetMQ >= 4.0.0.207",
       "Newtonsoft.Json >= 12.0.3"
@@ -7238,6 +7274,10 @@
           "CapnpC.CSharp.MsBuild.Generation": {
             "target": "Package",
             "version": "[1.2.138, )"
+          },
+          "MW.Blazor.Tree": {
+            "target": "Package",
+            "version": "[1.1.6, )"
           },
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",

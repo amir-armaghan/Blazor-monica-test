@@ -16,5 +16,6 @@ namespace Core.MonicaData
         public string OrigSpec { get; set; }
 
         public List<MonicaSerie> MonicaSeries { get; set; }
+
     }
 }

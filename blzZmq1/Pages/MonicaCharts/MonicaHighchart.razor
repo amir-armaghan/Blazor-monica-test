@@ -6,7 +6,7 @@
 @* Injects *@
 
 
-<h3>Monica Chart</h3>
+<!--<h3> Monica Chart </h3>-->
 
 <SpinLoader IsLoading="isLoading">
     <LoadingTemplate>
@@ -48,14 +48,17 @@
         if (XAxis != null)
         {
             string chartTypeName = "area";  //line, area
-            string chartTitleName = "Monica Model from json message";
-            string chartOrigSpec = "Daily";
+            string chartTitleName = "Result Chart";
+            string chartOrigSpec = XAxis.SerieTitle;
 
-            string xAxsis = "";
+            //string xAxsis = "";
+            
+            StringBuilder xAxsis = new StringBuilder("");
 
             for (int i = 0; i < XAxis.Values.Count; i++)
             {
-                xAxsis += "'" + XAxis.Values[i] + "' , ";
+               // xAxsis += "'" + XAxis.Values[i] + "' , ";
+                xAxsis.Append("'" + XAxis.Values[i] + "' , ");
             }
 
 
@@ -111,8 +114,8 @@ colors: [
 '#A47D7C',
 '#B5CA92'],
 loading: {
-    hideDuration: 1000,
-    showDuration: 1000
+hideDuration: 1000,
+showDuration: 1000
 },
 title: {
 text: '" + chartTitleName + @"'
@@ -131,17 +134,17 @@ maxZoom: 2
 
 
 xAxis: [{
-        title: {
-          text: ' '
-        },
-        categories: [" + xAxsis + @"],
-    },
-    {
-        title: {
-          text: ' '
-        },
-        categories: [' '],
-    }],
+title: {
+  text: ' '
+},
+categories: [" + xAxsis + @"],
+},
+{
+title: {
+  text: ' '
+},
+categories: [' '],
+}],
 
 legend: {
 layout: 'vertical',
@@ -152,25 +155,25 @@ verticalAlign: 'middle'
 plotOptions: {
 area: {
 fillColor: {
-    linearGradient: {
-        x1: 0,
-        y1: 0,
-        x2: 0,
-        y2: 0.6
-     },
-    stops: [
-            [0, Highcharts.getOptions().colors[0]],
-            [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-        ]
+linearGradient: {
+x1: 0,
+y1: 0,
+x2: 0,
+y2: 0.6
+},
+stops: [
+    [0, Highcharts.getOptions().colors[0]],
+    [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+]
 },
 marker: {
-    radius: 2
+radius: 2
 },
 lineWidth: 1,
 states: {
-    hover: {
-    lineWidth: 1
-    }
+hover: {
+lineWidth: 1
+}
 },
 threshold: null
 }
@@ -184,12 +187,12 @@ condition: {
 maxWidth: 500
 },
 chartOptions: {
-    legend: {
-    layout: 'horizontal',
-    align: 'center',
-    verticalAlign: 'bottom'
-    }
- }
+legend: {
+layout: 'horizontal',
+align: 'center',
+verticalAlign: 'bottom'
+}
+}
 }]
 },
 navigation: {

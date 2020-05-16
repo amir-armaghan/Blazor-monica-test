@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace blzZmq1.Services
 {
-    public class MonicaZmqService : IMonicaZmqService
+    public class MonicaParameters : IMonicaZmqService
     {
         private readonly AppData _appData;
         private readonly string ServerPushAddress;
         private readonly int ServerPushPort;
 
-        public MonicaZmqService(AppData appData)
+        public MonicaParameters(AppData appData)
         {
             _appData = appData;
             ServerPushAddress = _appData.ServerPushAddress;

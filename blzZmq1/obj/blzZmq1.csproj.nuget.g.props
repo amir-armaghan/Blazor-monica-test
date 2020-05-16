@@ -22,6 +22,7 @@
     </Content>
   </ItemGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)mw.blazor.tree\1.1.6\buildTransitive\MW.Blazor.Tree.props" Condition="Exists('$(NuGetPackageRoot)mw.blazor.tree\1.1.6\buildTransitive\MW.Blazor.Tree.props')" />
     <Import Project="$(NuGetPackageRoot)capnpc.csharp.msbuild.generation\1.2.138\build\CapnpC.CSharp.MsBuild.Generation.props" Condition="Exists('$(NuGetPackageRoot)capnpc.csharp.msbuild.generation\1.2.138\build\CapnpC.CSharp.MsBuild.Generation.props')" />
     <Import Project="$(NuGetPackageRoot)blazorpro.spinkit\1.2.0\buildTransitive\BlazorPro.Spinkit.props" Condition="Exists('$(NuGetPackageRoot)blazorpro.spinkit\1.2.0\buildTransitive\BlazorPro.Spinkit.props')" />
     <Import Project="$(NuGetPackageRoot)blazorinputfile\0.1.0-preview-00002\buildTransitive\BlazorInputFile.props" Condition="Exists('$(NuGetPackageRoot)blazorinputfile\0.1.0-preview-00002\buildTransitive\BlazorInputFile.props')" />

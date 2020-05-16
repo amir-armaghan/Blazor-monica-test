@@ -80,7 +80,7 @@
 
                     @if (_selectedXAxisId != null)
                     {
-                        <button class="btn btn-primary" @onclick="DrawChart">Draw Chart</button>
+                        <button class="btn btn-primary" @onclick="DrawChart">Draw The Chart</button>
                     }
                 }
 
@@ -125,6 +125,9 @@
     private Guid? _selectedXAxisId = null;
     private bool CanLoadChart = false;
     private string chartjson;
+    //public bool IsChartTheRun = false;
+
+
 
     //public string jsonToChartPath = "Data/fromServer.json";
     //public string jsonToChartPath = "wwwroot/export/fromServer.json";
@@ -144,6 +147,7 @@
 
     [Parameter]
     public List<MonicaSerie> ChartSeries { get; set; } = null;
+
 
     private void UnloadChart()
     {
@@ -165,6 +169,7 @@
         _selectedFile = e.Value.ToString();
         MonicaBaseDatas = await MonicaChartService.GetBaseDataAsync(_selectedFile);
         MonicaDataCategories = MonicaBaseDatas.ToDictionary(s => s.Id, o => o.OrigSpec);
+
     }
 
     private void ChangeDataCategory(ChangeEventArgs e)
@@ -198,12 +203,15 @@
         _selectedXAxisId = new Guid(e.Value.ToString());
     }
 
-    private void DrawChart()
+    public void DrawChart()
     {
+
         if (_selectedXAxisId != null)
         {
             ChartXAxise = ChartXAxises.First(s => s.Id == _selectedXAxisId);
             CanLoadChart = true;
+
         }
     }
 }
+

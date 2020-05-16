@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "4rqtOy7JwWnbeLQokol/ElGIGEMwnaoqif2vchfdZcxfX9520fuIFgqnZ8RXOzcaE6ly770zQ4qFn6fYXpkC0w==",
+  "dgSpecHash": "NvJKVeyVa452GXGbfSHzp7d6Bq9rapVDr5jeW1civChpmK4pkAfcuecBjYdrzLFfFCbCamlJ8ICJW6XMdeAdMg==",
   "success": true,
   "projectFilePath": "C:\\Users\\armaghan\\source\\repos\\blzZmq1\\blzZmq1\\blzZmq1.csproj",
   "expectedPackageFiles": [
@@ -49,6 +49,7 @@
     "C:\\Users\\armaghan\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration.utils\\3.1.2\\microsoft.visualstudio.web.codegeneration.utils.3.1.2.nupkg.sha512",
     "C:\\Users\\armaghan\\.nuget\\packages\\microsoft.visualstudio.web.codegenerators.mvc\\3.1.2\\microsoft.visualstudio.web.codegenerators.mvc.3.1.2.nupkg.sha512",
     "C:\\Users\\armaghan\\.nuget\\packages\\microsoft.win32.primitives\\4.3.0\\microsoft.win32.primitives.4.3.0.nupkg.sha512",
+    "C:\\Users\\armaghan\\.nuget\\packages\\mw.blazor.tree\\1.1.6\\mw.blazor.tree.1.1.6.nupkg.sha512",
     "C:\\Users\\armaghan\\.nuget\\packages\\netmq\\4.0.0.207\\netmq.4.0.0.207.nupkg.sha512",
     "C:\\Users\\armaghan\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
     "C:\\Users\\armaghan\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",

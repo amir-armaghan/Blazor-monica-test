@@ -15,11 +15,6 @@ namespace blzZmq1.Services
         public int ServerPushPort { get; set; } = 6666;
         public string ServerPullAddress { get; set; } = "tcp://localhost";
         public int ServerPullPort { get; set; } = 7777;
-
-
-
-
-
-
+        public bool ChartIsRun { get; set; } = false;
     }
 }

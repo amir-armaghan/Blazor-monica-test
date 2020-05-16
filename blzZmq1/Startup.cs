@@ -15,6 +15,7 @@ using Application;
 using Application.Convertor;
 using Application.MonicaCharts;
 using blzZmq1.Services.MonicaCharts;
+using blzZmq1.Services.FileFolders;
 
 namespace blzZmq1
 {
@@ -37,7 +38,8 @@ namespace blzZmq1
             services.AddSingleton<Services.AppData>();  //for clientside App -  for serverside app use: services.AddScoped<Services.AppData>();
             services.AddSingleton<Services.ZmqProducer>();
             services.AddSingleton<Services.ZmqConsumer>();
-            services.AddTransient<IMonicaZmqService, MonicaZmqService>();
+            services.AddSingleton<Services.FileFolders.MonicaParametersFolder>();  //added to test file and folder
+            services.AddTransient<IMonicaZmqService, MonicaParameters>();
 
             // My Services
             services.AddTransient<IDailyChartService, DailyChartService>();
