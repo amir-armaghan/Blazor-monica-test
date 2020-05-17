@@ -3,9 +3,9 @@
 @using NetMQ
 @using System.IO
 
-
 @inject Services.ZmqConsumer RunConsumer
 @inject AppData AppData
+@inject NavigationManager NavigationManager
 
 <h3>Recive ENV via ZMQ</h3>
 
@@ -54,6 +54,8 @@ else
             // call runConsumer Method(). get ths csv path, remove wwwroot and use the link in razor section
             CsvLink = Services.ZmqConsumer.RunConsumer(answer, filePath);
             CsvLink = CsvLink.Substring(CsvLink.IndexOf("/"));
+            System.Threading.Thread.Sleep(1000);
+            NavigationManager.NavigateTo("/monicaCharts/monicaChart");
 
         }
 

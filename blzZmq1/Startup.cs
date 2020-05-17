@@ -34,6 +34,7 @@ namespace blzZmq1
             services.AddTransient<IMonicaZmqService, MonicaParameters>();
 
             // My Services
+            services.AddScoped<Radzen.NotificationService>();
             services.AddTransient<IMonicaJsonMapper, MonicaJsonMapper>();
             services.AddTransient<IMonicaChartApp, MonicaChartApp>();
             services.AddTransient<IMonicaChartService, MonicaChartService>();
