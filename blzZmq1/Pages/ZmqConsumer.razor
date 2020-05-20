@@ -9,7 +9,7 @@
 
 <h3>Recive ENV via ZMQ</h3>
 
-<button @onclick="GetMassage">Recieve message from server and put in CSV</button>
+<button class="btn btn-primary m-2" @onclick="GetMassage">Recieve message from server and put in CSV</button>
 @if (gotAnswer)
 {
     <p><a href="@CsvLink">Download CSV file</a></p>
@@ -24,8 +24,8 @@ else
 @code {
 
     Boolean gotAnswer = false;
-    public string answer { get; set; } = "No Answer yet";
-    private string CsvLink { get; set; } = "No Link yet";
+    public string answer { get; set; } = " ";
+    private string CsvLink { get; set; } = " ";
 
     async Task GetMassage() // call ZmqProducer calss
     {

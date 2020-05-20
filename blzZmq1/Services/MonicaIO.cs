@@ -573,6 +573,7 @@ namespace blzZmq1.Services
                     }
                     path_to_file = replace_env_vars(path_to_file);
                     path_to_file = fix_system_separator(path_to_file);
+                    // here can check if this path exists in our array,if so then replace the path with our path like: Data/upload/temp-monica-parameters/....json
                     var jo_ = read_and_parse_json_file(path_to_file);
                     if (Convert.ToBoolean(jo_["success"]) && jo_["result"] != null)
                     {

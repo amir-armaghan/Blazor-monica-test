@@ -135,7 +135,14 @@ app {
     right: 0.75rem;
     top: 0.5rem;
 }
-
+/*  ------new css begins----------*/
+.input-group-text {
+    padding: .2rem .75rem !important;
+}
+div.ui-tree{
+    height: auto !important;
+}
+/*  ------new css ends----------*/
 @media (max-width: 767.98px) {
     .main .top-row:not(.auth) {
         display: none;
