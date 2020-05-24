@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Services.Convertor
 {
-    public class MonicaJsonMapperService : IMonicaJsonMapperService
+    public class MonicaJsonMapperService : IMonicaJsonMapperService<StreamReader>
     {
         public List<MonicaBaseData> Map(StreamReader data)
         {

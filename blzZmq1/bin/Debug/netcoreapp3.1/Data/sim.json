@@ -26,7 +26,8 @@
 	"debug?": false,
 
 	"__the include file base path to be used if no other value is in crop/site.json specified": "",
-	"include-file-base-path": "Data/monica-parameters",
+	"include-file-base-path": "https://github.com/armaghan-work/armaghan-monica-params",
+	"_include-file-base-path": "Data/monica-parameters",
 
 	"__configuration options for the monica outputs": "",
 	"output": {

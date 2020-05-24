@@ -7,6 +7,7 @@ using blzZmq1.Services;
 using Application.Convertor;
 using Application.MonicaCharts;
 using blzZmq1.Services.MonicaCharts;
+using blzZmq1.Services.Github;
 
 namespace blzZmq1
 {
@@ -38,6 +39,7 @@ namespace blzZmq1
             services.AddTransient<IMonicaJsonMapper, MonicaJsonMapper>();
             services.AddTransient<IMonicaChartApp, MonicaChartApp>();
             services.AddTransient<IMonicaChartService, MonicaChartService>();
+            services.AddTransient<IGithubService, GithubService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

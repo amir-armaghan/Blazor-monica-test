@@ -44,7 +44,9 @@
 			"cropParams": {
 				"species": ["include-from-file", "crops/wheat.json"],
 				"cultivar": ["include-from-file", "crops/wheat/winter-wheat.json"]
+				
 			},
+
 			"residueParams": ["include-from-file", "crop-residues/wheat.json"]
 		},
 		"WG": {

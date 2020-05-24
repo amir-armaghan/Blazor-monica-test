@@ -33,6 +33,7 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.1.2",
           "NetMQ": "4.0.0.207",
           "Newtonsoft.Json": "12.0.3",
+          "Octokit": "0.47.0",
           "Radzen.Blazor": "2.8.1",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "3.1.0.0",
@@ -1065,6 +1066,17 @@
         },
         "compile": {
           "lib/netstandard1.6/NuGet.Frameworks.dll": {}
+        }
+      },
+      "Octokit/0.47.0": {
+        "runtime": {
+          "lib/netstandard2.0/Octokit.dll": {
+            "assemblyVersion": "0.47.0.0",
+            "fileVersion": "0.47.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Octokit.dll": {}
         }
       },
       "Radzen.Blazor/2.8.1": {
@@ -3887,6 +3899,13 @@
       "sha512": "sha512-qbXaB76XYUVLocLBs8Z9TS/ERGK2wm797feO+0JEPFvT7o7MRadOR77mqaSD4J1k8G+DlZQyq+MlkCuxrkr3ag==",
       "path": "nuget.frameworks/4.7.0",
       "hashPath": "nuget.frameworks.4.7.0.nupkg.sha512"
+    },
+    "Octokit/0.47.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-q1TWsMEjxG7Eb7YFrXm3MWgSPsMvPKxrIF//tuUPd9i/SS/fG7PerKr088E8AOoAFcHqMqouSrW0iAg2WgskDA==",
+      "path": "octokit/0.47.0",
+      "hashPath": "octokit.0.47.0.nupkg.sha512"
     },
     "Radzen.Blazor/2.8.1": {
       "type": "package",

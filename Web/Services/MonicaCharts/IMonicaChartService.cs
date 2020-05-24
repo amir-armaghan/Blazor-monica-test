@@ -1,8 +1,5 @@
-﻿using Services.MonicaCharts;
-using Models.MonicaData;
-using System;
+﻿using Models.MonicaData;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Web.Services.MonicaCharts
@@ -11,7 +8,7 @@ namespace Web.Services.MonicaCharts
     {
         Task<string[]> GetExportedFilesAsync();
 
-        Task<List<MonicaBaseData>> GetBaseDataAsync(string filePath);
+        Task<List<MonicaBaseData>> GetBaseDataAsync(string data);
 
         List<MonicaSerie> GetXAxises(MonicaBaseData monicaBaseData);
 

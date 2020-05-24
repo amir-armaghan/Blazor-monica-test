@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using blzZmq1.Services.Github;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -28,6 +29,8 @@ namespace blzZmq1.Services
         private static int ORGAN_STRUCT = 4;
         private static int ORGAN_SUGAR = 5;
         private static int ORGAN_UNDEFINED_ORGAN_ = 6;
+
+        protected static readonly IGithubService _githubService = new GithubService();
 
         private static bool oid_is_organ(dynamic oid)
         {
@@ -203,6 +206,10 @@ namespace blzZmq1.Services
         {
             return p.StartsWith("/") || p.Length == 2 && p[1] == ':' || p.Length > 2 && p[1] == ':' && (p[2] == '\\' || p[2] == '/');
         }
+        private static bool is_github_path(string p)
+        {
+            return p.StartsWith("https://github.com") || p.StartsWith("http://github.com") || p.StartsWith("https://raw.githubusercontent.com");
+        }
         private static string fix_system_separator(string path)
         {
             path = path.Replace("\\", "/");
@@ -252,17 +259,33 @@ namespace blzZmq1.Services
         {
             return dic.ContainsKey(key) ? dic[key].ToString() : @default;
         }
-        private static JObject read_and_parse_json_file(string path)
+        private static JObject read_and_parse_json_file(string path, bool isGithubPath = false)
         {
             var res = new JObject();
             try
             {
-                var ssjsn = JObject.Parse(File.ReadAllText(path));
+                JObject ssjsn;
+                if (isGithubPath)
+                { 
+                    if(_githubService.IsExistPath(path))
+                    {
+                        ssjsn = JObject.Parse(_githubService.GetFileContent(path));
+                    }
+                    else
+                    {
+                        throw new FileNotFoundException();
+                    }
+                }
+                else
+                {
+                    ssjsn = JObject.Parse(File.ReadAllText(path));
+                }
+
                 res.Add("result", ssjsn);
                 res.Add("errors", new JArray());
                 res.Add("success", true);
             }
-            catch
+            catch(Exception ex)
             {
                 res.Add("result", new JObject());
                 res.Add("errors", "Error opening file with path: '" + path + "'!");
@@ -437,8 +460,8 @@ namespace blzZmq1.Services
                 }
             }
 
-            //var path_to_parameters = crop_site_sim["sim"]["include-file-base-path"];
-            var path_to_parameters = "Data/monica-parameters/";
+            var path_to_parameters = crop_site_sim["sim"]["include-file-base-path"];
+            //var path_to_parameters = "Data/monica-parameters/";
 
             var crop_site_sim2 = new JObject();
 
@@ -546,6 +569,8 @@ namespace blzZmq1.Services
 
         class SupportedPatterns
         {
+
+
             public static JObject @ref(JObject root, JArray j)
             {
                 if (j != null && j.Count == 3 && is_string_type(j[1] as JValue) && is_string_type(j[2] as JValue))
@@ -567,14 +592,25 @@ namespace blzZmq1.Services
                 {
                     var base_path = default_value(root, "include-file-base-path", ".");
                     var path_to_file = j[1].ToString();
-                    if (!is_absolute_path(path_to_file))
+                    bool isGitHubPath = false;
+
+                    if (is_github_path(base_path))
                     {
-                        path_to_file = base_path + "/" + path_to_file;
+                        _githubService.SetRepoInfo(base_path);
+                        isGitHubPath = true;
                     }
-                    path_to_file = replace_env_vars(path_to_file);
-                    path_to_file = fix_system_separator(path_to_file);
+                    else
+                    {
+                        if (!is_absolute_path(path_to_file))
+                        {
+                            path_to_file = base_path + "/" + path_to_file;
+                        }
+
+                        path_to_file = replace_env_vars(path_to_file);
+                        path_to_file = fix_system_separator(path_to_file);
+                    }
                     // here can check if this path exists in our array,if so then replace the path with our path like: Data/upload/temp-monica-parameters/....json
-                    var jo_ = read_and_parse_json_file(path_to_file);
+                    var jo_ = read_and_parse_json_file(path_to_file, isGitHubPath);
                     if (Convert.ToBoolean(jo_["success"]) && jo_["result"] != null)
                     {
                         var res = new JObject();

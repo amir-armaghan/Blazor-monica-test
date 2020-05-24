@@ -6,8 +6,8 @@ using System.Text;
 
 namespace Services.Convertor
 {
-    public interface IMonicaJsonMapperService
+    public interface IMonicaJsonMapperService<in T>
     {
-        List<MonicaBaseData> Map(StreamReader data);
+        List<MonicaBaseData> Map(T data);
     }
 }

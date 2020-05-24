@@ -1,12 +1,10 @@
 using System;
 using System.Net.Http;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Text;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using Services.Convertor;
+using Web.Services.MonicaCharts;
 
 namespace Web
 {
@@ -28,10 +26,8 @@ namespace Web
             builder.Services.AddTransient<Services.IMonicaZmqService, Services.MonicaParameters>();
 
             // My Services
-            //builder.Services.AddTransient<Services.IMonicaJsonMapperService>
-           //builder.Services.AddSingleton<Services.IMonicaJsonMapperService, MonicaJsonMapperService>();
-           // builder.Services.AddTransient<IMonicaChartAppService, MonicaChartAppService>();
-           // builder.Services.AddTransient<IMonicaChartService, MonicaChartService>();
+            builder.Services.AddTransient<IMonicaJsonMapperService<string>, MonicaJsonToModelMapperService>();
+            builder.Services.AddTransient<IMonicaChartService, MonicaChartService>();
 
             await builder.Build().RunAsync();
         }

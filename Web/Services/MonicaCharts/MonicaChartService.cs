@@ -1,6 +1,6 @@
-﻿using Services.MonicaCharts;
-using Models.MonicaData;
+﻿using Models.MonicaData;
 using Models.Share;
+using Services.Convertor;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,16 +11,19 @@ namespace Web.Services.MonicaCharts
 {
     public class MonicaChartService : IMonicaChartService
     {
-        private readonly IMonicaChartAppService _monicaChartApp;
+        private readonly IMonicaJsonMapperService<string> _monicaJsonMapper;
 
-        public MonicaChartService(IMonicaChartAppService monicaChartApp)
+        public MonicaChartService(IMonicaJsonMapperService<string> monicaJsonMapper)
         {
-            _monicaChartApp = monicaChartApp;
+            _monicaJsonMapper = monicaJsonMapper;
         }
 
-        public async Task<List<MonicaBaseData>> GetBaseDataAsync(string filePath)
+        public async Task<List<MonicaBaseData>> GetBaseDataAsync(string data)
         {
-            return await _monicaChartApp.GetAsync(filePath);
+            //using (StreamReader file = File.OpenText(filePath))
+            //{
+                return _monicaJsonMapper.Map(data);
+            //}
         }
 
         public List<MonicaSerie> GetXAxises(MonicaBaseData monicaBaseData)

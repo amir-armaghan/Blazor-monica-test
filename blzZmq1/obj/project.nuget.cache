@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "d9vRwqnmIkwvB7ZOam+NuPrYpDAHyoDG4Nd72Zn9ch1KAnZGX1zJb66buocFVnWmOyXIhSWseSG+doLoYMbXPg==",
+  "dgSpecHash": "Bb67y6mHmh/0dhEewA/sZomARl146oNADBaShC3KTsywje+lfbZsY6JpWcRwId2+CJBQaqysaSOGId3pG49lGg==",
   "success": true,
   "projectFilePath": "C:\\Users\\armaghan\\source\\repos\\blzZmq1\\blzZmq1\\blzZmq1.csproj",
   "expectedPackageFiles": [
@@ -53,6 +53,7 @@
     "C:\\Users\\armaghan\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
     "C:\\Users\\armaghan\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\armaghan\\.nuget\\packages\\nuget.frameworks\\4.7.0\\nuget.frameworks.4.7.0.nupkg.sha512",
+    "C:\\Users\\armaghan\\.nuget\\packages\\octokit\\0.47.0\\octokit.0.47.0.nupkg.sha512",
     "C:\\Users\\armaghan\\.nuget\\packages\\radzen.blazor\\2.8.1\\radzen.blazor.2.8.1.nupkg.sha512",
     "C:\\Users\\armaghan\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\armaghan\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",

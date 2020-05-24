@@ -7,9 +7,13 @@
 @* Injects *@
 @inject IFileUpload FileUpload
 @inject IMonicaZmqService MonicaZmqService
+@inject blzZmq1.Services.Github.IGithubService GithubService
 
 <h1>Upload data</h1>
 <h3>Select your files and upload to the server</h3>
+
+<input type="text" @bind="githubPath" />
+<button @onclick="GetRepoContnet">GetRepoContent</button>
 
 <div class="drag-drop-zone">
     <InputFile multiple OnChange="ViewFile" />
@@ -29,7 +33,10 @@
 }
 <hr />
 <button class="btn btn-primary" @onclick="HandleFiles">Send to server</button>
-
+@if (IsDataSent)
+{
+    <span>Data sent</span>
+}
 @if (!string.IsNullOrWhiteSpace(SendToServerStatus))
 {
     <div class="alert alert-success" role="alert">
@@ -45,6 +52,14 @@
     private List<UploadedFilesModel> _files = new List<UploadedFilesModel>();
     private bool IsDataSent = false;
     private string SendToServerStatus = string.Empty;
+
+    string githubPath;
+    void GetRepoContnet()
+    {
+        GithubService.SetRepoInfo("https://github.com/armaghan-work/armaghan-monica-params");
+        //bool result = GithubService.IsExistPathAsync(githubPath).Result;
+        GithubService.CreateFile();
+    }
 
     async Task ViewFile(IFileListEntry[] files)
     {

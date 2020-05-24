@@ -139,6 +139,10 @@
               "target": "Package",
               "version": "[12.0.3, )"
             },
+            "Octokit": {
+              "target": "Package",
+              "version": "[0.47.0, )"
+            },
             "Radzen.Blazor": {
               "target": "Package",
               "version": "[2.8.1, )"

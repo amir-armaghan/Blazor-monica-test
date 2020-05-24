@@ -6,7 +6,7 @@
   "linkerEnabled": false,
   "resources": {
     "assembly": {
-      "Web.dll": "sha256-SM8SQ+CS5XG2wYoiF4wgkx+7Br5VMbDvaOlMK1\/klVY=",
+      "Web.dll": "sha256-CPWSEBxKb8hVdP4l4ptS8QkTbHE+WAvi1ArceMDqDjo=",
       "Microsoft.Extensions.DependencyInjection.Abstractions.dll": "sha256-ycn\/UHLnjC77BNvsurP4mkuYP8oud1oVyfSSlZKMymc=",
       "netstandard.dll": "sha256-\/zcPVM75OAY+joGVM8yIC1gO1SFYWP1CFERgQ8PJkfA=",
       "System.Xml.Linq.dll": "sha256-BR4GanYToXqE2EYNe6tH3QoW+R2qebwaW25Pk3l2MfE=",
@@ -72,7 +72,7 @@
       "Newtonsoft.Json.dll": "sha256-mRd6TL4DYldo1ko9czkjEDcoiPdMPrJxz3dekwV6OOY="
     },
     "pdb": {
-      "Web.pdb": "sha256-QthTO3SA4CnsfeVlv1g+OsBva5yLrzEkMWZZguYycow=",
+      "Web.pdb": "sha256-6bU2dErCwrAGfNZiNHGdaJe0yWf0STNo2StE4+2yOKk=",
       "NetMQ.pdb": "sha256-Yvx\/QHpRFMCtTwnoq9FcQNDXZqbVzYML7vr9sd3VoW4=",
       "AsyncIO.pdb": "sha256-Q88sl459FfeJ2f8C3xWNisfMgU0fu24bZ+wE0VjJ8AE=",
       "System.Linq.Dynamic.Core.pdb": "sha256-TUdNbGDz+ogqJea4nbn9e5NAJa8g20Wv3as0sLQ8J+o="

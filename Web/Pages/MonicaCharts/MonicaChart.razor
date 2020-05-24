@@ -1,5 +1,4 @@
 ﻿@page "/monicaCharts/monicaChart"
-
 @* Usings *@
 @using Web.Services
 @using Web.Components
@@ -9,6 +8,7 @@
 
 @* Injects *@
 @inject IMonicaChartService MonicaChartService
+@inject AppData AppData
 
 
 <h3>Monica Results</h3>
@@ -50,41 +50,44 @@
                         </tbody>
                     </table>
                 </div>
+            }
+        }
 
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon3">Chart Group</span>
-                    </div>
-                    <select id="dataCategory" class="form-control" @onchange="ChangeDataCategory">
-                        <option selected="@(_selectedCategoryId == null)" class="form-control"></option>
-                        @foreach (var dataCategory in MonicaDataCategories)
-                        {
-                            <option value=@dataCategory.Key>@dataCategory.Value</option>
-                        }
-                    </select>
-                </div>
+        <button class="btn btn-primary" @onclick="GetMassage">Get Massage</button>
 
-                @if (_selectedCategoryId != null)
+        @if (MonicaDataCategories != null)
+        {
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon3">Chart Group</span>
+            </div>
+            <select id="dataCategory" class="form-control" @onchange="ChangeDataCategory">
+                <option selected="@(_selectedCategoryId == null)" class="form-control"></option>
+                @foreach (var dataCategory in MonicaDataCategories)
                 {
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon3">Chart's x Axis</span>
-                        </div>
-                        <select id="chartXAxis" class="form-control" @onchange="ChangeXAxis">
-                            <option selected="@(_selectedCategoryId == null)" class="form-control"></option>
-                            @foreach (var chartXAxis in ChartXAxises)
-                            {
-                                <option value="@chartXAxis.Id">@chartXAxis.SerieTitle</option>
-                            }
-                        </select>
-                    </div>
-
-                    @if (_selectedXAxisId != null)
-                    {
-                        <button class="btn btn-primary m-1" @onclick="DrawChart">Draw The Chart</button>
-                    }
+                    <option value=@dataCategory.Key>@dataCategory.Value</option>
                 }
+            </select>
+        </div>
+        }
+        @if (_selectedCategoryId != null)
+        {
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">Chart's x Axis</span>
+                </div>
+                <select id="chartXAxis" class="form-control" @onchange="ChangeXAxis">
+                    <option selected="@(_selectedCategoryId == null)" class="form-control"></option>
+                    @foreach (var chartXAxis in ChartXAxises)
+                    {
+                        <option value="@chartXAxis.Id">@chartXAxis.SerieTitle</option>
+                    }
+                </select>
+            </div>
 
+            @if (_selectedXAxisId != null)
+            {
+                <button class="btn btn-primary m-1" @onclick="DrawChart">Draw The Chart</button>
             }
         }
 
@@ -104,6 +107,7 @@
     private int? _selectedCategoryId = null;
     private Guid? _selectedXAxisId = null;
     private bool CanLoadChart = false;
+    private string answer;
 
     public List<MonicaBaseData> MonicaBaseDatas { get; set; } = null;
 
@@ -119,8 +123,8 @@
 
     protected override async Task OnInitializedAsync()
     {
-        dirs = await MonicaChartService.GetExportedFilesAsync();
-        dirsLenght = dirs.Length;
+        //dirs = await MonicaChartService.GetExportedFilesAsync();
+        //dirsLenght = dirs.Length;
         isLoading = false;
     }
 
@@ -129,6 +133,45 @@
         long length = new System.IO.FileInfo(System.IO.Path.GetFullPath(_selectedFile)).Length / 1024;
         return (length);
     }
+
+
+    async Task GetMassage() // call ZmqProducer calss
+    {
+
+
+        using (var consumer = new PullSocket())
+        //using (var producer = new RequestSocket())
+        {
+            //consumer.Connect("tcp://localhost:7777");
+            consumer.Connect(AppData.ServerPullAddress + ":" + AppData.ServerPullPort);
+            answer = consumer.ReceiveFrameString();
+            System.Threading.Thread.Sleep(2000);
+            consumer.Disconnect(AppData.ServerPullAddress + ":" + AppData.ServerPullPort);
+
+            //var gotanswer = true;
+
+            //// create path
+            //string filepath = "wwwroot/export/" + datetime.now.tostring("yyyymmdd_hhmmss");
+
+            ////write the answer into a file
+            //string jsonfile = (filepath + ".json");
+            //if (!file.exists(jsonfile))
+            //    file.writealltext(jsonfile, answer);
+
+            //// call runconsumer method(). get ths csv path, remove wwwroot and use the link in razor section
+            //csvlink = services.zmqconsumer.runconsumer(answer, filepath);
+            //csvlink = csvlink.substring(csvlink.indexof("/"));
+            //system.threading.thread.sleep(1000);
+            //navigationmanager.navigateto("/monicacharts/monicachart");
+
+        }
+
+        MonicaBaseDatas = await MonicaChartService.GetBaseDataAsync(answer);
+        MonicaDataCategories = MonicaBaseDatas.ToDictionary(s => s.Id, o => o.OrigSpec);
+
+
+    }
+
 
 
     private void UnloadChart()
