@@ -9,15 +9,13 @@ namespace blzZmq1.Services
 {
     public class MonicaParameters : IMonicaZmqService
     {
-        private readonly AppData _appData;
         private readonly string ServerPushAddress;
         private readonly int ServerPushPort;
 
-        public MonicaParameters(AppData appData)
+        public MonicaParameters()
         {
-            _appData = appData;
-            ServerPushAddress = _appData.ServerPushAddress;
-            ServerPushPort = _appData.ServerPushPort;
+            ServerPushAddress = AppData.ServerPushAddress;
+            ServerPushPort = AppData.ServerPushPort;
         }
 
         public Task Recieve()

@@ -1,12 +1,14 @@
-﻿using Octokit;
+﻿using Microsoft.AspNetCore.Components;
+using Octokit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace blzZmq1.Services.Github
 {
-    public class GithubService : IGithubService
+    public class GitHubParameters : IGithubService
     {
         private readonly string _githubHeader = "armaghan-work";
 
@@ -16,13 +18,41 @@ namespace blzZmq1.Services.Github
 
         public string RepoName { get; set; }
 
-        public GithubService()
+        //app settings
+        //public string GithubUserName { get; set; }
+        // public string GithubPassword { get; set; }
+        //[Inject]
+        //protected AppData AppData { get; set; }
+
+        public GitHubParameters()
         {
-            var basicAuth = new Credentials("armaghan-work", "zwr7J8MnU8w8dCEVBUeS"); // NOTE: not real credentials
+            // var basicAuth = new Credentials("user", "pass"); 
+            var basicAuth = new Credentials(AppData.GithubUserName, AppData.GithubPassword);
             _gitHubClient = new GitHubClient(new ProductHeaderValue(_githubHeader));
             _gitHubClient.Connection.Credentials = basicAuth;
         }
 
+        public bool Login()
+        {
+            var basicAuth = new Credentials(AppData.GithubUserName, AppData.GithubPassword);
+            var gitHubClient = new GitHubClient(new ProductHeaderValue(AppData.GithubUserName));
+            gitHubClient.Connection.Credentials = basicAuth;
+
+            try
+            {
+                var result = _gitHubClient.Organization.GetAllForUser(AppData.GithubUserName).Result;
+            }
+            catch (AggregateException ex)
+            {
+                if (ex.InnerException != null && ex.InnerException.GetType() == typeof(AuthorizationException))
+                {
+                    return false;
+                }
+                else
+                    throw ex;
+            }
+            return true;
+        }
 
         public void SetRepoInfo(string repoPath)
         {
@@ -34,7 +64,7 @@ namespace blzZmq1.Services.Github
         public void CreateFile()
         {
             var result = _gitHubClient.Repository.Content.CreateFile(RepoOwner, RepoName, "export.txt",
-                new CreateFileRequest("Added by server", "Salam aleykom")).Result;
+                new CreateFileRequest("Added by server", "Hello Github")).Result;
         }
 
         public async Task<bool> IsExistPathAsync(string path)

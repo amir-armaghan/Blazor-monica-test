@@ -1,4 +1,5 @@
-﻿ @page "/"
+﻿@page "/"
+@using blzZmq1.Services
 
 
 <h1>Blazor interface for Monica</h1>
@@ -8,14 +9,55 @@ Using ZeroMQ for Producer-Consumer
 
 <SurveyPrompt Title="-- " />
 <p>
-<h2>Road Map</h2>
-<ul>
-    <li>Consumer page must redirect to History page after getting the answer</li>
-    <li>Chart Loading problem for chart selection page</li>
-    <li>Chart Selection bugs must be fixed</li>
-    <li>Monica Parameters uploadable by user</li>
-    <li>Add Help</li>
-    <li>Capnp version of Blazor to send and recieve data</li>
-    <li>Optimise interface</li>
-</ul>
+    <h2>Road Map</h2>
+    <ul>
+        <li>Monica Parameters on Github</li>
+        <li>Github login</li>
+        <li>Monica results on Github</li>
+        <li>Chart Loading problem for chart selection page</li>
+        <li>Chart Selection bugs must be fixed</li>
+        <li>Add Help</li>
+        <li>Capnp version of Blazor to send and recieve data</li>
+        <li>Optimise interface</li>
+    </ul>
 </p>
+<hr />
+<div class="row m-3">
+    <div class="col-md-6">
+        <h3>Login into your GitHub</h3>
+        @if (!AppData.GithubLoggedIn)
+        {
+            <RadzenCard>
+                <RadzenLogin AllowRegister="false" AllowResetPassword="false" Login="@((args) => Login(args, "Github Authentication"))" Style="margin-bottom: 20px;" />
+            </RadzenCard>
+        }
+        else
+        {
+            <span class="bg-success p-2">Logged in Successfully</span>
+        }
+        @if (result == false && firstRun == false)
+        {
+            <span class="bg-danger p-2">Wrong UserName or Password</span>
+        }
+    </div>
+</div>
+
+@code {
+
+    Boolean result;
+    Boolean firstRun = true;
+
+    void Login(LoginArgs args, string name)
+    {
+
+        StateHasChanged();
+
+        AppData.GithubUserName = args.Username;
+        AppData.GithubPassword = args.Password;
+        blzZmq1.Services.Github.IGithubService g = new blzZmq1.Services.Github.GitHubParameters();
+        result = g.Login();
+        firstRun = false;
+        AppData.GithubLoggedIn = result;
+
+    }
+}

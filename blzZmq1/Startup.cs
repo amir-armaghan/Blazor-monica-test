@@ -28,7 +28,6 @@ namespace blzZmq1
             services.AddServerSideBlazor();
 
             services.AddScoped<IFileUpload, FileUpload>();
-            services.AddSingleton<Services.AppData>();  //for clientside App -  for serverside app use: services.AddScoped<Services.AppData>();
             services.AddSingleton<Services.ZmqProducer>();
             services.AddSingleton<Services.ZmqConsumer>();
             services.AddSingleton<Services.FileFolders.MonicaParametersFolder>();  //added to test file and folder
@@ -39,7 +38,7 @@ namespace blzZmq1
             services.AddTransient<IMonicaJsonMapper, MonicaJsonMapper>();
             services.AddTransient<IMonicaChartApp, MonicaChartApp>();
             services.AddTransient<IMonicaChartService, MonicaChartService>();
-            services.AddTransient<IGithubService, GithubService>();
+            services.AddTransient<IGithubService, GitHubParameters>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

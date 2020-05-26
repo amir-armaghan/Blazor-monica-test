@@ -30,7 +30,7 @@ namespace blzZmq1.Services
         private static int ORGAN_SUGAR = 5;
         private static int ORGAN_UNDEFINED_ORGAN_ = 6;
 
-        protected static readonly IGithubService _githubService = new GithubService();
+        protected static readonly IGithubService _githubService = new GitHubParameters();
 
         private static bool oid_is_organ(dynamic oid)
         {

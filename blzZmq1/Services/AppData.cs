@@ -6,15 +6,20 @@ using System.IO;
 
 namespace blzZmq1.Services
 {
-    public class AppData
+    public static class AppData
     {
 
         // creating variables which we can access in all components (The configuration data)
         // ZMQ pull and push addresses and ports
-        public string ServerPushAddress { get; set; } = "tcp://localhost";
-        public int ServerPushPort { get; set; } = 6666;
-        public string ServerPullAddress { get; set; } = "tcp://localhost";
-        public int ServerPullPort { get; set; } = 7777;
-        public bool ChartIsRun { get; set; } = false;
+        public static string ServerPushAddress { get; set; } = "tcp://localhost";
+        public static int ServerPushPort { get; set; } = 6666;
+        public static string ServerPullAddress { get; set; } = "tcp://localhost";
+        public static int ServerPullPort { get; set; } = 7777;
+        public static bool ChartIsRun { get; set; } = false;
+                      
+        public static string GithubUserName { get; set; } = "USER NAME";
+        public static string GithubPassword { get; set; } = "PASS WORD";
+        public static bool GithubLoggedIn { get; set; } = false;
+
     }
 }

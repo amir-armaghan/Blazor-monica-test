@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@using blzZmq1.Services
 
 <div class="sidebar">
     <NavMenu />
@@ -6,7 +7,14 @@
 
 <div class="main">
     <div class="top-row px-4">
-        <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+        @if (!AppData.GithubLoggedIn)
+        {
+            <a href="">Login</a>
+        }
+        else
+        {
+            <a href="">Logout</a> //needs to empty the credential information
+        }
     </div>
 
     <div class="content px-4">

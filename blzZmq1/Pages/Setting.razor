@@ -1,7 +1,6 @@
 ﻿@page "/setting"
 @using System.IO;
 @using System.Linq;
-@inject Services.AppData AppData
 @using blzZmq1.Services
 
 <h3>Setting</h3>
@@ -32,12 +31,29 @@
     </div>
     <input type="number" class="form-control" aria-describedby="basic-addon3" @bind="AppData.ServerPullPort">
 </div>
-
-
-
+<p> </p>
+<label for="basic-url">Your GitHub Authentication information</label>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon3">User Name:</span>
+    </div>
+    <input type="text" class="form-control" aria-describedby="basic-addon3" @bind="AppData.GithubUserName">
+</div>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon3">Password:</span>
+    </div>
+    <input type="password" class="form-control" aria-describedby="basic-addon3" @bind="AppData.GithubPassword">
+</div>
+<button @onclick="Login"></button>
+<p>Logged in: @result</p>
 @code {
-
-
+    Boolean result;
+    void Login()
+    {
+        blzZmq1.Services.Github.IGithubService g = new blzZmq1.Services.Github.GitHubParameters();
+        result = g.Login();
+    }
 
 
     // // it is supposed later makeing this code to read settings from an ini file. Not sure if it is a good idea
