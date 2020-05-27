@@ -20,6 +20,7 @@ namespace blzZmq1.Services
         public static string GithubUserName { get; set; } = "USER NAME";
         public static string GithubPassword { get; set; } = "PASS WORD";
         public static bool GithubLoggedIn { get; set; } = false;
+        public static string MonicaResultsPathOnGithub { get; set; }
 
     }
 }

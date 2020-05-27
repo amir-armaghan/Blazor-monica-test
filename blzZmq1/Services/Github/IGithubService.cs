@@ -10,6 +10,7 @@ namespace blzZmq1.Services.Github
         string RepoName { get; set; }
         string RepoOwner { get; set; }
         void CreateFile();
+        void CommitOnGit(string fileName, string jsonContent, string csvContent);
         Task<bool> IsExistPathAsync(string path);
         bool IsExistPath(string path);
         void SetRepoInfo(string repoPath);
@@ -20,7 +21,5 @@ namespace blzZmq1.Services.Github
         Task<string> GetDownloadPathAsync(string path);
         string GetDownloadPath(string path);
 
-        //string GithubUserName { get; set; }
-        //string GithubPassword { get; set; }
     }
 }

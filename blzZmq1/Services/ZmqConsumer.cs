@@ -31,7 +31,7 @@ namespace blzZmq1.Services
 
         public static int env_count = 0;
         [STAThread]
-        public static string RunConsumer(string msg, string csvPath)
+        public static (string, string) RunConsumer(string msg, string csvPath)
         {
             System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
             JObject msgObj = JObject.Parse(msg);
@@ -53,12 +53,18 @@ namespace blzZmq1.Services
                 var varval = "";
                 //string csvFile = Path.Combine(config["out"].ToString(), env_count.ToString() + ".csv");
                 //string csvFile = ("wwwroot/export/1.csv");   // static address for export for test perpose at first run
-                string csvFile = (csvPath + ".csv");
-                if (File.Exists(csvFile))
-                    varval = File.ReadAllText(csvFile);
-                StreamWriter strWrite = new StreamWriter(csvFile);
-                strWrite.Write(varval);
-                strWrite.WriteLine();
+                string csvFilePath = (csvPath + ".csv");
+                if (File.Exists(csvFilePath))
+                    varval = File.ReadAllText(csvFilePath);
+                //StreamWriter strWrite = new StreamWriter(csvFile);
+                StringBuilder strBuild = new StringBuilder("");
+
+                strBuild.AppendLine("");
+                //strBuild.AppendLine();
+               // strBuild.Append("\n");
+
+                //strWrite.Write(varval);
+                //strWrite.WriteLine();
 
                 JArray ddd = new JArray();
                 if (msgObj.ContainsKey("data"))
@@ -77,7 +83,7 @@ namespace blzZmq1.Services
 
                     if (results.Count > 0)
                     {
-                        strWrite.WriteLine(orig_spec.Replace("\"", ""));
+                        strBuild.AppendLine(orig_spec.Replace("\"", ""));
                         foreach (JArray row in MonicaIO.write_output_header_rows(output_ids, true, true, false))
                         {
                             string cline = "";
@@ -87,7 +93,7 @@ namespace blzZmq1.Services
                                 if (i < (row.Count - 1))
                                     cline += ",";
                             }
-                            strWrite.WriteLine(cline);
+                            strBuild.AppendLine(cline);
                         }
                         foreach (JArray row in MonicaIO.write_output(output_ids, results))
                         {
@@ -98,18 +104,20 @@ namespace blzZmq1.Services
                                 if (i < (row.Count - 1))
                                     cline += ",";
                             }
-                            strWrite.WriteLine(cline);
+                            strBuild.AppendLine(cline);
                         }
                     }
-                    strWrite.WriteLine();
+                    //strBuild.AppendLine();
+                    strBuild.AppendLine();
                 }
                
                 leave = true;
-               
-                strWrite.Close();
-                return csvFile;  // this method execute and produce csv file and just returns the csv path
+                
+                
+                //strWrite.Close();
+                return (csvFilePath, strBuild.ToString());  // this method execute and produce csv file and just returns the csv path
             }
-            return "Error";
+            return ("Path Error", "Content Error");
         }
     
     }

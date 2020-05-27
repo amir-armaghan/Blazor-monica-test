@@ -66,6 +66,17 @@ namespace blzZmq1.Services.Github
             var result = _gitHubClient.Repository.Content.CreateFile(RepoOwner, RepoName, "export.txt",
                 new CreateFileRequest("Added by server", "Hello Github")).Result;
         }
+        // try to export the CSV result on the user's repository
+        public void CommitOnGit(string FileName, string JsonContent, string CsvContent)
+        {
+            RepoOwner = AppData.GithubUserName;
+            RepoName = AppData.MonicaResultsPathOnGithub;
+
+            var resultJson = _gitHubClient.Repository.Content.CreateFile(RepoOwner, RepoName, FileName + ".json",
+                new CreateFileRequest("Json added by Blazor", JsonContent)).Result;
+            var resultCsv = _gitHubClient.Repository.Content.CreateFile(RepoOwner, RepoName, FileName + ".csv",
+               new CreateFileRequest("CSV added by Blazor", CsvContent)).Result;
+        }
 
         public async Task<bool> IsExistPathAsync(string path)
         {

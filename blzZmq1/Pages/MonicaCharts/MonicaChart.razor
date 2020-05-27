@@ -39,6 +39,7 @@
                                 <th>Result Name</th>
                                 <th>Created Time</th>
                                 <th>Result Size (KB)</th>
+                                <th>Download CSV file</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,6 +47,7 @@
                                 <td>@System.IO.Path.GetFileNameWithoutExtension(_selectedFile)</td>
                                 <td>@System.IO.File.GetCreationTime(System.IO.Path.GetFullPath(_selectedFile))</td>
                                 <td>@GetTheLength()</td>
+                                <td>CSV Link of file</td>
                             </tr>
                         </tbody>
                     </table>
