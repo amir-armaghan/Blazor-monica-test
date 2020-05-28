@@ -60,11 +60,6 @@ namespace blzZmq1.Services
                 StringBuilder strBuild = new StringBuilder("");
 
                 strBuild.AppendLine("");
-                //strBuild.AppendLine();
-               // strBuild.Append("\n");
-
-                //strWrite.Write(varval);
-                //strWrite.WriteLine();
 
                 JArray ddd = new JArray();
                 if (msgObj.ContainsKey("data"))
@@ -107,7 +102,7 @@ namespace blzZmq1.Services
                             strBuild.AppendLine(cline);
                         }
                     }
-                    //strBuild.AppendLine();
+
                     strBuild.AppendLine();
                 }
                
@@ -115,7 +110,7 @@ namespace blzZmq1.Services
                 
                 
                 //strWrite.Close();
-                return (csvFilePath, strBuild.ToString());  // this method execute and produce csv file and just returns the csv path
+                return (csvFilePath, strBuild.ToString());  // this method produce csv file and returns the csv path and csv string
             }
             return ("Path Error", "Content Error");
         }

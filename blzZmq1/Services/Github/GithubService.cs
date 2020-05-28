@@ -51,6 +51,7 @@ namespace blzZmq1.Services.Github
                 else
                     throw ex;
             }
+            AppData.GithubLoggedIn = true;
             return true;
         }
 
@@ -85,8 +86,25 @@ namespace blzZmq1.Services.Github
 
         public bool IsExistPath(string path)
         {
-            var result = _gitHubClient.Repository.Content.GetAllContents(RepoOwner, RepoName, path).Result;
-            return result != null;
+            if (AppData.GithubLoggedIn == true)
+            {
+                RepoOwner = AppData.GithubUserName;
+                RepoName = AppData.MonicaResultsPathOnGithub;
+                try
+                {
+                    var result = _gitHubClient.Repository.Content.GetAllContents(RepoOwner, RepoName).Result;
+                    return result != null;
+                }
+                catch
+                {
+                    return false;
+                }         
+            }
+            else
+            {
+                return false; // reconstruct later
+            }
+            
         }
 
         public async Task<IEnumerable<RepositoryContent>> GetContentsAsync(string path)

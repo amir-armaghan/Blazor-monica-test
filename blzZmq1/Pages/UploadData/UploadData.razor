@@ -53,13 +53,13 @@
     private bool IsDataSent = false;
     private string SendToServerStatus = string.Empty;
 
-    string githubPath;
-    void GetRepoContnet()
-    {
-        GithubService.SetRepoInfo("https://github.com/armaghan-work/armaghan-monica-params");
-        //bool result = GithubService.IsExistPathAsync(githubPath).Result;
-        GithubService.CreateFile();
-    }
+    //string githubPath;
+    // void GetRepoContnet()
+    //{
+       // GithubService.SetRepoInfo("https://github.com/armaghan-work/armaghan-monica-params");
+       // //bool result = GithubService.IsExistPathAsync(githubPath).Result;
+       // GithubService.CreateFile();
+    //}
 
     async Task ViewFile(IFileListEntry[] files)
     {

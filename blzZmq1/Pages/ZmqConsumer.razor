@@ -60,8 +60,7 @@ else
                 File.WriteAllText(jsonFile, answer);
 
 
-
-            // call runConsumer Method(). get ths csv path, remove wwwroot and use the link in razor section
+            // call runConsumer Method(). get ths csv path and csv string, remove wwwroot from path and use the link in razor section
             var csvMethod = Services.ZmqConsumer.RunConsumer(answer, filePath);
 
             string csvLinkLong = csvMethod.Item1;

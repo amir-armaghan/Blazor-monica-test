@@ -524,3 +524,4 @@ C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\Razor\Sha
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\obj\Debug\netcoreapp3.1\Razor\_Imports.razor.g.cs
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\bin\Debug\netcoreapp3.1\Data\sim-local.json
 C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\bin\Debug\netcoreapp3.1\Upload\sim-local.json
+C:\Users\armaghan\source\repos\blzZmq1\blzZmq1\bin\Debug\netcoreapp3.1\libman.json
