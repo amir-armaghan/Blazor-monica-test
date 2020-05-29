@@ -17,8 +17,8 @@ namespace blzZmq1.Services
         public static int ServerPullPort { get; set; } = 7777;
         public static bool ChartIsRun { get; set; } = false;
                       
-        public static string GithubUserName { get; set; } = "USER NAME";
-        public static string GithubPassword { get; set; } = "PASS WORD";
+        public static string GithubUserName { get; set; } = "Please Login";
+        public static string GithubPassword { get; set; } = "PASSWORD";
         public static bool GithubLoggedIn { get; set; } = false;
         public static string MonicaResultsPathOnGithub { get; set; } = "";
         public static bool MonicaPathOnGitIsValid { get; set; } = false;

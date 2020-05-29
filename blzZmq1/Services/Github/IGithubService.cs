@@ -7,6 +7,7 @@ namespace blzZmq1.Services.Github
     public interface IGithubService
     {
         bool Login();
+        bool Logout();
         string RepoName { get; set; }
         string RepoOwner { get; set; }
         void CreateFile();

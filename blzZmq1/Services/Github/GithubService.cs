@@ -37,6 +37,7 @@ namespace blzZmq1.Services.Github
             var basicAuth = new Credentials(AppData.GithubUserName, AppData.GithubPassword);
             var gitHubClient = new GitHubClient(new ProductHeaderValue(AppData.GithubUserName));
             gitHubClient.Connection.Credentials = basicAuth;
+            
 
             try
             {
@@ -53,6 +54,22 @@ namespace blzZmq1.Services.Github
             }
             AppData.GithubLoggedIn = true;
             return true;
+        }
+
+        public bool Logout()
+        {
+            if (AppData.GithubLoggedIn == true)
+            {
+                // delete credential
+                AppData.GithubUserName = "Please Login";
+                AppData.GithubPassword = "PASSWORD";
+                AppData.GithubLoggedIn = false;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void SetRepoInfo(string repoPath)

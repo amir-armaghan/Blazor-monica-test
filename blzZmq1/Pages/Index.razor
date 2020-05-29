@@ -33,7 +33,10 @@ Using ZeroMQ for Producer-Consumer
         }
         else
         {
-            <span class="bg-success p-2">Logged in Successfully</span>
+            <span class="bg-success p-2 m-2 rounded">Logged in Successfully</span>
+            <p class="m-2 p-2">
+                <button class="btn btn-danger btn-sm" type="button" @onclick="(() => Logout())">Logout</button>
+            </p>
         }
         @if (result == false && firstRun == false)
         {
@@ -58,6 +61,14 @@ Using ZeroMQ for Producer-Consumer
         result = g.Login();
         firstRun = false;
         AppData.GithubLoggedIn = result;
+
+    }
+
+    void Logout()
+    {
+        StateHasChanged();
+        blzZmq1.Services.Github.IGithubService g = new blzZmq1.Services.Github.GitHubParameters();
+        result = g.Logout();
 
     }
 }
