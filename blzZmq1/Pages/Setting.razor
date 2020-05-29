@@ -33,7 +33,7 @@
     <input type="number" class="form-control" aria-describedby="basic-addon3" @bind="AppData.ServerPullPort">
 </div>
 <p> </p>
-<label for="basic-url">Your GitHub Authentication information</label>
+<label for="basic-url">Your gitHub authentication information</label>
 <div class="input-group mb-3">
     <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon3">User Name:</span>
@@ -48,15 +48,21 @@
 </div>
 <div class="input-group mb-3">
     <div class="input-group-prepend">
-        <span class="input-group-text" id="basic-addon3">Monica-Parameters path on Github:</span>
+        <span class="input-group-text" id="basic-addon3">Monica-Parameters path on github:</span>
     </div>
-    @if (AppData.MonicaPathOnGitIsValid == false || AppData.MonicaResultsPathOnGithub == "")
+    @if (AppData.MonicaPathOnGitIsValid == false || AppData.MonicaResultsPathOnGithub == "") //show proper icon when is Not valid
     {
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon3">&#9888;</span>
+        <div class="input-group-prepend tooltip2">
+            <span class="input-group-text tooltip2" id="basic-addon3">&#9888;</span>
+            <span class="tooltiptext">
+                <strong>Only After logging-in:</strong> <br />
+                Please enter your github repository Address which contains "monica parameters" in its root <br />
+                Do not add Slash (/) at the begining or at the end of this address. <br />
+                After entering the path, click on "Validate the path" button.
+            </span>
         </div>
     }
-    else
+    else // when path is valid
     {
         <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon3">&#10004;</span>
@@ -72,7 +78,7 @@
 {
     <RadzenRadioButtonList @bind-Value="AppData.saveResultInGit" TValue="Boolean" Orientation="Orientation.Vertical" Change="@((args) => Change(args))">
         <Items>
-            <RadzenRadioButtonListItem Text="Save in my Github (Good to have a history of my results)" Value=true />
+            <RadzenRadioButtonListItem Text="Save in my github (Good to have a history of my results)" Value=true />
             <RadzenRadioButtonListItem Text="Just show me the download link (I will manage how to keep it myself)" Value=false />
         </Items>
     </RadzenRadioButtonList>
@@ -82,7 +88,7 @@ else
     AppData.saveResultInGit = false;
     <RadzenRadioButtonList @bind-Value="AppData.saveResultInGit" TValue="Boolean" Orientation="Orientation.Vertical" Change="@((args) => Change(args))">
         <Items>
-            <span Style="color:#A0A0A0;">&#128280;  Save in my Github (Good to have a history of my results)</span>
+            <span Style="color:#A0A0A0;">&#128280;  Save in my github (Good to have a history of my results)</span>
             <span style="color:#ff8080;">&nbsp; Enter and validate your github path above, to Enable this option</span>
             <RadzenRadioButtonListItem Text="Just show me the download link (I will manage how to keep it myself)" Value=false />
         </Items>

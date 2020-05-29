@@ -142,6 +142,55 @@ app {
 div.ui-tree{
     height: auto !important;
 }
+div.tooltip-plus .rz-chart-tooltip{
+    left: auto !important;
+    top: auto !important;
+}
+
+/* Tooltip container */
+.tooltip2 {
+    position: relative;
+    font-size: 0.9em;
+}
+
+/* Tooltip text */
+    .tooltip2 .tooltiptext {
+        visibility: hidden;
+        width: 450px;
+        background-color: #555;
+        color: #fff;
+        padding: 10px;
+        border-radius: 6px;
+        /* Position the tooltip text */
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: -60px;
+        /* Fade in tooltip */
+        opacity: 1 !important;
+        transition: opacity 0.3s;
+    }
+
+    /* Tooltip arrow */
+    .tooltip2 .tooltiptext::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #555 transparent transparent transparent;
+    }
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip2:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+
 /*  ------new css ends----------*/
 @media (max-width: 767.98px) {
     .main .top-row:not(.auth) {
