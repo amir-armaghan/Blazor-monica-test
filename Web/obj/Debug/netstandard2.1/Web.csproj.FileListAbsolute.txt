@@ -483,6 +483,7 @@ C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\Web.Assembly
 C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\Web.RazorTargetAssemblyInfo.cache
 C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\Web.csproj.CopyComplete
 C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\blazor\unlinked.output
+C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\integrity\8vNwM7-ORwdkCFXjnWPNPL6CpwAPjO9P5Np7gYqYfKw=.hash
 C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\integrity\ycn-UHLnjC77BNvsurP4mkuYP8oud1oVyfSSlZKMymc=.hash
 C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\integrity\-zcPVM75OAY_joGVM8yIC1gO1SFYWP1CFERgQ8PJkfA=.hash
 C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\integrity\BR4GanYToXqE2EYNe6tH3QoW_R2qebwaW25Pk3l2MfE=.hash
@@ -546,6 +547,7 @@ C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\integrity\zN
 C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\integrity\oAIlpv09S-0jXnze744E1V88Oaw8Ql1x3Alw0hsVYdw=.hash
 C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\integrity\u5WlE_3_OPkr0mlHMJ6pS5OWVuHC3rk2HWyyA3R_xVY=.hash
 C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\integrity\mRd6TL4DYldo1ko9czkjEDcoiPdMPrJxz3dekwV6OOY=.hash
+C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\integrity\IJ70RJ7w4qhVkO0NwMStMYfD4c88-L0zAz3nsf4ZhF0=.hash
 C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\integrity\Yvx-QHpRFMCtTwnoq9FcQNDXZqbVzYML7vr9sd3VoW4=.hash
 C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\integrity\Q88sl459FfeJ2f8C3xWNisfMgU0fu24bZ_wE0VjJ8AE=.hash
 C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\integrity\TUdNbGDz_ogqJea4nbn9e5NAJa8g20Wv3as0sLQ8J_o=.hash
@@ -554,6 +556,7 @@ C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\integrity\3S
 C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\integrity\aFsebAaVKCmJl2K5EZooCF0zL34DsPr_kGZLo6WC_2c=.hash
 C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\integrity\SWtTaJ9XhCu62X17HfpwA9cLqrTGBo3YshChG82f6Xg=.hash
 C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\blazor\blazor.boot.json
+C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\integrity\SWOwLWNrCIvRXrIRZ6tdGqaoLKw4z9-U1xUb4nK4vFM=.hash
 C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\compressed\_framework\_bin\Web.dll.gz
 C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\compressed\_framework\_bin\Microsoft.Extensions.DependencyInjection.Abstractions.dll.gz
 C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\compressed\_framework\_bin\netstandard.dll.gz
@@ -704,6 +707,3 @@ C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\staticwebass
 C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\staticwebassets\Web.StaticWebAssets.xml
 C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\Web.dll
 C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\Web.pdb
-C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\integrity\8vNwM7-ORwdkCFXjnWPNPL6CpwAPjO9P5Np7gYqYfKw=.hash
-C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\integrity\IJ70RJ7w4qhVkO0NwMStMYfD4c88-L0zAz3nsf4ZhF0=.hash
-C:\Users\armaghan\source\repos\blzZmq1\Web\obj\Debug\netstandard2.1\integrity\SWOwLWNrCIvRXrIRZ6tdGqaoLKw4z9-U1xUb4nK4vFM=.hash

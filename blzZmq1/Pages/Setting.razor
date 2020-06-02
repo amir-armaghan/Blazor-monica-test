@@ -2,7 +2,10 @@
 @using System.IO;
 @using System.Linq;
 @using blzZmq1.Services
+
 @inject blzZmq1.Services.Github.IGithubService GithubService
+@inject IUserSettingsService UserSettingsService
+@inject IJSRuntime JSRuntime 
 
 <h3>Setting</h3>
 
@@ -11,26 +14,26 @@
     <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon3">Server Push Address:</span>
     </div>
-    <input type="text" class="form-control" aria-describedby="basic-addon3" @bind="AppData.ServerPushAddress">
+    <input type="text" class="form-control" aria-describedby="basic-addon3" value="@UserSettingsService.ServerPushAddress" @onchange="@(e => UpdateSetting(e, "ServerPushAddress"))">
 </div>
 <div class="input-group mb-3">
     <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon3">Server Push Port:</span>
     </div>
-    <input type="number" class="form-control" aria-describedby="basic-addon3" @bind="AppData.ServerPushPort">
+    <input class="form-control" aria-describedby="basic-addon3" value="@UserSettingsService.ServerPushPort" @onchange="@(e => UpdateSetting(e, "ServerPushPort"))">
 </div>
-
+@UserSettingsService.ServerPushPort
 <div class="input-group mb-3">
     <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon3">Server Pull Address:</span>
     </div>
-    <input type="text" class="form-control" aria-describedby="basic-addon3" @bind="AppData.ServerPullAddress">
+    <input type="text" class="form-control" aria-describedby="basic-addon3" value="@UserSettingsService.ServerPullAddress" @onchange="@(e => UpdateSetting(e, "ServerPullAddress"))">
 </div>
 <div class="input-group mb-3">
     <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon3">Server Pull Port:</span>
     </div>
-    <input type="number" class="form-control" aria-describedby="basic-addon3" @bind="AppData.ServerPullPort">
+    <input type="number" class="form-control" aria-describedby="basic-addon3" @bind="UserSettingsService.ServerPullPort">
 </div>
 <p> </p>
 <label for="basic-url">Your gitHub authentication information</label>
@@ -38,19 +41,19 @@
     <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon3">User Name:</span>
     </div>
-    <input disabled type="text" class="form-control" aria-describedby="basic-addon3" @bind="AppData.GithubUserName">
+    <input disabled type="text" class="form-control" aria-describedby="basic-addon3" @bind="UserSettingsService.GithubUserName">
 </div>
 <div class="input-group mb-3">
     <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon3">Password:</span>
     </div>
-    <input disabled type="password" class="form-control" aria-describedby="basic-addon3" @bind="AppData.GithubPassword">
+    <input disabled type="password" class="form-control" aria-describedby="basic-addon3" @bind="UserSettingsService.GithubPassword">
 </div>
 <div class="input-group mb-3">
     <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon3">Monica-Parameters path on github:</span>
     </div>
-    @if (AppData.MonicaPathOnGitIsValid == false || AppData.MonicaResultsPathOnGithub == "") //show proper icon when is Not valid
+    @if (UserSettingsService.MonicaPathOnGitIsValid == false || UserSettingsService.MonicaResultsPathOnGithub == "") //show proper icon when is Not valid
     {
         <div class="input-group-prepend tooltip2">
             <span class="input-group-text tooltip2" id="basic-addon3">&#9888;</span>
@@ -68,15 +71,15 @@
             <span class="input-group-text" id="basic-addon3">&#10004;</span>
         </div>
     }
-    <input type="text" class="form-control" aria-describedby="basic-addon3" @bind="AppData.MonicaResultsPathOnGithub" @oninput="@PathChangedAsync">
+    <input type="text" class="form-control" aria-describedby="basic-addon3" @bind="UserSettingsService.MonicaResultsPathOnGithub" @oninput="@PathChangedAsync">
     <div class="input-group-prepend">
         <button class="btn btn-info btn-sm rounded-right" type="button" @onclick="GithubPathValidation">Validate the path</button>
     </div>
 </div>
 <h3>What to do whith results</h3>
-@if (AppData.MonicaPathOnGitIsValid == true)
+@*@if (UserSettingsService.MonicaPathOnGitIsValid == true)
 {
-    <RadzenRadioButtonList @bind-Value="AppData.saveResultInGit" TValue="Boolean" Orientation="Orientation.Vertical" Change="@((args) => Change(args))">
+    <RadzenRadioButtonList @bind-Value="UserSettingsService.SaveResultInGit" TValue="Boolean" Orientation="Orientation.Vertical" Change="@((args) => Change(args))">
         <Items>
             <RadzenRadioButtonListItem Text="Save in my github (Good to have a history of my results)" Value=true />
             <RadzenRadioButtonListItem Text="Just show me the download link (I will manage how to keep it myself)" Value=false />
@@ -85,8 +88,8 @@
 }
 else
 {
-    AppData.saveResultInGit = false;
-    <RadzenRadioButtonList @bind-Value="AppData.saveResultInGit" TValue="Boolean" Orientation="Orientation.Vertical" Change="@((args) => Change(args))">
+    UserSettingsService.SaveResultInGit = false;
+    <RadzenRadioButtonList @bind-Value="UserSettingsService.SaveResultInGit" TValue="Boolean" Orientation="Orientation.Vertical" Change="@((args) => Change(args))">
         <Items>
             <span Style="color:#A0A0A0;">&#128280;  Save in my github (Good to have a history of my results)</span>
             <span style="color:#ff8080;">&nbsp; Enter and validate your github path above, to Enable this option</span>
@@ -94,7 +97,7 @@ else
         </Items>
     </RadzenRadioButtonList>
 
-}
+}*@
 <!-- <button @onclick="Login"></button>
 <p>Logged in: @result</p>-->
 @code {
@@ -108,17 +111,19 @@ else
 
     void GithubPathValidation()
     {
-        if (AppData.MonicaResultsPathOnGithub != "")
-            AppData.MonicaPathOnGitIsValid = GithubService.IsExistPath(AppData.MonicaResultsPathOnGithub);
+        if (UserSettingsService.MonicaResultsPathOnGithub != "")
+            UserSettingsService.MonicaPathOnGitIsValid = GithubService.IsExistPath(UserSettingsService.MonicaResultsPathOnGithub);
     }
 
     private void PathChangedAsync(ChangeEventArgs args)
     {
-        AppData.MonicaPathOnGitIsValid = false;
+        UserSettingsService.MonicaPathOnGitIsValid = false;
     }
 
-
-
+    async Task UpdateSetting(ChangeEventArgs e, string propertyName)
+    {
+        await JSRuntime.InvokeAsync<string>("UserCookies.WriteCookie", propertyName, e.Value, null);
+    }
 
 
 

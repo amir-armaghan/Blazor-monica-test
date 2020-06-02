@@ -1,11 +1,12 @@
-﻿@page "/zmqconsumer"
+﻿@page "/GetServerResult"
 @using blzZmq1.Services
 @using NetMQ
 @using System.IO
 
-@inject Services.ZmqConsumer RunConsumer
 @inject NavigationManager NavigationManager
 @inject blzZmq1.Services.Github.IGithubService GithubService
+@inject IUserSettingsService UserSettingsService
+@inject ZmqConsumer ZmqConsumer
 
 <h3>Recive ENV via ZMQ</h3>
 
@@ -42,16 +43,16 @@ else
         //using (var producer = new RequestSocket())
         {
             //consumer.Connect("tcp://localhost:7777");
-            consumer.Connect(AppData.ServerPullAddress + ":" + AppData.ServerPullPort);
+            consumer.Connect(UserSettingsService.ServerPullAddress + ":" + UserSettingsService.ServerPullPort);
             answer = consumer.ReceiveFrameString();
 
             System.Threading.Thread.Sleep(2000);
             gotAnswer = true;
-            consumer.Disconnect(AppData.ServerPullAddress + ":" + AppData.ServerPullPort);
+            consumer.Disconnect(UserSettingsService.ServerPullAddress + ":" + UserSettingsService.ServerPullPort);
 
             // create path
             string fileName = DateTime.Now.ToString("yyyyMMdd_hhmmss");
-            string filePath = "wwwroot/export/" + fileName ;
+            string filePath = "wwwroot/export/" + fileName;
 
             //write the answer into a file
             string jsonFile = (filePath + ".json");
@@ -61,10 +62,9 @@ else
 
 
             // call runConsumer Method(). get ths csv path and csv string, remove wwwroot from path and use the link in razor section
-            var csvMethod = Services.ZmqConsumer.RunConsumer(answer, filePath);
 
-            string csvLinkLong = csvMethod.Item1;
-            string csvContent = csvMethod.Item2;
+            string csvLinkLong;
+            string csvContent = ZmqConsumer.RunConsumer(answer, filePath, out csvLinkLong);
 
             //write csv in Folder
             if (!File.Exists(csvLink))

@@ -13,34 +13,39 @@ namespace blzZmq1.Services
 {
     public class MonicaIO
     {
-        private static int OP_AVG = 0;
-        private static int OP_MEDIAN = 1;
-        private static int OP_SUM = 2;
-        private static int OP_MIN = 3;
-        private static int OP_MAX = 4;
-        private static int OP_FIRST = 5;
-        private static int OP_LAST = 6;
-        private static int OP_NONE = 7;
-        private static int OP_UNDEFINED_OP_ = 8;
-        private static int ORGAN_ROOT = 0;
-        private static int ORGAN_LEAF = 1;
-        private static int ORGAN_SHOOT = 2;
-        private static int ORGAN_FRUIT = 3;
-        private static int ORGAN_STRUCT = 4;
-        private static int ORGAN_SUGAR = 5;
-        private static int ORGAN_UNDEFINED_ORGAN_ = 6;
+        private int OP_AVG = 0;
+        private int OP_MEDIAN = 1;
+        private int OP_SUM = 2;
+        private int OP_MIN = 3;
+        private int OP_MAX = 4;
+        private int OP_FIRST = 5;
+        private int OP_LAST = 6;
+        private int OP_NONE = 7;
+        private int OP_UNDEFINED_OP_ = 8;
+        private int ORGAN_ROOT = 0;
+        private int ORGAN_LEAF = 1;
+        private int ORGAN_SHOOT = 2;
+        private int ORGAN_FRUIT = 3;
+        private int ORGAN_STRUCT = 4;
+        private int ORGAN_SUGAR = 5;
+        private int ORGAN_UNDEFINED_ORGAN_ = 6;
 
-        protected static readonly IGithubService _githubService = new GitHubParameters();
+        protected readonly IGithubService _githubService;
 
-        private static bool oid_is_organ(dynamic oid)
+        public MonicaIO(IGithubService githubService)
+        {
+            _githubService = githubService;
+        }
+
+        private bool oid_is_organ(dynamic oid)
         {
             return Convert.ToInt32(oid["organ"]) != ORGAN_UNDEFINED_ORGAN_;
         }
-        private static bool oid_is_range(dynamic oid)
+        private bool oid_is_range(dynamic oid)
         {
             return (Convert.ToInt32(oid["fromLayer"]) >= 0 && Convert.ToInt32(oid["toLayer"]) >= 0);
         }
-        private static string op_to_string(int op)
+        private string op_to_string(int op)
         {
             if (op == OP_AVG) return "AVG";
             if (op == OP_MEDIAN) return "MEDIAN";
@@ -53,7 +58,7 @@ namespace blzZmq1.Services
 
             return "undef";
         }
-        private static string organ_to_string(int organ)
+        private string organ_to_string(int organ)
         {
             if (organ == ORGAN_ROOT) return "Root";
             if (organ == ORGAN_LEAF) return "Leaf";
@@ -64,7 +69,7 @@ namespace blzZmq1.Services
 
             return "undef";
         }
-        private static string oid_to_string(dynamic oid, bool include_time_agg)
+        private string oid_to_string(dynamic oid, bool include_time_agg)
         {
             StringBuilder oss = new StringBuilder();
             oss.Append("[");
@@ -94,7 +99,7 @@ namespace blzZmq1.Services
 
             return oss.ToString();
         }
-        public static JArray write_output_header_rows(JArray output_ids,
+        public JArray write_output_header_rows(JArray output_ids,
             bool include_header_row = true,
             bool include_units_row = true,
             bool include_time_agg = false)
@@ -172,7 +177,7 @@ namespace blzZmq1.Services
             }
             return res;
         }
-        public static JArray write_output(JArray output_ids, JArray values)
+        public JArray write_output(JArray output_ids, JArray values)
         {
             var res = new JArray();
             if (values.Count > 0)
@@ -202,15 +207,15 @@ namespace blzZmq1.Services
             }
             return res;
         }
-        private static bool is_absolute_path(string p)
+        private  bool is_absolute_path(string p)
         {
             return p.StartsWith("/") || p.Length == 2 && p[1] == ':' || p.Length > 2 && p[1] == ':' && (p[2] == '\\' || p[2] == '/');
         }
-        private static bool is_github_path(string p)
+        private  bool is_github_path(string p)
         {
             return p.StartsWith("https://github.com") || p.StartsWith("http://github.com") || p.StartsWith("https://raw.githubusercontent.com");
         }
-        private static string fix_system_separator(string path)
+        private  string fix_system_separator(string path)
         {
             path = path.Replace("\\", "/");
             var new_path = path;
@@ -225,7 +230,7 @@ namespace blzZmq1.Services
             }
             return new_path;
         }
-        private static string replace_env_vars(string path)
+        private  string replace_env_vars(string path)
         {
             var start_token = "${";
             var end_token = "}";
@@ -255,11 +260,11 @@ namespace blzZmq1.Services
             }
             return path;
         }
-        private static string default_value(JObject dic, string key, string @default)
+        private  string default_value(JObject dic, string key, string @default)
         {
             return dic.ContainsKey(key) ? dic[key].ToString() : @default;
         }
-        private static JObject read_and_parse_json_file(string path, bool isGithubPath = false)
+        private  JObject read_and_parse_json_file(string path, bool isGithubPath = false)
         {
             var res = new JObject();
             try
@@ -293,7 +298,7 @@ namespace blzZmq1.Services
             }
             return res;
         }
-        private static object parse_json_string(string jsonString)
+        private  object parse_json_string(string jsonString)
         {
             var res = new JObject();
             res.Add("result", JObject.Parse(jsonString));
@@ -301,13 +306,13 @@ namespace blzZmq1.Services
             res.Add("success", true);
             return res;
         }
-        private static bool is_string_type(JValue j)
+        private  bool is_string_type(JValue j)
         {
             if (j == null)
                 return false;
             return j.Type == JTokenType.String;
         }
-        private static JObject find_and_replace_references(JToken root, JToken j)
+        private  JObject find_and_replace_references(JToken root, JToken j)
         {
             JObject res;
             var success = true;
@@ -318,7 +323,7 @@ namespace blzZmq1.Services
                 var array_is_reference_function = false;
                 if (is_string_type(j[0] as JValue))
                 {
-                    if (SupportedPatterns.Contains(j[0].ToString()))
+                    if (Contains(j[0].ToString()))
                     {
                         string function = j[0].ToString();
                         array_is_reference_function = true;
@@ -339,7 +344,7 @@ namespace blzZmq1.Services
                             funcArr.Add(res["result"]);
                         }
                         //invoke function
-                        var jaes = SupportedPatterns.GetValue(function, root, funcArr);
+                        var jaes = GetValue(function, root, funcArr);
                         success = success && Convert.ToBoolean(jaes["success"]);
                         if (!Convert.ToBoolean(jaes["success"]))
                         {
@@ -428,7 +433,7 @@ namespace blzZmq1.Services
             ccc3.Add("success", errors.Count == 0);
             return ccc3;
         }
-        private static bool print_possible_errors(JObject errs, bool include_warnings = false)
+        private  bool print_possible_errors(JObject errs, bool include_warnings = false)
         {
             if (!(bool)errs["success"])
             {
@@ -446,7 +451,7 @@ namespace blzZmq1.Services
             }
             return (bool)errs["success"];
         }
-        public static JObject create_env_json_from_json_config(JObject crop_site_sim)
+        public JObject create_env_json_from_json_config(JObject crop_site_sim)
         {
             JToken jTkn;
             string key;
@@ -549,7 +554,7 @@ namespace blzZmq1.Services
             }
             return env;
         }
-        private static JObject add_climate_data_to_env(JObject env, JToken simj, string climate_csv_string = "")
+        private  JObject add_climate_data_to_env(JObject env, JToken simj, string climate_csv_string = "")
         {
             //if not climate_csv_string:
             //    with open(simj["climate.csv"]) as _:
@@ -559,7 +564,7 @@ namespace blzZmq1.Services
             return env;
         }
 
-        private static void add_base_path(JObject j, JToken base_path)
+        private void add_base_path(JObject j, JToken base_path)
         {
             if (!j.ContainsKey("include-file-base-path"))
             {
@@ -567,230 +572,225 @@ namespace blzZmq1.Services
             }
         }
 
-        class SupportedPatterns
+        public JObject @ref(JObject root, JArray j)
         {
-
-
-            public static JObject @ref(JObject root, JArray j)
+            if (j != null && j.Count == 3 && is_string_type(j[1] as JValue) && is_string_type(j[2] as JValue))
             {
-                if (j != null && j.Count == 3 && is_string_type(j[1] as JValue) && is_string_type(j[2] as JValue))
-                {
-                    var key1 = j[1].ToString();
-                    var key2 = j[2].ToString();
-                    return find_and_replace_references(root, root[key1][key2]);
+                var key1 = j[1].ToString();
+                var key2 = j[2].ToString();
+                return find_and_replace_references(root, root[key1][key2]);
 
+            }
+            var res = new JObject();
+            res.Add("result", j);
+            res.Add("errors", new JArray("Couldn't resolve reference: " + j.ToString() + "!"));
+            res.Add("success", false);
+            return res;
+        }
+        public JObject from_file(JObject root, JArray j)
+        {
+            if (j != null && j.Count == 2 && is_string_type(j[1] as JValue))
+            {
+                var base_path = default_value(root, "include-file-base-path", ".");
+                var path_to_file = j[1].ToString();
+                bool isGitHubPath = false;
+
+                if (is_github_path(base_path))
+                {
+                    _githubService.SetRepoInfo(base_path);
+                    isGitHubPath = true;
                 }
+                else
+                {
+                    if (!is_absolute_path(path_to_file))
+                    {
+                        path_to_file = base_path + "/" + path_to_file;
+                    }
+
+                    path_to_file = replace_env_vars(path_to_file);
+                    path_to_file = fix_system_separator(path_to_file);
+                }
+                // here can check if this path exists in our array,if so then replace the path with our path like: Data/upload/temp-monica-parameters/....json
+                var jo_ = read_and_parse_json_file(path_to_file, isGitHubPath);
+                if (Convert.ToBoolean(jo_["success"]) && jo_["result"] != null)
+                {
+                    var res = new JObject();
+                    res.Add("result", jo_["result"] as JToken);
+                    res.Add("errors", new JArray());
+                    res.Add("success", true);
+                    return res;
+                }
+                var res2 = new JObject();
+                res2.Add("result", j);
+                res2.Add("errors", new JArray("Couldn't include file with path: '" + path_to_file + "'!"));
+                res2.Add("success", false);
+                return res2;
+            }
+            var res3 = new JObject();
+            res3.Add("result", j);
+            res3.Add("errors", new JArray("Couldn't include file with function: " + j.ToString() + "!"));
+            res3.Add("success", false);
+            return res3;
+        }
+        public JObject ld_to_trd(JObject root, JArray j)
+        {
+            if (j != null && j.Count == 3 && is_int(j[1] as JValue) && is_float(j[2] as JValue))
+            {
                 var res = new JObject();
-                res.Add("result", j);
-                res.Add("errors", new JArray("Couldn't resolve reference: " + j.ToString() + "!"));
-                res.Add("success", false);
+                res.Add("result", SoilIO.bulk_density_class_to_raw_density((int)j[1], (double)j[2]));
+                res.Add("errors", new JArray());
+                res.Add("success", true);
                 return res;
             }
-            public static JObject from_file(JObject root, JArray j)
+            var res2 = new JObject();
+            res2.Add("result", j);
+            res2.Add("errors", new JArray("Couldn't convert bulk density class to raw density using function: " + j.ToString() + "!"));
+            res2.Add("success", false);
+            return res2;
+        }
+        public JObject ka5_to_clay(object root, JArray j)
+        {
+            if (j != null && j.Count == 2 && is_string_type(j[1] as JValue))
             {
-                if (j != null && j.Count == 2 && is_string_type(j[1] as JValue))
-                {
-                    var base_path = default_value(root, "include-file-base-path", ".");
-                    var path_to_file = j[1].ToString();
-                    bool isGitHubPath = false;
-
-                    if (is_github_path(base_path))
-                    {
-                        _githubService.SetRepoInfo(base_path);
-                        isGitHubPath = true;
-                    }
-                    else
-                    {
-                        if (!is_absolute_path(path_to_file))
-                        {
-                            path_to_file = base_path + "/" + path_to_file;
-                        }
-
-                        path_to_file = replace_env_vars(path_to_file);
-                        path_to_file = fix_system_separator(path_to_file);
-                    }
-                    // here can check if this path exists in our array,if so then replace the path with our path like: Data/upload/temp-monica-parameters/....json
-                    var jo_ = read_and_parse_json_file(path_to_file, isGitHubPath);
-                    if (Convert.ToBoolean(jo_["success"]) && jo_["result"] != null)
-                    {
-                        var res = new JObject();
-                        res.Add("result", jo_["result"] as JToken);
-                        res.Add("errors", new JArray());
-                        res.Add("success", true);
-                        return res;
-                    }
-                    var res2 = new JObject();
-                    res2.Add("result", j);
-                    res2.Add("errors", new JArray("Couldn't include file with path: '" + path_to_file + "'!"));
-                    res2.Add("success", false);
-                    return res2;
-                }
-                var res3 = new JObject();
-                res3.Add("result", j);
-                res3.Add("errors", new JArray("Couldn't include file with function: " + j.ToString() + "!"));
-                res3.Add("success", false);
-                return res3;
+                var res = new JObject();
+                res.Add("result", SoilIO.ka5_texture_to_clay(j[1].ToString()));
+                res.Add("errors", new JArray());
+                res.Add("success", true);
+                return res;
             }
-            public static JObject ld_to_trd(JObject root, JArray j)
+            var res2 = new JObject();
+            res2.Add("result", j);
+            res2.Add("errors", new JArray("Couldn't get soil clay content from KA5 soil class: " + j.ToString() + "!"));
+            res2.Add("success", false);
+            return res2;
+        }
+        public JObject ka5_to_sand(object root, JArray j)
+        {
+            if (j != null && j.Count == 2 && is_string_type(j[1] as JValue))
             {
-                if (j != null && j.Count == 3 && is_int(j[1] as JValue) && is_float(j[2] as JValue))
-                {
-                    var res = new JObject();
-                    res.Add("result", SoilIO.bulk_density_class_to_raw_density((int)j[1], (double)j[2]));
-                    res.Add("errors", new JArray());
-                    res.Add("success", true);
-                    return res;
-                }
-                var res2 = new JObject();
-                res2.Add("result", j);
-                res2.Add("errors", new JArray("Couldn't convert bulk density class to raw density using function: " + j.ToString() + "!"));
-                res2.Add("success", false);
-                return res2;
+                var res = new JObject();
+                res.Add("result", SoilIO.ka5_texture_to_sand(j[1].ToString()));
+                res.Add("errors", new JArray());
+                res.Add("success", true);
+                return res;
             }
-            public static JObject ka5_to_clay(object root, JArray j)
+            var res2 = new JObject();
+            res2.Add("result", j);
+            res2.Add("errors", new JArray("Couldn't get soil sand content from KA5 soil class: " + j.ToString() + "!"));
+            res2.Add("success", false);
+            return res2;
+        }
+        public JObject sand_clay_to_lambda(object root, JArray j)
+        {
+            if (j != null && j.Count == 2 && is_float(j[1] as JValue) && is_float(j[2] as JValue))
             {
-                if (j != null && j.Count == 2 && is_string_type(j[1] as JValue))
-                {
-                    var res = new JObject();
-                    res.Add("result", SoilIO.ka5_texture_to_clay(j[1].ToString()));
-                    res.Add("errors", new JArray());
-                    res.Add("success", true);
-                    return res;
-                }
-                var res2 = new JObject();
-                res2.Add("result", j);
-                res2.Add("errors", new JArray("Couldn't get soil clay content from KA5 soil class: " + j.ToString() + "!"));
-                res2.Add("success", false);
-                return res2;
+                var res = new JObject();
+                res.Add("result", SoilIO.sand_and_clay_to_lambda((double)j[1], (double)j[2]));
+                res.Add("errors", new JArray());
+                res.Add("success", true);
+                return res;
             }
-            public static JObject ka5_to_sand(object root, JArray j)
+            var res2 = new JObject();
+            res2.Add("result", j);
+            res2.Add("errors", new JArray("Couldn't get lambda value from soil sand and clay content: " + j.ToString() + "!"));
+            res2.Add("success", false);
+            return res2;
+        }
+        public JObject percent(object root, JArray j)
+        {
+            if (j != null && j.Count == 2 && is_float(j[1] as JValue))
             {
-                if (j != null && j.Count == 2 && is_string_type(j[1] as JValue))
-                {
-                    var res = new JObject();
-                    res.Add("result", SoilIO.ka5_texture_to_sand(j[1].ToString()));
-                    res.Add("errors", new JArray());
-                    res.Add("success", true);
-                    return res;
-                }
-                var res2 = new JObject();
-                res2.Add("result", j);
-                res2.Add("errors", new JArray("Couldn't get soil sand content from KA5 soil class: " + j.ToString() + "!"));
-                res2.Add("success", false);
-                return res2;
+                var res = new JObject();
+                res.Add("result", (float)j[1] / 100.0);
+                res.Add("errors", new JArray());
+                res.Add("success", true);
+                return res;
             }
-            public static JObject sand_clay_to_lambda(object root, JArray j)
+            var res2 = new JObject();
+            res2.Add("result", j);
+            res2.Add("errors", new JArray("Couldn't convert percent to decimal percent value: " + j.ToString() + "!"));
+            res2.Add("success", false);
+            return res2;
+        }
+        public JObject humus_to_corg(object root, JArray j)
+        {
+            if (j != null && j.Count == 2 && is_int(j[1] as JValue))
             {
-                if (j != null && j.Count == 2 && is_float(j[1] as JValue) && is_float(j[2] as JValue))
-                {
-                    var res = new JObject();
-                    res.Add("result", SoilIO.sand_and_clay_to_lambda((double)j[1], (double)j[2]));
-                    res.Add("errors", new JArray());
-                    res.Add("success", true);
-                    return res;
-                }
-                var res2 = new JObject();
-                res2.Add("result", j);
-                res2.Add("errors", new JArray("Couldn't get lambda value from soil sand and clay content: " + j.ToString() + "!"));
-                res2.Add("success", false);
-                return res2;
+                var res = new JObject();
+                res.Add("result", SoilIO.humus_class_to_corg((int)j[1]));
+                res.Add("errors", new JArray());
+                res.Add("success", true);
+                return res;
             }
-            public static JObject percent(object root, JArray j)
+            var res2 = new JObject();
+            res2.Add("result", j);
+            res2.Add("errors", new JArray("Couldn't convert humus level to corg: " + j.ToString() + "!"));
+            res2.Add("success", false);
+            return res2;
+        }
+        private bool is_int(JValue value)
+        {
+            if (value == null)
+                return false;
+            return value.Type == JTokenType.Integer;
+        }
+        private bool is_float(JValue value)
+        {
+            if (value == null)
+                return false;
+            return value.Type == JTokenType.Float;
+        }
+        public JObject GetValue(string function, object root, object j)
+        {
+            switch (function)
             {
-                if (j != null && j.Count == 2 && is_float(j[1] as JValue))
-                {
-                    var res = new JObject();
-                    res.Add("result", (float)j[1] / 100.0);
-                    res.Add("errors", new JArray());
-                    res.Add("success", true);
-                    return res;
-                }
-                var res2 = new JObject();
-                res2.Add("result", j);
-                res2.Add("errors", new JArray("Couldn't convert percent to decimal percent value: " + j.ToString() + "!"));
-                res2.Add("success", false);
-                return res2;
+                case "include-from-file":
+                    return from_file(root as JObject, j as JArray);
+                case "ref":
+                    return @ref(root as JObject, j as JArray);
+                case "humus_st2corg":
+                    return humus_to_corg(root as JObject, j as JArray);
+                case "ld_eff2trd":
+                    return ld_to_trd(root as JObject, j as JArray);
+                case "bulk-density-class->raw-density":
+                    return ld_to_trd(root as JObject, j as JArray);
+                case "KA5TextureClass2clay":
+                    return ka5_to_clay(root as JObject, j as JArray);
+                case "KA5-texture-class->clay":
+                    return ka5_to_clay(root as JObject, j as JArray);
+                case "KA5TextureClass2sand":
+                    return ka5_to_sand(root as JObject, j as JArray);
+                case "KA5-texture-class->sand":
+                    return ka5_to_sand(root as JObject, j as JArray);
+                case "sandAndClay2lambda":
+                    return sand_clay_to_lambda(root as JObject, j as JArray);
+                case "sand-and-clay->lambda":
+                    return sand_clay_to_lambda(root as JObject, j as JArray);
+                case "%":
+                    return percent(root as JObject, j as JArray);
+                default:
+                    throw new Exception("invalid pattern name!");
             }
-            public static JObject humus_to_corg(object root, JArray j)
+        }
+        public bool Contains(string function)
+        {
+            switch (function)
             {
-                if (j != null && j.Count == 2 && is_int(j[1] as JValue))
-                {
-                    var res = new JObject();
-                    res.Add("result", SoilIO.humus_class_to_corg((int)j[1]));
-                    res.Add("errors", new JArray());
-                    res.Add("success", true);
-                    return res;
-                }
-                var res2 = new JObject();
-                res2.Add("result", j);
-                res2.Add("errors", new JArray("Couldn't convert humus level to corg: " + j.ToString() + "!"));
-                res2.Add("success", false);
-                return res2;
-            }
-            private static bool is_int(JValue value)
-            {
-                if (value == null)
+                case "include-from-file":
+                case "ref":
+                case "humus_st2corg":
+                case "ld_eff2trd":
+                case "bulk-density-class->raw-density":
+                case "KA5TextureClass2clay":
+                case "KA5-texture-class->clay":
+                case "KA5TextureClass2sand":
+                case "KA5-texture-class->sand":
+                case "sandAndClay2lambda":
+                case "sand-and-clay->lambda":
+                case "%":
+                    return true;
+                default:
                     return false;
-                return value.Type == JTokenType.Integer;
-            }
-            private static bool is_float(JValue value)
-            {
-                if (value == null)
-                    return false;
-                return value.Type == JTokenType.Float;
-            }
-            public static JObject GetValue(string function, object root, object j)
-            {
-                switch (function)
-                {
-                    case "include-from-file":
-                        return from_file(root as JObject, j as JArray);
-                    case "ref":
-                        return @ref(root as JObject, j as JArray);
-                    case "humus_st2corg":
-                        return humus_to_corg(root as JObject, j as JArray);
-                    case "ld_eff2trd":
-                        return ld_to_trd(root as JObject, j as JArray);
-                    case "bulk-density-class->raw-density":
-                        return ld_to_trd(root as JObject, j as JArray);
-                    case "KA5TextureClass2clay":
-                        return ka5_to_clay(root as JObject, j as JArray);
-                    case "KA5-texture-class->clay":
-                        return ka5_to_clay(root as JObject, j as JArray);
-                    case "KA5TextureClass2sand":
-                        return ka5_to_sand(root as JObject, j as JArray);
-                    case "KA5-texture-class->sand":
-                        return ka5_to_sand(root as JObject, j as JArray);
-                    case "sandAndClay2lambda":
-                        return sand_clay_to_lambda(root as JObject, j as JArray);
-                    case "sand-and-clay->lambda":
-                        return sand_clay_to_lambda(root as JObject, j as JArray);
-                    case "%":
-                        return percent(root as JObject, j as JArray);
-                    default:
-                        throw new Exception("invalid pattern name!");
-                }
-            }
-            public static bool Contains(string function)
-            {
-                switch (function)
-                {
-                    case "include-from-file":
-                    case "ref":
-                    case "humus_st2corg":
-                    case "ld_eff2trd":
-                    case "bulk-density-class->raw-density":
-                    case "KA5TextureClass2clay":
-                    case "KA5-texture-class->clay":
-                    case "KA5TextureClass2sand":
-                    case "KA5-texture-class->sand":
-                    case "sandAndClay2lambda":
-                    case "sand-and-clay->lambda":
-                    case "%":
-                        return true;
-                    default:
-                        return false;
-                }
             }
         }
     }

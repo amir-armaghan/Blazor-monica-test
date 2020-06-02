@@ -21,6 +21,7 @@ namespace blzZmq1.Services.Github
         string GetFileContent(string path);
         Task<string> GetDownloadPathAsync(string path);
         string GetDownloadPath(string path);
+        List<string> GetContentsList(string path);
 
     }
 }

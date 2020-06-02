@@ -8,6 +8,7 @@ using Application.Convertor;
 using Application.MonicaCharts;
 using blzZmq1.Services.MonicaCharts;
 using blzZmq1.Services.Github;
+using Microsoft.JSInterop;
 
 namespace blzZmq1
 {
@@ -28,8 +29,7 @@ namespace blzZmq1
             services.AddServerSideBlazor();
 
             services.AddScoped<IFileUpload, FileUpload>();
-            services.AddSingleton<Services.ZmqProducer>();
-            services.AddSingleton<Services.ZmqConsumer>();
+            
             services.AddSingleton<Services.FileFolders.MonicaParametersFolder>();  //added to test file and folder
             services.AddTransient<IMonicaZmqService, MonicaParameters>();
 
@@ -39,6 +39,11 @@ namespace blzZmq1
             services.AddTransient<IMonicaChartApp, MonicaChartApp>();
             services.AddTransient<IMonicaChartService, MonicaChartService>();
             services.AddTransient<IGithubService, GitHubParameters>();
+            services.AddTransient<ICookieHelperService, CookieHelperService>();
+            services.AddSingleton<IUserSettingsService, UserSettingsService>();
+            services.AddTransient<MonicaIO>();
+            services.AddTransient<ZmqProducer>();
+            services.AddTransient<ZmqConsumer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -11,6 +11,13 @@ namespace blzZmq1.Services
 {
     public class ZmqProducer
     {
+        private readonly MonicaIO _monicaIO;
+
+        public ZmqProducer(MonicaIO monicaIO)
+        {
+            _monicaIO = monicaIO;
+        }
+
         public async Task<string> RunProducerAsync(List<string> files)
         {
 
@@ -86,7 +93,7 @@ namespace blzZmq1.Services
             crop_site_sim.Add("climate", "");
             //crop_site_sim.Add("climate", climate_csv);
 
-            var env = MonicaIO.create_env_json_from_json_config(crop_site_sim);
+            var env = _monicaIO.create_env_json_from_json_config(crop_site_sim);
             if (env != null)
             {
                 //env.Add("csvViaHeaderOptions", sim_json["climate.csv-options"]);

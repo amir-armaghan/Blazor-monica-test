@@ -1,11 +1,18 @@
 ﻿@page "/"
 @using blzZmq1.Services
+@using blzZmq1.Services.Github
 
+@inject IUserSettingsService UserSettingsService
+@inject IGithubService GithubService
 
 <h1>Blazor interface for Monica</h1>
 Using ZeroMQ for Producer-Consumer
 <br />
 
+@if (isUserLoggedInGithub)
+{
+    <span>User logged in</span>
+}
 
 <SurveyPrompt Title="-- " />
 <p>
@@ -23,7 +30,7 @@ Using ZeroMQ for Producer-Consumer
 <div class="row m-3">
     <div class="col-md-6">
         <h3>Login into your gitHub</h3>
-        @if (!AppData.GithubLoggedIn)
+        @if (!isUserLoggedInGithub)
         {
             <RadzenCard>
                 <RadzenLogin AllowRegister="false" AllowResetPassword="false" Login="@((args) => Login(args, "Github Authentication"))" Style="margin-bottom: 20px;" />
@@ -47,26 +54,34 @@ Using ZeroMQ for Producer-Consumer
 
     Boolean result;
     Boolean firstRun = true;
+    bool isUserLoggedInGithub = false;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            //isUserLoggedInGithub = UserSettingsService.GithubLoggedIn;
+        }
+
+    }
 
     void Login(LoginArgs args, string name)
     {
 
         StateHasChanged();
 
-        AppData.GithubUserName = args.Username;
-        AppData.GithubPassword = args.Password;
-        blzZmq1.Services.Github.IGithubService g = new blzZmq1.Services.Github.GitHubParameters();
-        result = g.Login();
+        UserSettingsService.GithubUserName = args.Username;
+        UserSettingsService.GithubPassword = args.Password;
+        result = GithubService.Login();
         firstRun = false;
-        AppData.GithubLoggedIn = result;
+        UserSettingsService.GithubLoggedIn = result;
 
     }
 
     void Logout()
     {
         StateHasChanged();
-        blzZmq1.Services.Github.IGithubService g = new blzZmq1.Services.Github.GitHubParameters();
-        result = g.Logout();
+        result = GithubService.Logout();
 
     }
 }

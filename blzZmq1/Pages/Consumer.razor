@@ -2,6 +2,8 @@
 @using blzZmq1.Services
 @using NetMQ
 
+@inject IUserSettingsService UserSettingsService
+
 <h3>Consumer</h3>
 <button @onclick="Consumerf">Recive via ZMQ and show the content</button>
 <p class="fixwidth">@answer</p>
@@ -14,11 +16,11 @@
         //using (var producer = new RequestSocket())
         {
             //consumer.Connect("tcp://localhost:7777");
-            consumer.Connect(AppData.ServerPullAddress + ":" + AppData.ServerPullPort);
+            consumer.Connect(UserSettingsService.ServerPullAddress + ":" + UserSettingsService.ServerPullPort);
             answer = consumer.ReceiveFrameString();
 
             System.Threading.Thread.Sleep(2000);
-            consumer.Disconnect(AppData.ServerPullAddress + ":" + AppData.ServerPullPort);
+            consumer.Disconnect(UserSettingsService.ServerPullAddress + ":" + UserSettingsService.ServerPullPort);
 
 
         }

@@ -14,24 +14,30 @@ namespace blzZmq1.Services
         //public static string RunConsumer()            
         //{
 
-           //string outDir = Path.GetDirectoryName(Application.ExecutablePath);
+        //string outDir = Path.GetDirectoryName(Application.ExecutablePath);
         //    var config = new JObject();
-            //config.Add("port", string.IsNullOrEmpty(port) ? "7777" : port);
-            //config.Add("server", string.IsNullOrEmpty(server) ? "localhost" : port);
-            //config.Add("out", string.IsNullOrEmpty(path_to_output_dir) ? outDir : path_to_output_dir);
+        //config.Add("port", string.IsNullOrEmpty(port) ? "7777" : port);
+        //config.Add("server", string.IsNullOrEmpty(server) ? "localhost" : port);
+        //config.Add("out", string.IsNullOrEmpty(path_to_output_dir) ? outDir : path_to_output_dir);
         //    config.Add("leave_after_finished_run", leave_after_finished_run);
-            //config.Add("shared_id", shared_id);
+        //config.Add("shared_id", shared_id);
 
-          
 
-            //socket.RCVTIMEO = 1000
-            // first get the message in blazor then call this method and convert the msg to csv
-            // this method can send back the link of csv file to the blazor or fail msg
 
+        //socket.RCVTIMEO = 1000
+        // first get the message in blazor then call this method and convert the msg to csv
+        // this method can send back the link of csv file to the blazor or fail msg
+
+        private readonly MonicaIO _monicaIO;
 
         public static int env_count = 0;
-        [STAThread]
-        public static (string, string) RunConsumer(string msg, string csvPath)
+
+        public ZmqConsumer(MonicaIO monicaIO)
+        {
+            _monicaIO = monicaIO;
+        }
+
+        public string RunConsumer(string msg, string csvPath, out string csvFilePath)
         {
             System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
             JObject msgObj = JObject.Parse(msg);
@@ -53,7 +59,7 @@ namespace blzZmq1.Services
                 var varval = "";
                 //string csvFile = Path.Combine(config["out"].ToString(), env_count.ToString() + ".csv");
                 //string csvFile = ("wwwroot/export/1.csv");   // static address for export for test perpose at first run
-                string csvFilePath = (csvPath + ".csv");
+                csvFilePath = (csvPath + ".csv");
                 if (File.Exists(csvFilePath))
                     varval = File.ReadAllText(csvFilePath);
                 //StreamWriter strWrite = new StreamWriter(csvFile);
@@ -79,7 +85,7 @@ namespace blzZmq1.Services
                     if (results.Count > 0)
                     {
                         strBuild.AppendLine(orig_spec.Replace("\"", ""));
-                        foreach (JArray row in MonicaIO.write_output_header_rows(output_ids, true, true, false))
+                        foreach (JArray row in _monicaIO.write_output_header_rows(output_ids, true, true, false))
                         {
                             string cline = "";
                             for (int i = 0; i < row.Count; i++)
@@ -90,7 +96,7 @@ namespace blzZmq1.Services
                             }
                             strBuild.AppendLine(cline);
                         }
-                        foreach (JArray row in MonicaIO.write_output(output_ids, results))
+                        foreach (JArray row in _monicaIO.write_output(output_ids, results))
                         {
                             string cline = "";
                             for (int i = 0; i < row.Count; i++)
@@ -110,9 +116,11 @@ namespace blzZmq1.Services
                 
                 
                 //strWrite.Close();
-                return (csvFilePath, strBuild.ToString());  // this method produce csv file and returns the csv path and csv string
+                return strBuild.ToString();  // this method produce csv file and returns the csv path and csv string
             }
-            return ("Path Error", "Content Error");
+
+            csvFilePath = "Path Error";
+            return "Content Error";
         }
     
     }

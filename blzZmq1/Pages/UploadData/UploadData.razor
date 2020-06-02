@@ -3,35 +3,53 @@
 @using blzZmq1.Services
 @using System.IO
 @using BlazorInputFile
+@using Core.Share
 
 @* Injects *@
 @inject IFileUpload FileUpload
 @inject IMonicaZmqService MonicaZmqService
 @inject blzZmq1.Services.Github.IGithubService GithubService
+@inject ZmqProducer ZmqProducer
 
 <h1>Upload data</h1>
 <h3>Select your files and upload to the server</h3>
 
-<!--<input type="text" @bind="githubPath" />
- <button @onclick="GetRepoContnet">GetRepoContent</button> -->
+<div class="row">
+    <div class="col-sm-12">
+        <!--<input type="text" @bind="githubPath" />
+        <button @onclick="GetRepoContnet">GetRepoContent</button> -->
 
-<div class="drag-drop-zone">
-    <InputFile multiple OnChange="ViewFile" />
-    @status
+        <div class="drag-drop-zone">
+            <InputFile multiple OnChange="ViewFile" />
+            @status
+        </div>
+
+        @if (_files != null)
+        {
+            foreach (var file in _files)
+            {
+                <div class="file-row">
+                    <h2>@file.File.Name</h2>
+                    <div> <b>size</b> @file.File.Size</div>
+                    <button class="btn btn-danger btn-sm" type="button" disabled="@file.IsUploaded" @onclick="(() => RemoveFile(file))">Remove</button>
+                </div>
+            }
+        }
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-sm-12">
+        @*Change="@((args) => Change(args))"*@
+        <RadzenRadioButtonList @bind-Value="this._basePathType" TValue="MonicaParametersBasePathType" Orientation="Orientation.Vertical">
+            <Items>
+                <RadzenRadioButtonListItem Text="From local server" Value="MonicaParametersBasePathType.LocalServer" />
+                <RadzenRadioButtonListItem Text="From Github (Enter your parameters base path)" Value="MonicaParametersBasePathType.Github" />
+            </Items>
+        </RadzenRadioButtonList>
+    </div>
 </div>
 
-@if (_files != null)
-{
-    foreach (var file in _files)
-    {
-        <div class="file-row">
-            <h2>@file.File.Name</h2>
-            <div> <b>size</b> @file.File.Size</div>
-            <button class="btn btn-danger btn-sm" type="button" disabled="@file.IsUploaded" @onclick="(() => RemoveFile(file))">Remove</button>
-        </div>
-    }
-}
-<hr />
 <button class="btn btn-primary" @onclick="HandleFiles">Send to server</button>
 @if (IsDataSent)
 {
@@ -53,12 +71,14 @@
     private bool IsDataSent = false;
     private string SendToServerStatus = string.Empty;
 
+    private MonicaParametersBasePathType _basePathType = MonicaParametersBasePathType.LocalServer;
+
     //string githubPath;
     // void GetRepoContnet()
     //{
-       // GithubService.SetRepoInfo("https://github.com/armaghan-work/armaghan-monica-params");
-       // //bool result = GithubService.IsExistPathAsync(githubPath).Result;
-       // GithubService.CreateFile();
+    // GithubService.SetRepoInfo("https://github.com/armaghan-work/armaghan-monica-params");
+    // //bool result = GithubService.IsExistPathAsync(githubPath).Result;
+    // GithubService.CreateFile();
     //}
 
     async Task ViewFile(IFileListEntry[] files)
@@ -108,8 +128,7 @@
             filePathes.Add(filePath);
         }
 
-        var producer = new ZmqProducer();
-        var result = await producer.RunProducerAsync(filePathes);
+        var result = await ZmqProducer.RunProducerAsync(filePathes);
 
         IsDataSent = MonicaZmqService.Send(result);
 

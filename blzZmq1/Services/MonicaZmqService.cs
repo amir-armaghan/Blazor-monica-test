@@ -11,11 +11,13 @@ namespace blzZmq1.Services
     {
         private readonly string ServerPushAddress;
         private readonly int ServerPushPort;
+        private readonly IUserSettingsService _userSettingsService;
 
-        public MonicaParameters()
+        public MonicaParameters(IUserSettingsService userSettingsService)
         {
-            ServerPushAddress = AppData.ServerPushAddress;
-            ServerPushPort = AppData.ServerPushPort;
+            _userSettingsService = userSettingsService;
+            ServerPushAddress = _userSettingsService.ServerPushAddress;
+            ServerPushPort = _userSettingsService.ServerPushPort;
         }
 
         public Task Recieve()
