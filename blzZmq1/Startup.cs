@@ -9,6 +9,7 @@ using Application.MonicaCharts;
 using blzZmq1.Services.MonicaCharts;
 using blzZmq1.Services.Github;
 using Microsoft.JSInterop;
+using Blazored.LocalStorage;
 
 namespace blzZmq1
 {
@@ -34,13 +35,14 @@ namespace blzZmq1
             services.AddTransient<IMonicaZmqService, MonicaParameters>();
 
             // My Services
+
+            services.AddBlazoredLocalStorage();
+
             services.AddScoped<Radzen.NotificationService>();
             services.AddTransient<IMonicaJsonMapper, MonicaJsonMapper>();
             services.AddTransient<IMonicaChartApp, MonicaChartApp>();
             services.AddTransient<IMonicaChartService, MonicaChartService>();
-            services.AddTransient<IGithubService, GitHubParameters>();
-            services.AddTransient<ICookieHelperService, CookieHelperService>();
-            services.AddSingleton<IUserSettingsService, UserSettingsService>();
+            services.AddTransient<IGithubService, GithubService>();
             services.AddTransient<MonicaIO>();
             services.AddTransient<ZmqProducer>();
             services.AddTransient<ZmqConsumer>();

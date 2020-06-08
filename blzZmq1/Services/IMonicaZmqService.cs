@@ -7,7 +7,7 @@ namespace blzZmq1.Services
 {
     public interface IMonicaZmqService
     {
-        bool Send(string message);
+        bool Send(string message, string serverPushAddress, int serverPushPort);
 
         Task Recieve();
     }

@@ -27,6 +27,8 @@ namespace Core.Share
         public const string Year = "year";
         public const string Month = "month";
 
+        public const string DefaultParametersPath = "Data/monica-parameters";
+
         public readonly List<string> XAxiesNames;
 
         public MonicaConstFields()

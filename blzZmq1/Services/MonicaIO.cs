@@ -1,12 +1,12 @@
 ﻿using blzZmq1.Services.Github;
+using Core.Share;
+using Microsoft.AspNetCore.Routing.Matching;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-//using System.Web.Script.Serialization;
 
 
 namespace blzZmq1.Services
@@ -31,6 +31,8 @@ namespace blzZmq1.Services
         private int ORGAN_UNDEFINED_ORGAN_ = 6;
 
         protected readonly IGithubService _githubService;
+
+        public UserSetting UserSettings { get; set; }
 
         public MonicaIO(IGithubService githubService)
         {
@@ -272,9 +274,9 @@ namespace blzZmq1.Services
                 JObject ssjsn;
                 if (isGithubPath)
                 { 
-                    if(_githubService.IsExistPath(path))
+                    if(_githubService.IsExistPath(path, UserSettings.GithubUserName, UserSettings.GithubPassword, UserSettings.MonicaResultsPathOnGithub))
                     {
-                        ssjsn = JObject.Parse(_githubService.GetFileContent(path));
+                        ssjsn = JObject.Parse(_githubService.GetFileContent(path, UserSettings.GithubUserName, UserSettings.GithubPassword));
                     }
                     else
                     {
@@ -451,7 +453,7 @@ namespace blzZmq1.Services
             }
             return (bool)errs["success"];
         }
-        public JObject create_env_json_from_json_config(JObject crop_site_sim)
+        public JObject create_env_json_from_json_config(JObject crop_site_sim, string parametersPath)
         {
             JToken jTkn;
             string key;
@@ -465,7 +467,7 @@ namespace blzZmq1.Services
                 }
             }
 
-            var path_to_parameters = crop_site_sim["sim"]["include-file-base-path"];
+            var path_to_parameters = parametersPath; //crop_site_sim["sim"]["include-file-base-path"];
             //var path_to_parameters = "Data/monica-parameters/";
 
             var crop_site_sim2 = new JObject();
@@ -569,6 +571,10 @@ namespace blzZmq1.Services
             if (!j.ContainsKey("include-file-base-path"))
             {
                 j.Add("include-file-base-path", base_path);
+            }
+            else
+            {
+                j["include-file-base-path"] = base_path;
             }
         }
 

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "+vlTmQmWqUug1GTSBNOYaesEfB6Yh+tDOHrDw3LzyR7vxZvKvZpqrYiu7h7SaadWcPheIEKaFIlet0HAKSzk+g==",
+  "dgSpecHash": "jdxvH0cQkaaMqiUuweoyiP5hc0BQqvNo66a9bIC4bIW5/smAi+BmAxIbKTLuuI0+BYX44SFbBSQvx/Pb9+Ku8w==",
   "success": true,
   "projectFilePath": "C:\\Users\\armaghan\\source\\repos\\blzZmq1\\Application\\Application.csproj",
   "expectedPackageFiles": [
@@ -16,7 +16,8 @@
     "C:\\Users\\armaghan\\.nuget\\packages\\system.reflection.primitives\\4.3.0\\system.reflection.primitives.4.3.0.nupkg.sha512",
     "C:\\Users\\armaghan\\.nuget\\packages\\system.runtime\\4.3.0\\system.runtime.4.3.0.nupkg.sha512",
     "C:\\Users\\armaghan\\.nuget\\packages\\system.text.encoding\\4.3.0\\system.text.encoding.4.3.0.nupkg.sha512",
-    "C:\\Users\\armaghan\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512"
+    "C:\\Users\\armaghan\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512",
+    "C:\\Users\\armaghan\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.2\\microsoft.aspnetcore.app.ref.3.1.2.nupkg.sha512"
   ],
   "logs": []
 }

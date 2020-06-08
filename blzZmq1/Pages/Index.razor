@@ -2,7 +2,9 @@
 @using blzZmq1.Services
 @using blzZmq1.Services.Github
 
-@inject IUserSettingsService UserSettingsService
+@inherits Shared.BasePage
+
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
 @inject IGithubService GithubService
 
 <h1>Blazor interface for Monica</h1>
@@ -11,7 +13,7 @@ Using ZeroMQ for Producer-Consumer
 
 @if (isUserLoggedInGithub)
 {
-    <span>User logged in</span>
+<span>User logged in</span>
 }
 
 <SurveyPrompt Title="-- " />
@@ -32,56 +34,46 @@ Using ZeroMQ for Producer-Consumer
         <h3>Login into your gitHub</h3>
         @if (!isUserLoggedInGithub)
         {
-            <RadzenCard>
-                <RadzenLogin AllowRegister="false" AllowResetPassword="false" Login="@((args) => Login(args, "Github Authentication"))" Style="margin-bottom: 20px;" />
-            </RadzenCard>
+        <RadzenCard>
+            <RadzenLogin AllowRegister="false" AllowResetPassword="false" Login="@((args) => Login(args, "Github Authentication"))" Style="margin-bottom: 20px;" />
+        </RadzenCard>
         }
         else
         {
-            <span class="bg-success p-2 m-2 rounded">Logged in successfully</span>
-            <p class="m-2 p-2">
-                <button class="btn btn-danger btn-sm" type="button" @onclick="(() => Logout())">Logout</button>
-            </p>
+        <span class="bg-success p-2 m-2 rounded">Logged in successfully</span>
+        <p class="m-2 p-2">
+            <button class="btn btn-danger btn-sm" type="button" @onclick="(() => Logout())">Logout</button>
+        </p>
         }
         @if (result == false && firstRun == false)
         {
-            <span class="bg-danger p-2">Wrong userName or password</span>
+        <span class="bg-danger p-2">Wrong userName or password</span>
         }
     </div>
 </div>
 
-@code {
+@code{
 
     Boolean result;
     Boolean firstRun = true;
     bool isUserLoggedInGithub = false;
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            //isUserLoggedInGithub = UserSettingsService.GithubLoggedIn;
-        }
-
-    }
-
-    void Login(LoginArgs args, string name)
+    async Task Login(LoginArgs args, string name)
     {
 
         StateHasChanged();
 
-        UserSettingsService.GithubUserName = args.Username;
-        UserSettingsService.GithubPassword = args.Password;
-        result = GithubService.Login();
+        UserSetting.GithubUserName = args.Username;
+        UserSetting.GithubPassword = args.Password;
+        result = GithubService.Login(UserSetting.GithubUserName, UserSetting.GithubPassword);
         firstRun = false;
-        UserSettingsService.GithubLoggedIn = result;
-
+        UserSetting.GithubLoggedIn = result;
+        await SaveUserSettingsInLocalStorageAsync();
     }
 
-    void Logout()
+    async Task Logout()
     {
-        StateHasChanged();
-        result = GithubService.Logout();
-
+        UserSetting.GithubLoggedIn = false;
+        await SaveUserSettingsInLocalStorageAsync();
     }
 }

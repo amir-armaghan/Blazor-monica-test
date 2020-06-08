@@ -1,8 +1,10 @@
 ﻿@page "/consumer"
 @using blzZmq1.Services
 @using NetMQ
+@using Core.Share
 
-@inject IUserSettingsService UserSettingsService
+@inherits Shared.BasePage
+
 
 <h3>Consumer</h3>
 <button @onclick="Consumerf">Recive via ZMQ and show the content</button>
@@ -10,17 +12,18 @@
 
 @code {
     private string answer { get; set; } = "the answer";
+
     private void Consumerf()
     {
         using (var consumer = new PullSocket())
         //using (var producer = new RequestSocket())
         {
             //consumer.Connect("tcp://localhost:7777");
-            consumer.Connect(UserSettingsService.ServerPullAddress + ":" + UserSettingsService.ServerPullPort);
+            consumer.Connect(UserSetting.ServerPullAddress + ":" + UserSetting.ServerPullPort);
             answer = consumer.ReceiveFrameString();
 
             System.Threading.Thread.Sleep(2000);
-            consumer.Disconnect(UserSettingsService.ServerPullAddress + ":" + UserSettingsService.ServerPullPort);
+            consumer.Disconnect(UserSetting.ServerPullAddress + ":" + UserSetting.ServerPullPort);
 
 
         }

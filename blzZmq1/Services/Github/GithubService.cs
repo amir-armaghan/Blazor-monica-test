@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 
 namespace blzZmq1.Services.Github
 {
-    public class GitHubParameters : IGithubService
+    public class GithubService : IGithubService
     {
         private readonly string _githubHeader = "armaghan-work";
-        private readonly IUserSettingsService _userSettingsService;
 
         private readonly IGitHubClient _gitHubClient;
 
@@ -25,22 +24,21 @@ namespace blzZmq1.Services.Github
         //[Inject]
         //protected AppData AppData { get; set; }
 
-        public GitHubParameters(IUserSettingsService userSettingsService)
+        public GithubService()
         {
-            _userSettingsService = userSettingsService;
             // var basicAuth = new Credentials("user", "pass"); 
             _gitHubClient = new GitHubClient(new ProductHeaderValue(_githubHeader));
         }
 
-        public bool Login()
+        public bool Login(string username, string password)
         {
-            var basicAuth = new Credentials(_userSettingsService.GithubUserName, _userSettingsService.GithubPassword);
+            var basicAuth = new Credentials(username, password);
             _gitHubClient.Connection.Credentials = basicAuth;
-            
+
 
             try
             {
-                var result = _gitHubClient.Organization.GetAllForUser(_userSettingsService.GithubUserName).Result;
+                var result = _gitHubClient.Organization.GetAllForUser(username).Result;
             }
             catch (AggregateException ex)
             {
@@ -51,24 +49,7 @@ namespace blzZmq1.Services.Github
                 else
                     throw ex;
             }
-            _userSettingsService.GithubLoggedIn = true;
             return true;
-        }
-
-        public bool Logout()
-        {
-            if (_userSettingsService.GithubLoggedIn == true)
-            {
-                // delete credential
-                _userSettingsService.GithubUserName = "Please Login";
-                _userSettingsService.GithubPassword = "PASSWORD";
-                _userSettingsService.GithubLoggedIn = false;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
 
         public void SetRepoInfo(string repoPath)
@@ -78,20 +59,20 @@ namespace blzZmq1.Services.Github
             RepoName = pathItems[4];
         }
 
-        public void CreateFile()
+        public void CreateFile(string username, string password)
         {
-            var basicAuth = new Credentials(_userSettingsService.GithubUserName, _userSettingsService.GithubPassword);
+            var basicAuth = new Credentials(username, password);
             _gitHubClient.Connection.Credentials = basicAuth;
             var result = _gitHubClient.Repository.Content.CreateFile(RepoOwner, RepoName, "export.txt",
                 new CreateFileRequest("Added by server", "Hello Github")).Result;
         }
         // try to export the CSV result on the user's repository
-        public void CommitOnGit(string FileName, string JsonContent, string CsvContent)
+        public void CommitOnGit(string FileName, string JsonContent, string CsvContent, string username, string password, string monicaResultsPathOnGithub)
         {
-            var basicAuth = new Credentials(_userSettingsService.GithubUserName, _userSettingsService.GithubPassword);
+            var basicAuth = new Credentials(username, password);
             _gitHubClient.Connection.Credentials = basicAuth;
-            RepoOwner = _userSettingsService.GithubUserName;
-            RepoName = _userSettingsService.MonicaResultsPathOnGithub;
+            RepoOwner = username;
+            RepoName = monicaResultsPathOnGithub;
 
             var resultJson = _gitHubClient.Repository.Content.CreateFile(RepoOwner, RepoName, FileName + ".json",
                 new CreateFileRequest("Json added by Blazor", JsonContent)).Result;
@@ -99,86 +80,78 @@ namespace blzZmq1.Services.Github
                new CreateFileRequest("CSV added by Blazor", CsvContent)).Result;
         }
 
-        public async Task<bool> IsExistPathAsync(string path)
+        public async Task<bool> IsExistPathAsync(string path, string username, string passowrd)
         {
-            var basicAuth = new Credentials(_userSettingsService.GithubUserName, _userSettingsService.GithubPassword);
+            var basicAuth = new Credentials(username, passowrd);
             _gitHubClient.Connection.Credentials = basicAuth;
             return await _gitHubClient.Repository.Content.GetAllContents(RepoOwner, RepoName, path) != null;
         }
 
-        public bool IsExistPath(string path)
+        public bool IsExistPath(string path, string username, string passowrd, string monicaResultsPathOnGithub)
         {
-            var basicAuth = new Credentials(_userSettingsService.GithubUserName, _userSettingsService.GithubPassword);
+            var basicAuth = new Credentials(username, passowrd);
             _gitHubClient.Connection.Credentials = basicAuth;
 
-            if (_userSettingsService.GithubLoggedIn == true)
+            RepoOwner = username;
+            RepoName = monicaResultsPathOnGithub;
+            try
             {
-                RepoOwner = _userSettingsService.GithubUserName;
-                RepoName = _userSettingsService.MonicaResultsPathOnGithub;
-                try
-                {
-                    var result = _gitHubClient.Repository.Content.GetAllContents(RepoOwner, RepoName).Result;
-                    return result != null;
-                }
-                catch
-                {
-                    return false;
-                }         
+                var result = _gitHubClient.Repository.Content.GetAllContents(RepoOwner, RepoName).Result;
+                return result != null;
             }
-            else
+            catch
             {
-                return false; // reconstruct later
+                return false;
             }
-            
+
         }
-        public List<string> GetContentsList(string path)
+        public List<string> GetContentsList(string path, string username, string monicaResultsPathOnGithub)
         {
-            RepoOwner = _userSettingsService.GithubUserName;
-            RepoName = _userSettingsService.MonicaResultsPathOnGithub;
+            RepoOwner = username;
+            RepoName = monicaResultsPathOnGithub;
             List<string> result = new List<string>();
-            //result = _gitHubClient.Repository.Content.GetAllContents(RepoOwner, RepoName).Result;
             return result;
         }
 
-        public async Task<IEnumerable<RepositoryContent>> GetContentsAsync(string path)
+        public async Task<IEnumerable<RepositoryContent>> GetContentsAsync(string path, string username, string password)
         {
-            var basicAuth = new Credentials(_userSettingsService.GithubUserName, _userSettingsService.GithubPassword);
+            var basicAuth = new Credentials(username, password);
             _gitHubClient.Connection.Credentials = basicAuth;
 
             var contents = await _gitHubClient.Repository.Content.GetAllContents(RepoOwner, RepoName, path);
             return contents;
         }
 
-        public IEnumerable<RepositoryContent> GetContents(string path)
+        public IEnumerable<RepositoryContent> GetContents(string path, string username, string password)
         {
-            var basicAuth = new Credentials(_userSettingsService.GithubUserName, _userSettingsService.GithubPassword);
+            var basicAuth = new Credentials(username, password);
             _gitHubClient.Connection.Credentials = basicAuth;
 
             var contents = _gitHubClient.Repository.Content.GetAllContents(RepoOwner, RepoName, path).Result;
             return contents;
         }
 
-        public async Task<string> GetFileContentAsync(string path)
+        public async Task<string> GetFileContentAsync(string path, string username, string password)
         {
-            var basicAuth = new Credentials(_userSettingsService.GithubUserName, _userSettingsService.GithubPassword);
+            var basicAuth = new Credentials(username, password);
             _gitHubClient.Connection.Credentials = basicAuth;
 
             var contents = await _gitHubClient.Repository.Content.GetAllContents(RepoOwner, RepoName, path);
             return contents.Select(s => s.Content).FirstOrDefault();
         }
 
-        public string GetFileContent(string path)
+        public string GetFileContent(string path, string username, string password)
         {
-            var basicAuth = new Credentials(_userSettingsService.GithubUserName, _userSettingsService.GithubPassword);
+            var basicAuth = new Credentials(username, password);
             _gitHubClient.Connection.Credentials = basicAuth;
 
             var contents = (_gitHubClient.Repository.Content.GetAllContents(RepoOwner, RepoName, path)).Result;
             return contents.Select(s => s.Content).FirstOrDefault();
         }
 
-        public async Task<string> GetDownloadPathAsync(string path)
+        public async Task<string> GetDownloadPathAsync(string path, string username, string password)
         {
-            var contents = await GetContentsAsync(path);
+            var contents = await GetContentsAsync(path, username, password);
 
             if (contents == null)
                 return path;
@@ -186,9 +159,9 @@ namespace blzZmq1.Services.Github
             return contents.Select(s => s.DownloadUrl).FirstOrDefault();
         }
 
-        public string GetDownloadPath(string path)
+        public string GetDownloadPath(string path, string username, string password)
         {
-            var contents = GetContents(path);
+            var contents = GetContents(path, username, password);
 
             if (contents == null)
                 return path;

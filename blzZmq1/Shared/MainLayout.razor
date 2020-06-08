@@ -1,9 +1,8 @@
 ﻿@inherits LayoutComponentBase
 @using blzZmq1.Services
+@using Core.Share
 
-@inject IJSRuntime JSRuntime
-@inject IUserSettingsService UserSettingsService
-
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
 
 <div class="sidebar">
     <NavMenu />
@@ -11,13 +10,13 @@
 
 <div class="main">
     <div class="top-row px-4">
-        @if (!isUserLoggedInGithub)
+        @if (!_userSetting.GithubLoggedIn)
         {
             <a href="">Login</a>
         }
         else
         {
-            <a href="">Logout</a>//needs to empty the credential information
+            <a @onclick="LogoutAsync" href="">Logout</a>//needs to empty the credential information
         }
     </div>
     <div class="content px-4">
@@ -27,18 +26,25 @@
 
 @code{
 
-    bool isUserLoggedInGithub = false;
+    UserSetting _userSetting = new UserSetting();
+
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        foreach (var property in typeof(UserSettingsService).GetProperties())
-        {
-            var value = await JSRuntime.InvokeAsync<object>("UserCookies.GetCookie", property.Name);
+        var localUserSettings = await localStorage.GetItemAsync<UserSetting>(StaticFields.UserSettingsLocalStorageKey);
 
-            if (value != null)
-                property.SetValue(this.UserSettingsService, ConvertType.ChangeType(value.ToString(), property.PropertyType));
-            else
-                await JSRuntime.InvokeAsync<string>("UserCookies.WriteCookie", property.Name, property.GetValue(this.UserSettingsService).ToString(), null);
+        if (localUserSettings != null)
+        {
+            _userSetting = localUserSettings;
         }
+
+        StateHasChanged();
+    }
+
+    async Task LogoutAsync()
+    {
+        _userSetting.GithubLoggedIn = false;
+        await localStorage.SetItemAsync<UserSetting>(StaticFields.UserSettingsLocalStorageKey, _userSetting);
+
     }
 }

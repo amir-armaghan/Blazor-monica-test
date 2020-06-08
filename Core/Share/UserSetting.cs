@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
-using Radzen;
 
-namespace blzZmq1.Services
+namespace Core.Share
 {
-    public class UserSettingsService : IUserSettingsService
+    public class UserSetting
     {
-
         public string ServerPushAddress { get; set; } = "tcp://localhost";
         public int ServerPushPort { get; set; } = 6666;
         public string ServerPullAddress { get; set; } = "tcp://localhost";
@@ -19,11 +17,8 @@ namespace blzZmq1.Services
         public string GithubPassword { get; set; } = "PASSWORD";
         public bool GithubLoggedIn { get; set; } = false;
         public string MonicaResultsPathOnGithub { get; set; } = "";
+        public string MonicaParametersPathOnGithub { get; set; } = "";
         public bool MonicaPathOnGitIsValid { get; set; } = false;
         public bool SaveResultInGit { get; set; }
-
-        // creating variables which we can access in all components (The configuration data)
-        // ZMQ pull and push addresses and ports
-
     }
 }

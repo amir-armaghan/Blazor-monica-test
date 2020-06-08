@@ -6,22 +6,21 @@ namespace blzZmq1.Services.Github
 {
     public interface IGithubService
     {
-        bool Login();
-        bool Logout();
         string RepoName { get; set; }
         string RepoOwner { get; set; }
-        void CreateFile();
-        void CommitOnGit(string fileName, string jsonContent, string csvContent);
-        Task<bool> IsExistPathAsync(string path);
-        bool IsExistPath(string path);
-        void SetRepoInfo(string repoPath);
-        Task<IEnumerable<RepositoryContent>> GetContentsAsync(string path);
-        IEnumerable<RepositoryContent> GetContents(string path);
-        Task<string> GetFileContentAsync(string path);
-        string GetFileContent(string path);
-        Task<string> GetDownloadPathAsync(string path);
-        string GetDownloadPath(string path);
-        List<string> GetContentsList(string path);
 
+        void CommitOnGit(string FileName, string JsonContent, string CsvContent, string username, string password, string monicaResultsPathOnGithub);
+        void CreateFile(string username, string password);
+        IEnumerable<RepositoryContent> GetContents(string path, string username, string password);
+        Task<IEnumerable<RepositoryContent>> GetContentsAsync(string path, string username, string password);
+        List<string> GetContentsList(string path, string username, string monicaResultsPathOnGithub);
+        string GetDownloadPath(string path, string username, string password);
+        Task<string> GetDownloadPathAsync(string path, string username, string password);
+        string GetFileContent(string path, string username, string password);
+        Task<string> GetFileContentAsync(string path, string username, string password);
+        bool IsExistPath(string path, string username, string passowrd, string monicaResultsPathOnGithub);
+        Task<bool> IsExistPathAsync(string path, string username, string passowrd);
+        bool Login(string username, string password);
+        void SetRepoInfo(string repoPath);
     }
 }

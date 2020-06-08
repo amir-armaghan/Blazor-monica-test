@@ -2,11 +2,14 @@
 @using blzZmq1.Services
 @using NetMQ
 @using System.IO
+@using Core.Share
+
+@inherits Shared.BasePage
 
 @inject NavigationManager NavigationManager
 @inject blzZmq1.Services.Github.IGithubService GithubService
-@inject IUserSettingsService UserSettingsService
 @inject ZmqConsumer ZmqConsumer
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
 
 <h3>Recive ENV via ZMQ</h3>
 
@@ -29,6 +32,7 @@ else
     private string csvLink { get; set; } = " ";
     private string repositoryPathToExport = "";
 
+
     /// <summary>
     /// //////////////////   IN CONSUMER SHOULD CHECK TO STOR DATA ON GITHUB ONLY IF USER PROVIDES HIS GITHUB!
     /// </summary>
@@ -43,12 +47,12 @@ else
         //using (var producer = new RequestSocket())
         {
             //consumer.Connect("tcp://localhost:7777");
-            consumer.Connect(UserSettingsService.ServerPullAddress + ":" + UserSettingsService.ServerPullPort);
+            consumer.Connect(UserSetting.ServerPullAddress + ":" + UserSetting.ServerPullPort);
             answer = consumer.ReceiveFrameString();
 
             System.Threading.Thread.Sleep(2000);
             gotAnswer = true;
-            consumer.Disconnect(UserSettingsService.ServerPullAddress + ":" + UserSettingsService.ServerPullPort);
+            consumer.Disconnect(UserSetting.ServerPullAddress + ":" + UserSetting.ServerPullPort);
 
             // create path
             string fileName = DateTime.Now.ToString("yyyyMMdd_hhmmss");
@@ -63,8 +67,8 @@ else
 
             // call runConsumer Method(). get ths csv path and csv string, remove wwwroot from path and use the link in razor section
 
-            string csvLinkLong;
-            string csvContent = ZmqConsumer.RunConsumer(answer, filePath, out csvLinkLong);
+            string csvLinkLong = "";
+            string csvContent = "";//ZmqConsumer.RunConsumer(answer, filePath, out csvLinkLong);
 
             //write csv in Folder
             if (!File.Exists(csvLink))
@@ -73,7 +77,7 @@ else
             csvLink = csvLinkLong.Substring(csvLinkLong.IndexOf("/"));
 
             //commit the Json and CSV file
-            GithubService.CommitOnGit(fileName, answer, csvContent);
+            GithubService.CommitOnGit(fileName, answer, csvContent, UserSetting.GithubUserName, UserSetting.GithubPassword, UserSetting.MonicaResultsPathOnGithub);
 
             System.Threading.Thread.Sleep(1500);
             NavigationManager.NavigateTo("/monicaCharts/monicaChart");

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Core.Share
+namespace Core.Share.Enums
 {
-    public enum MonicaParametersBasePathType
+    public enum MonicaExportResultType
     {
-        LocalServer,
+        DowloadLink,
         Github
     }
 }

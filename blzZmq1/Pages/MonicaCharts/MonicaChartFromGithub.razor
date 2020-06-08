@@ -1,11 +1,11 @@
 ﻿@page "/monicaCharts/monicaGitChart"
-
 @* Usings *@
-@using blzZmq1.Services
-@using blzZmq1.Components
 @using blzZmq1.Services.MonicaCharts
-@using System.IO
 @using Core.MonicaData
+@using Core.Share
+
+
+@inherits Shared.BasePage
 
 @* Injects *@
 @inject IMonicaChartService MonicaChartService
@@ -45,7 +45,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                          
+
                             <tr>
                                 <td>@System.IO.Path.GetFileNameWithoutExtension(_selectedFile)</td>
                                 <td>@System.IO.File.GetCreationTime(System.IO.Path.GetFullPath(_selectedFile))</td>
@@ -123,9 +123,10 @@
     [Parameter]
     public List<MonicaSerie> ChartSeries { get; set; } = null;
 
+
     protected override async Task OnInitializedAsync()
     {
-        dirs = GithubService.GetContentsList("armaghan-monica-params");
+        dirs = GithubService.GetContentsList("armaghan-monica-params", UserSetting.GithubUserName, UserSetting.MonicaResultsPathOnGithub);
         //dirsLenght = dirs.Length;
         isLoading = false;
     }

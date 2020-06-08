@@ -37,7 +37,7 @@ namespace blzZmq1.Services
             _monicaIO = monicaIO;
         }
 
-        public string RunConsumer(string msg, string csvPath, out string csvFilePath)
+        public string RunConsumer(string msg)
         {
             System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
             JObject msgObj = JObject.Parse(msg);
@@ -59,9 +59,9 @@ namespace blzZmq1.Services
                 var varval = "";
                 //string csvFile = Path.Combine(config["out"].ToString(), env_count.ToString() + ".csv");
                 //string csvFile = ("wwwroot/export/1.csv");   // static address for export for test perpose at first run
-                csvFilePath = (csvPath + ".csv");
-                if (File.Exists(csvFilePath))
-                    varval = File.ReadAllText(csvFilePath);
+                //csvFilePath = (csvPath + ".csv");
+                //if (File.Exists(csvFilePath))
+                //    varval = File.ReadAllText(csvFilePath);
                 //StreamWriter strWrite = new StreamWriter(csvFile);
                 StringBuilder strBuild = new StringBuilder("");
 
@@ -119,7 +119,7 @@ namespace blzZmq1.Services
                 return strBuild.ToString();  // this method produce csv file and returns the csv path and csv string
             }
 
-            csvFilePath = "Path Error";
+            //csvFilePath = "Path Error";
             return "Content Error";
         }
     

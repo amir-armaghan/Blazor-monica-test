@@ -1,6 +1,31 @@
-﻿@inject Radzen.NotificationService notificationService
+﻿@using Core.Share
+
+@inject Radzen.NotificationService notificationService
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
 
 @code{
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        var localUserSettings = await localStorage.GetItemAsync<UserSetting>(StaticFields.UserSettingsLocalStorageKey);
+
+        if (localUserSettings != null)
+        {
+            UserSetting = localUserSettings;
+        }
+        StateHasChanged();
+    }
+
+    #region User Settings
+
+    public UserSetting UserSetting { get; set; } = new UserSetting();
+
+    public async Task SaveUserSettingsInLocalStorageAsync()
+    {
+        await localStorage.SetItemAsync<UserSetting>(StaticFields.UserSettingsLocalStorageKey, UserSetting);
+    }
+
+    #endregion
 
     #region Notifications
 

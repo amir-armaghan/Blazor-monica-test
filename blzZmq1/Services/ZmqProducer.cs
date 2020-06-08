@@ -6,6 +6,8 @@ using System.Text;
 using System.IO;
 using System.Threading.Tasks;
 using BlazorInputFile;
+using Core.Share;
+using Core.Share.Enums;
 
 namespace blzZmq1.Services
 {
@@ -18,10 +20,10 @@ namespace blzZmq1.Services
             _monicaIO = monicaIO;
         }
 
-        public async Task<string> RunProducerAsync(List<string> files)
+        public async Task<string> RunProducerAsync(List<string> files, UserSetting userSetting, MonicaParametersBasePathTypeEnum basePathType)
         {
 
-
+            _monicaIO.UserSettings = userSetting;
             /* string currentDir = Path.GetDirectoryName(Application.ExecutablePath);
              Dictionary<string, string> config = new Dictionary<string, string>();
              config.Add("port", string.IsNullOrEmpty(port) ? "6666" : port);
@@ -93,7 +95,14 @@ namespace blzZmq1.Services
             crop_site_sim.Add("climate", "");
             //crop_site_sim.Add("climate", climate_csv);
 
-            var env = _monicaIO.create_env_json_from_json_config(crop_site_sim);
+            string parametersPath = string.Empty;
+
+            if (basePathType == MonicaParametersBasePathTypeEnum.LocalServer)
+                parametersPath = MonicaConstFields.DefaultParametersPath;
+            else if (basePathType == MonicaParametersBasePathTypeEnum.Github)
+                parametersPath = userSetting.MonicaParametersPathOnGithub;
+
+            var env = _monicaIO.create_env_json_from_json_config(crop_site_sim, parametersPath);
             if (env != null)
             {
                 //env.Add("csvViaHeaderOptions", sim_json["climate.csv-options"]);

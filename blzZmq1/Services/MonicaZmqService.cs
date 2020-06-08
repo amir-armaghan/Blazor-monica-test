@@ -9,32 +9,22 @@ namespace blzZmq1.Services
 {
     public class MonicaParameters : IMonicaZmqService
     {
-        private readonly string ServerPushAddress;
-        private readonly int ServerPushPort;
-        private readonly IUserSettingsService _userSettingsService;
-
-        public MonicaParameters(IUserSettingsService userSettingsService)
-        {
-            _userSettingsService = userSettingsService;
-            ServerPushAddress = _userSettingsService.ServerPushAddress;
-            ServerPushPort = _userSettingsService.ServerPushPort;
-        }
 
         public Task Recieve()
         {
             throw new NotImplementedException();
         }
 
-        public bool Send(string message)
+        public bool Send(string message, string serverPushAddress, int serverPushPort)
         {
             try
             {
                 using (var producer = new PushSocket())
                 {
-                    producer.Connect(ServerPushAddress + ":" + ServerPushPort);
+                    producer.Connect(serverPushAddress + ":" + serverPushPort);
                     producer.SendFrame(message);
                     System.Threading.Thread.Sleep(2000);
-                    producer.Disconnect(ServerPushAddress + ":" + ServerPushPort);
+                    producer.Disconnect(serverPushAddress + ":" + serverPushPort);
                 }
                 return true;
             }
