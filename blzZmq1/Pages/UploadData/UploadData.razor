@@ -1,7 +1,7 @@
 ﻿@page "/uploadData"
 @* Usings *@
-@using Microsoft.AspNetCore.Hosting 
-@using System.Threading 
+@using Microsoft.AspNetCore.Hosting
+@using System.Threading
 @using blzZmq1.Services
 @using BlazorInputFile
 @using Core.Share
@@ -16,9 +16,12 @@
 @inject blzZmq1.Services.Github.IGithubService GithubService
 @inject ZmqProducer ZmqProducer
 @inject ZmqConsumer ZmqConsumer
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
 
 <h1>Upload data</h1>
-<h3>Select your files and upload to the server</h3>
+<h3>Select your files (sim, site, crop to use your own parameters, or just leave it empty to use the default parameters from our server)</h3>
+<h4>Old Monica users! The "include-file-base-path" will be ignored in the above files. Please use your desire path options, at the bottom of this page</h4>
 
 <div class="row">
     <div class="col-sm-12">
@@ -55,45 +58,45 @@
 
 <div class="row">
     <div class="col-sm-12">
+        Read Monica Parameters From
         @*Change="@((args) => Change(args))"*@
         <RadzenRadioButtonList @bind-Value="this._basePathType" TValue="MonicaParametersBasePathTypeEnum" Orientation="Orientation.Vertical">
             <Items>
-                <RadzenRadioButtonListItem Text="From local server" Value="MonicaParametersBasePathTypeEnum.LocalServer" />
-                <RadzenRadioButtonListItem Visible="UserSetting.GithubLoggedIn" Text="From Github (Enter your parameters base path)" Value="MonicaParametersBasePathTypeEnum.Github">
+                <RadzenRadioButtonListItem Text="Default server / Default values" Value="MonicaParametersBasePathTypeEnum.LocalServer" />
+                <RadzenRadioButtonListItem Visible="UserSetting.GithubLoggedIn" Text="Your github (Needs your parameters base full path)" Value="MonicaParametersBasePathTypeEnum.Github">
                 </RadzenRadioButtonListItem>
             </Items>
         </RadzenRadioButtonList>
     </div>
-
-    @if (_basePathType == MonicaParametersBasePathTypeEnum.Github)
-    {
-        <div class="form-group row">
-            <label for="inputPassword" class="col-sm-4 col-form-label">Github Path</label>
-            <div class="col-sm-8">
-                <input class="form-control" placeholder="Enter your Github path" @bind="UserSetting.MonicaParametersPathOnGithub" @onfocusout="SaveUserSettingsInLocalStorageAsync" />
-            </div>
-        </div>
-    }
 </div>
+@if (_basePathType == MonicaParametersBasePathTypeEnum.Github)
+{
+    <div class="form-group row">
+        <label for="inputPassword" class="col-sm-2 col-form-label">github Path</label>
+        <div class="col-sm-10">
+            <input class="form-control" placeholder="Monica Parameters Path On github" @bind="UserSetting.MonicaParametersPathOnGithub" @onfocusout="SaveUserSettingsInLocalStorageAsync" />
+        </div>
+    </div>
+}
 
 <div class="row">
     <div class="col-sm-12">
-        How to get result
+        Result Options
+        <RadzenRadioButtonList @bind-Value="this._exportResultType" TValue="MonicaExportResultType" Orientation="Orientation.Vertical">
+            <Items>
+                <RadzenRadioButtonListItem Text="Show me a download link" Value="MonicaExportResultType.DowloadLink" />
+                <RadzenRadioButtonListItem Visible="UserSetting.GithubLoggedIn" Text="Export it into my github (Needs your desire path on your github)" Value="MonicaExportResultType.Github">
+                </RadzenRadioButtonListItem>
+            </Items>
+        </RadzenRadioButtonList>
     </div>
-    <RadzenRadioButtonList @bind-Value="this._exportResultType" TValue="MonicaExportResultType" Orientation="Orientation.Vertical">
-        <Items>
-            <RadzenRadioButtonListItem Text="Get a download link" Value="MonicaExportResultType.DowloadLink" />
-            <RadzenRadioButtonListItem Visible="UserSetting.GithubLoggedIn" Text="Export to Github (Enter your path)" Value="MonicaExportResultType.Github">
-            </RadzenRadioButtonListItem>
-        </Items>
-    </RadzenRadioButtonList>
 </div>
 @if (_exportResultType == MonicaExportResultType.Github)
 {
     <div class="form-group row">
-        <label for="inputPassword" class="col-sm-4 col-form-label">Github Path</label>
-        <div class="col-sm-8">
-            <input class="form-control" placeholder="Enter your Github path" @bind="UserSetting.MonicaResultsPathOnGithub" @onfocusout="SaveUserSettingsInLocalStorageAsync" />
+        <label for="inputPassword" class="col-sm-2 col-form-label">github Path</label>
+        <div class="col-sm-10">
+            <input class="form-control" placeholder="Export Path On github" @bind="UserSetting.MonicaResultsPathOnGithub" @onfocusout="SaveUserSettingsInLocalStorageAsync" />
         </div>
     </div>
 }
@@ -111,26 +114,26 @@ else
 {
     if (_exportResultType == MonicaExportResultType.DowloadLink)
     {
-        <div class="input-group">
-            <input type="text" class="form-control disabled" @bind="jsonDownloadPath" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <div class="input-group m-2">
+            <input type="text" class="form-control disabled" @bind="jsonFullDownloadPath" aria-label="Recipient's username" aria-describedby="basic-addon2">
             <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button">Copy</button>
-                <a href="@jsonDownloadPath" class="btn btn-outline-secondary" type="button">Download</a>
+                <button class="btn btn-outline-secondary" type="button" @onclick="@(() => CopyTextToClipboard(jsonFullDownloadPath))">Copy</button>
+                <a href="@jsonDownloadPath" class="btn btn-outline-secondary" type="button" target="_blank">Download</a>
             </div>
         </div>
-        <div class="input-group">
-            <input type="text" class="form-control disabled" @bind="csvDownloadPath" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <div class="input-group m-2">
+            <input type="text" class="form-control disabled" @bind="csvFullDownloadPath" aria-label="Recipient's username" aria-describedby="basic-addon2">
             <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button">Copy</button>
-                <a href="@csvDownloadPath" class="btn btn-outline-secondary" type="button">Download</a>
+                <button class="btn btn-outline-secondary" type="button" @onclick="@(() => CopyTextToClipboard(csvFullDownloadPath))">Copy</button>
+                <a href="@csvDownloadPath" class="btn btn-outline-secondary" type="button" target="_blank">Download</a>
             </div>
         </div>
     }
     else if (_exportResultType == MonicaExportResultType.Github)
     {
-        <div class="col-sm-12">
+        <div class="col-sm-12 m-2">
             <div class="alert alert-success" role="alert">
-                Export has been doen. You can see the result in your Github repo.
+                We made your result. Please find them in you github repository.
             </div>
         </div>
     }
@@ -144,7 +147,7 @@ else
 }
 
 @code {
-    const string DefaultStatus = "Drop a text file here to view it, or click to choose a file";
+    const string DefaultStatus = "Drop your Sim, Site, Crop file(s) or just click here to choose you file(s)";
     const int MaxFileSize = 5 * 1024 * 1024; // 5MB
     string status = DefaultStatus;
 
@@ -156,17 +159,21 @@ else
     string jsonDownloadPath = string.Empty;
     string csvDownloadPath = string.Empty;
 
+
     private MonicaParametersBasePathTypeEnum _basePathType = MonicaParametersBasePathTypeEnum.LocalServer;
     private MonicaExportResultType _exportResultType = MonicaExportResultType.DowloadLink;
 
 
-    //string githubPath;
-    // void GetRepoContnet()
-    //{
-    // GithubService.SetRepoInfo("https://github.com/armaghan-work/armaghan-monica-params");
-    // //bool result = GithubService.IsExistPathAsync(githubPath).Result;
-    // GithubService.CreateFile();
-    //}
+    [Parameter]
+    public string jsonFullDownloadPath { get; set; } = string.Empty;
+    [Parameter]
+    public string csvFullDownloadPath { get; set; } = string.Empty;
+
+    private async Task CopyTextToClipboard(string shareLink)
+    {
+       await JSRuntime.InvokeVoidAsync("clipboardCopy.copyText", shareLink);
+    }
+
 
     async Task ViewFile(IFileListEntry[] files)
     {
@@ -250,23 +257,28 @@ else
 
             foreach (var file in Directory.GetFiles(exportPath))
             {
-                if (File.GetCreationTime(file) > DateTime.Now.AddDays(-1))
+                if (File.GetCreationTime(file) > DateTime.Now.AddDays(-7))
                     File.Delete(file);
             }
 
             if (_exportResultType == MonicaExportResultType.DowloadLink)
             {
+                //get the base URI Address and remove / from its end
+                string baseUriAddress = new Uri(NavigationManager.BaseUri).ToString().TrimEnd('/');
+
                 string fileName = Guid.NewGuid().ToString();
                 jsonDownloadPath = Path.Combine(exportPath, fileName + ".json");
 
                 File.WriteAllText(jsonDownloadPath, answer);
                 jsonDownloadPath = Path.Combine(HostEnvironment.WebRootPath, jsonDownloadPath);
                 jsonDownloadPath = jsonDownloadPath.Substring(jsonDownloadPath.IndexOf("/"));
+                jsonFullDownloadPath = baseUriAddress + jsonDownloadPath;
 
-                fileName = Guid.NewGuid().ToString();
+                //fileName = Guid.NewGuid().ToString();  // commented to use the old GUID for csv
                 csvDownloadPath = Path.Combine(exportPath, fileName + ".csv");
                 File.WriteAllText(csvDownloadPath, csvContent);
                 csvDownloadPath = csvDownloadPath.Substring(csvDownloadPath.IndexOf("/"));
+                csvFullDownloadPath = baseUriAddress + csvDownloadPath;
             }
             else if (_exportResultType == MonicaExportResultType.Github)
             {

@@ -19,19 +19,19 @@
     <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon3">Server Push Port:</span>
     </div>
-    <input class="form-control" aria-describedby="basic-addon3" @bind="@UserSetting.ServerPushPort" @oninput="UpdateLocalStorageSettingsAsync">
+    <input class="form-control" aria-describedby="basic-addon3" @bind="@UserSetting.ServerPushPort" @onfocusout="UpdateLocalStorageSettingsAsync">
 </div>
 <div class="input-group mb-3">
     <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon3">Server Pull Address:</span>
     </div>
-    <input type="text" class="form-control" aria-describedby="basic-addon3" @bind="@UserSetting.ServerPullAddress" @oninput="UpdateLocalStorageSettingsAsync">
+    <input type="text" class="form-control" aria-describedby="basic-addon3" @bind="@UserSetting.ServerPullAddress" @onfocusout="UpdateLocalStorageSettingsAsync">
 </div>
 <div class="input-group mb-3">
     <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon3">Server Pull Port:</span>
     </div>
-    <input type="number" class="form-control" aria-describedby="basic-addon3" @bind="UserSetting.ServerPullPort" @oninput="UpdateLocalStorageSettingsAsync">
+    <input type="number" class="form-control" aria-describedby="basic-addon3" @bind="UserSetting.ServerPullPort" @onfocusout="UpdateLocalStorageSettingsAsync">
 </div>
 <p> </p>
 <label for="basic-url">Your gitHub authentication information</label>
@@ -39,13 +39,13 @@
     <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon3">User Name:</span>
     </div>
-    <input disabled type="text" class="form-control" aria-describedby="basic-addon3" @bind="UserSetting.GithubUserName" @oninput="UpdateLocalStorageSettingsAsync">
+    <input disabled type="text" class="form-control" aria-describedby="basic-addon3" @bind="UserSetting.GithubUserName" @onfocusout="UpdateLocalStorageSettingsAsync">
 </div>
 <div class="input-group mb-3">
     <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon3">Password:</span>
     </div>
-    <input disabled type="password" class="form-control" aria-describedby="basic-addon3" @bind="UserSetting.GithubPassword" @oninput="UpdateLocalStorageSettingsAsync">
+    <input disabled type="password" class="form-control" aria-describedby="basic-addon3" @bind="UserSetting.GithubPassword" @onfocusout="UpdateLocalStorageSettingsAsync">
 </div>
 <div class="input-group mb-3">
     <div class="input-group-prepend">
@@ -74,7 +74,7 @@
         <button class="btn btn-info btn-sm rounded-right" type="button" @onclick="GithubPathValidation">Validate the path</button>
     </div>
 </div>
-<h3>What to do whith results</h3>
+
 @*@if (UserSettingsService.MonicaPathOnGitIsValid == true)
     {
         <RadzenRadioButtonList @bind-Value="UserSettingsService.SaveResultInGit" TValue="Boolean" Orientation="Orientation.Vertical" Change="@((args) => Change(args))">
@@ -128,32 +128,5 @@
     }
 
 
-
-    /*Boolean result;
-    void Login()
-    {
-        blzZmq1.Services.Github.IGithubService g = new blzZmq1.Services.Github.GitHubParameters();
-        result = g.Login();
-    }*/
-
-
-    // // it is supposed later makeing this code to read settings from an ini file. Not sure if it is a good idea
-    /*private const String ConfigFileName = "Config.ini";
-
-
-    public Dictionary<string, string> readConfigFile()
-    {
-        var lines = File.ReadAllLines(ConfigFileName);
-        Dictionary<string, string> dict = new Dictionary<string, string>();
-        foreach (string s in lines)
-        {
-            string[] split = s.Split("=");
-            dict.Add(split[0], split[1]);
-        }
-
-        return dict;
-    }*/
-
-    // //string s = string.Join(";", dict.Select(x => x.Key + "=" + x.Value).ToArray());
 
 }
