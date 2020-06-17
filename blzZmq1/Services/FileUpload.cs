@@ -1,5 +1,6 @@
 ﻿using BlazorInputFile;
 using Microsoft.AspNetCore.Hosting;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 namespace blzZmq1.Services
@@ -36,6 +37,23 @@ namespace blzZmq1.Services
             }
 
             return filePath;
+        }
+
+        public async Task<string> GetFileContentAsync(string uriString)
+        {
+            // Lesson learnt - always check for a valid URI
+            if (Uri.IsWellFormedUriString(uriString, UriKind.Absolute))
+            {
+                Uri uri = new Uri(uriString);
+                string filePath = _environment.WebRootPath + uri.LocalPath.Replace("/","\\");
+                if (File.Exists(filePath))
+                {
+                    var fileContent = File.ReadAllText(filePath);
+                    return fileContent;
+                }
+            }
+
+            return null;
         }
     }
 }

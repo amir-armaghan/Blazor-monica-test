@@ -110,42 +110,43 @@ else
     <button class="btn btn-primary" @onclick="HandleFiles">Send to server</button>
 }
 
-@if (isExportDone)
-{
-    if (_exportResultType == MonicaExportResultType.DowloadLink)
+<div class="row" style="margin-bottom: 100px">
+    @if (isExportDone)
     {
-        <div class="input-group m-2">
-            <input type="text" class="form-control disabled" @bind="jsonFullDownloadPath" aria-label="Recipient's username" aria-describedby="basic-addon2">
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button" @onclick="@(() => CopyTextToClipboard(jsonFullDownloadPath))">Copy</button>
-                <a href="@jsonDownloadPath" class="btn btn-outline-secondary" type="button" target="_blank">Download</a>
+        if (_exportResultType == MonicaExportResultType.DowloadLink)
+        {
+            <div class="input-group m-2">
+                <input type="text" class="form-control disabled" @bind="jsonFullDownloadPath" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" @onclick="@(() => CopyTextToClipboard(jsonFullDownloadPath))">Copy</button>
+                    <a href="@jsonDownloadPath" class="btn btn-outline-secondary" type="button" target="_blank">Download</a>
+                </div>
             </div>
-        </div>
-        <div class="input-group m-2">
-            <input type="text" class="form-control disabled" @bind="csvFullDownloadPath" aria-label="Recipient's username" aria-describedby="basic-addon2">
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button" @onclick="@(() => CopyTextToClipboard(csvFullDownloadPath))">Copy</button>
-                <a href="@csvDownloadPath" class="btn btn-outline-secondary" type="button" target="_blank">Download</a>
+            <div class="input-group m-2">
+                <input type="text" class="form-control disabled" @bind="csvFullDownloadPath" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" @onclick="@(() => CopyTextToClipboard(csvFullDownloadPath))">Copy</button>
+                    <a href="@csvDownloadPath" class="btn btn-outline-secondary" type="button" target="_blank">Download</a>
+                </div>
             </div>
+        }
+        else if (_exportResultType == MonicaExportResultType.Github)
+        {
+            <div class="col-sm-12 m-2">
+                <div class="alert alert-success" role="alert">
+                    We made your result. Please find them in you github repository.
+                </div>
+            </div>
+        }
+    }
+
+    @if (!string.IsNullOrWhiteSpace(SendToServerStatus))
+    {
+        <div class="alert alert-success" role="alert">
+            @SendToServerStatus
         </div>
     }
-    else if (_exportResultType == MonicaExportResultType.Github)
-    {
-        <div class="col-sm-12 m-2">
-            <div class="alert alert-success" role="alert">
-                We made your result. Please find them in you github repository.
-            </div>
-        </div>
-    }
-}
-
-@if (!string.IsNullOrWhiteSpace(SendToServerStatus))
-{
-    <div class="alert alert-success" role="alert">
-        Data has been sent to server.
-    </div>
-}
-
+</div>
 @code {
     const string DefaultStatus = "Drop your Sim, Site, Crop file(s) or just click here to choose you file(s)";
     const int MaxFileSize = 5 * 1024 * 1024; // 5MB
@@ -169,15 +170,27 @@ else
     [Parameter]
     public string csvFullDownloadPath { get; set; } = string.Empty;
 
+
+    protected override async Task OnInitializedAsync()
+    {
+        UserSettingsUpdated += OnAfterUserSettingsUpdatedAsync;
+    }
+
+    void OnAfterUserSettingsUpdatedAsync(object sender, EventArgs e)
+    {
+        StateHasChanged();
+    }
+
     private async Task CopyTextToClipboard(string shareLink)
     {
-       await JSRuntime.InvokeVoidAsync("clipboardCopy.copyText", shareLink);
+        await JSRuntime.InvokeVoidAsync("clipboardCopy.copyText", shareLink);
     }
 
 
     async Task ViewFile(IFileListEntry[] files)
     {
         SendToServerStatus = string.Empty;
+
 
         if (files.Length == 0)
         {
@@ -214,6 +227,9 @@ else
     private async Task HandleFiles()
     {
         isDataSending = true;
+        SendToServerStatus = $"Uploading files [{DateTime.Now.ToString()}]" + Environment.NewLine;
+        StateHasChanged();
+
         var filePathes = new List<string>();
         FileUpload.DeleteExistingFiles();
 
@@ -223,7 +239,13 @@ else
             filePathes.Add(filePath);
         }
 
+        SendToServerStatus += $"Creating Monica request file [{DateTime.Now.ToString()}]" + Environment.NewLine;
+        StateHasChanged();
+
         var result = await ZmqProducer.RunProducerAsync(filePathes, UserSetting, _basePathType);
+
+        SendToServerStatus += $"Sending Monica request file [{DateTime.Now.ToString()}]" + Environment.NewLine;
+        StateHasChanged();
 
         IsDataSent = MonicaZmqService.Send(result, UserSetting.ServerPushAddress, UserSetting.ServerPushPort);
 
@@ -240,6 +262,9 @@ else
 
     async Task ExportResultAsync() // call ZmqProducer calss
     {
+        SendToServerStatus += $"Reciving Monica request file [{DateTime.Now.ToString()}]" + Environment.NewLine;
+        StateHasChanged();
+
         await Task.Delay(2000);
 
         using (var consumer = new PullSocket())
@@ -282,9 +307,13 @@ else
             }
             else if (_exportResultType == MonicaExportResultType.Github)
             {
+                SendToServerStatus += $"Writing the result to github [{DateTime.Now.ToString()}]" + Environment.NewLine;
+                StateHasChanged();
+
                 string fileName = "MonicaResult_" + DateTime.Now.ToString("yyyyMMdd_hhmmss");
                 //commit the Json and CSV file
-                GithubService.CommitOnGit(fileName, answer, csvContent, UserSetting.GithubUserName, UserSetting.GithubPassword, UserSetting.MonicaResultsPathOnGithub);
+                string repoPath = GithubService.GetRepoResultPath(UserSetting.MonicaResultsPathOnGithub);
+                GithubService.CommitOnGit(fileName, answer, csvContent, UserSetting.GithubUserName, UserSetting.GithubPassword, repoPath);
             }
         }
 

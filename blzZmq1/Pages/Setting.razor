@@ -53,15 +53,23 @@
     </div>
     @if (UserSetting.MonicaPathOnGitIsValid == false || UserSetting.MonicaResultsPathOnGithub == "") //show proper icon when is Not valid
     {
-        <div class="input-group-prepend tooltip2">
-            <span class="input-group-text tooltip2" id="basic-addon3">&#9888;</span>
-            <span class="tooltiptext">
-                <strong>Only After logging-in:</strong> <br />
-                Please enter your github repository Address which contains "monica parameters" in its root <br />
-                Do not add Slash (/) at the begining or at the end of this address. <br />
-                After entering the path, click on "Validate the path" button.
-            </span>
-        </div>
+<div class="input-group-prepend tooltip2">
+    <span class="input-group-text tooltip2" id="basic-addon3">&#9888;</span>
+    <span class="tooltiptext">
+        <strong>Only After logging-in:</strong> <br />
+        Please enter your full github repository Address which contains "monica parameters" in its root <br />
+        Do not add Slash (/) at the the end of this address. <br />
+        After entering the path, click on "Validate the path" button.
+    </span>
+    <!--
+        <span class="tooltiptext">
+            <strong>Only After logging-in:</strong> <br />
+            Please enter your github repository Address which contains "monica parameters" in its root <br />
+            Do not add Slash (/) at the begining or at the end of this address. <br />
+            After entering the path, click on "Validate the path" button.
+        </span>
+    -->
+</div>
     }
     else // when path is valid
     {
@@ -111,7 +119,8 @@
     {
         if (!string.IsNullOrWhiteSpace(UserSetting.MonicaResultsPathOnGithub))
         {
-            UserSetting.MonicaPathOnGitIsValid = GithubService.IsExistPath(UserSetting.MonicaResultsPathOnGithub, UserSetting.GithubUserName, UserSetting.GithubPassword, UserSetting.MonicaResultsPathOnGithub);
+            string repoPath = GithubService.GetRepoResultPath(UserSetting.MonicaResultsPathOnGithub);
+            UserSetting.MonicaPathOnGitIsValid = GithubService.IsExistPath(UserSetting.MonicaResultsPathOnGithub, UserSetting.GithubUserName, UserSetting.GithubPassword, repoPath);
             await SaveUserSettingsInLocalStorageAsync();
         }
     }

@@ -13,6 +13,8 @@ namespace blzZmq1.Services.MonicaCharts
 
         Task<List<MonicaBaseData>> GetBaseDataAsync(string filePath);
 
+        List<MonicaBaseData> GetBaseDataFromJson(string jsonContent);
+
         List<MonicaSerie> GetXAxises(MonicaBaseData monicaBaseData);
 
         List<MonicaSerie> GetSeries(MonicaBaseData monicaBaseData);

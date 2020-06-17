@@ -17,12 +17,14 @@ namespace Application.MonicaCharts
             _monicaJsonMapper = monicaJsonMapper;
         }
 
-        public async Task<List<MonicaBaseData>> GetAsync(string monicaJsonFilePath)
+        public async Task<List<MonicaBaseData>> GetAsync(string jsonFilePath)
         {
-            using (StreamReader file = File.OpenText(monicaJsonFilePath))
-            {
-                return _monicaJsonMapper.Map(file);
-            }
+            return _monicaJsonMapper.Map(File.ReadAllText(jsonFilePath));
+        }
+
+        public List<MonicaBaseData> GetFromJson(string jsonContent)
+        {
+            return _monicaJsonMapper.Map(jsonContent);
         }
     }
 }

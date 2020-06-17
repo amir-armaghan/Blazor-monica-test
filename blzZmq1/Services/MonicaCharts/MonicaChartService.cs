@@ -24,6 +24,11 @@ namespace blzZmq1.Services.MonicaCharts
             return await _monicaChartApp.GetAsync(filePath);
         }
 
+        public List<MonicaBaseData> GetBaseDataFromJson(string jsonContent)
+        {
+            return _monicaChartApp.GetFromJson(jsonContent);
+        }
+
         public List<MonicaSerie> GetXAxises(MonicaBaseData monicaBaseData)
         {
             var monicaSeries = new List<MonicaSerie>();

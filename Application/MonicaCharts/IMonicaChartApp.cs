@@ -8,6 +8,8 @@ namespace Application.MonicaCharts
 {
     public interface IMonicaChartApp
     {
-        Task<List<MonicaBaseData>> GetAsync(string monicaJsonFilePath);
+        Task<List<MonicaBaseData>> GetAsync(string jsonFilePath);
+
+        List<MonicaBaseData> GetFromJson(string jsonContent);
     }
 }

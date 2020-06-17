@@ -7,5 +7,7 @@ namespace blzZmq1.Services
         void DeleteExistingFiles();
 
         Task<string> UploadAsync(IFileListEntry file);
+
+        Task<string> GetFileContentAsync(string uriString);
     }
 }

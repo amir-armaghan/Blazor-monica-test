@@ -288,6 +288,55 @@
       },
       {
         "Kind": "Components.Component",
+        "Name": "blzZmq1.Pages.GetServerResult",
+        "AssemblyName": "blzZmq1",
+        "Documentation": null,
+        "TagOutputHint": null,
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "GetServerResult",
+            "ParentTag": null,
+            "TagStructure": 0,
+            "Attributes": [],
+            "Diagnostics": []
+          }
+        ],
+        "BoundAttributes": [],
+        "AllowedChildTags": [],
+        "Diagnostics": [],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "blzZmq1.Pages.GetServerResult"
+        }
+      },
+      {
+        "Kind": "Components.Component",
+        "Name": "blzZmq1.Pages.GetServerResult",
+        "AssemblyName": "blzZmq1",
+        "Documentation": null,
+        "TagOutputHint": null,
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "blzZmq1.Pages.GetServerResult",
+            "ParentTag": null,
+            "TagStructure": 0,
+            "Attributes": [],
+            "Diagnostics": []
+          }
+        ],
+        "BoundAttributes": [],
+        "AllowedChildTags": [],
+        "Diagnostics": [],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "blzZmq1.Pages.GetServerResult",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
+        "Kind": "Components.Component",
         "Name": "blzZmq1.Pages.Index",
         "AssemblyName": "blzZmq1",
         "Documentation": null,
@@ -439,6 +488,113 @@
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
           "Common.TypeName": "blzZmq1.Pages.MonicaCharts.MonicaChart",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
+        "Kind": "Components.Component",
+        "Name": "blzZmq1.Pages.MonicaCharts.MonicaChartFromGithub",
+        "AssemblyName": "blzZmq1",
+        "Documentation": null,
+        "TagOutputHint": null,
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "MonicaChartFromGithub",
+            "ParentTag": null,
+            "TagStructure": 0,
+            "Attributes": [],
+            "Diagnostics": []
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "ChartXAxise",
+            "TypeName": "Core.MonicaData.MonicaSerie",
+            "IsEnum": false,
+            "IndexerNamePrefix": null,
+            "IndexerTypeName": null,
+            "Documentation": null,
+            "Diagnostics": [],
+            "Metadata": {
+              "Common.PropertyName": "ChartXAxise"
+            },
+            "BoundAttributeParameters": []
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "ChartSeries",
+            "TypeName": "System.Collections.Generic.List<Core.MonicaData.MonicaSerie>",
+            "IsEnum": false,
+            "IndexerNamePrefix": null,
+            "IndexerTypeName": null,
+            "Documentation": null,
+            "Diagnostics": [],
+            "Metadata": {
+              "Common.PropertyName": "ChartSeries"
+            },
+            "BoundAttributeParameters": []
+          }
+        ],
+        "AllowedChildTags": [],
+        "Diagnostics": [],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "blzZmq1.Pages.MonicaCharts.MonicaChartFromGithub"
+        }
+      },
+      {
+        "Kind": "Components.Component",
+        "Name": "blzZmq1.Pages.MonicaCharts.MonicaChartFromGithub",
+        "AssemblyName": "blzZmq1",
+        "Documentation": null,
+        "TagOutputHint": null,
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "blzZmq1.Pages.MonicaCharts.MonicaChartFromGithub",
+            "ParentTag": null,
+            "TagStructure": 0,
+            "Attributes": [],
+            "Diagnostics": []
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "ChartXAxise",
+            "TypeName": "Core.MonicaData.MonicaSerie",
+            "IsEnum": false,
+            "IndexerNamePrefix": null,
+            "IndexerTypeName": null,
+            "Documentation": null,
+            "Diagnostics": [],
+            "Metadata": {
+              "Common.PropertyName": "ChartXAxise"
+            },
+            "BoundAttributeParameters": []
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "ChartSeries",
+            "TypeName": "System.Collections.Generic.List<Core.MonicaData.MonicaSerie>",
+            "IsEnum": false,
+            "IndexerNamePrefix": null,
+            "IndexerTypeName": null,
+            "Documentation": null,
+            "Diagnostics": [],
+            "Metadata": {
+              "Common.PropertyName": "ChartSeries"
+            },
+            "BoundAttributeParameters": []
+          }
+        ],
+        "AllowedChildTags": [],
+        "Diagnostics": [],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "blzZmq1.Pages.MonicaCharts.MonicaChartFromGithub",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
@@ -723,7 +879,36 @@
             "Diagnostics": []
           }
         ],
-        "BoundAttributes": [],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "jsonFullDownloadPath",
+            "TypeName": "System.String",
+            "IsEnum": false,
+            "IndexerNamePrefix": null,
+            "IndexerTypeName": null,
+            "Documentation": null,
+            "Diagnostics": [],
+            "Metadata": {
+              "Common.PropertyName": "jsonFullDownloadPath"
+            },
+            "BoundAttributeParameters": []
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "csvFullDownloadPath",
+            "TypeName": "System.String",
+            "IsEnum": false,
+            "IndexerNamePrefix": null,
+            "IndexerTypeName": null,
+            "Documentation": null,
+            "Diagnostics": [],
+            "Metadata": {
+              "Common.PropertyName": "csvFullDownloadPath"
+            },
+            "BoundAttributeParameters": []
+          }
+        ],
         "AllowedChildTags": [],
         "Diagnostics": [],
         "Metadata": {
@@ -747,61 +932,41 @@
             "Diagnostics": []
           }
         ],
-        "BoundAttributes": [],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "jsonFullDownloadPath",
+            "TypeName": "System.String",
+            "IsEnum": false,
+            "IndexerNamePrefix": null,
+            "IndexerTypeName": null,
+            "Documentation": null,
+            "Diagnostics": [],
+            "Metadata": {
+              "Common.PropertyName": "jsonFullDownloadPath"
+            },
+            "BoundAttributeParameters": []
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "csvFullDownloadPath",
+            "TypeName": "System.String",
+            "IsEnum": false,
+            "IndexerNamePrefix": null,
+            "IndexerTypeName": null,
+            "Documentation": null,
+            "Diagnostics": [],
+            "Metadata": {
+              "Common.PropertyName": "csvFullDownloadPath"
+            },
+            "BoundAttributeParameters": []
+          }
+        ],
         "AllowedChildTags": [],
         "Diagnostics": [],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
           "Common.TypeName": "blzZmq1.Pages.UploadData.UploadData",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
-        "Kind": "Components.Component",
-        "Name": "blzZmq1.Pages.ZmqConsumer",
-        "AssemblyName": "blzZmq1",
-        "Documentation": null,
-        "TagOutputHint": null,
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "ZmqConsumer",
-            "ParentTag": null,
-            "TagStructure": 0,
-            "Attributes": [],
-            "Diagnostics": []
-          }
-        ],
-        "BoundAttributes": [],
-        "AllowedChildTags": [],
-        "Diagnostics": [],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "blzZmq1.Pages.ZmqConsumer"
-        }
-      },
-      {
-        "Kind": "Components.Component",
-        "Name": "blzZmq1.Pages.ZmqConsumer",
-        "AssemblyName": "blzZmq1",
-        "Documentation": null,
-        "TagOutputHint": null,
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "blzZmq1.Pages.ZmqConsumer",
-            "ParentTag": null,
-            "TagStructure": 0,
-            "Attributes": [],
-            "Diagnostics": []
-          }
-        ],
-        "BoundAttributes": [],
-        "AllowedChildTags": [],
-        "Diagnostics": [],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "blzZmq1.Pages.ZmqConsumer",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
@@ -68107,6 +68272,11 @@
       "FileKind": "component"
     },
     {
+      "FilePath": "c:\\Users\\armaghan\\source\\repos\\blzZmq1\\blzZmq1\\Pages\\GetServerResult.razor",
+      "TargetPath": "Pages\\GetServerResult.razor",
+      "FileKind": "component"
+    },
+    {
       "FilePath": "c:\\Users\\armaghan\\source\\repos\\blzZmq1\\blzZmq1\\Pages\\Index.razor",
       "TargetPath": "Pages\\Index.razor",
       "FileKind": "component"
@@ -68142,11 +68312,6 @@
       "FileKind": "component"
     },
     {
-      "FilePath": "c:\\Users\\armaghan\\source\\repos\\blzZmq1\\blzZmq1\\Pages\\ZmqConsumer.razor",
-      "TargetPath": "Pages\\ZmqConsumer.razor",
-      "FileKind": "component"
-    },
-    {
       "FilePath": "c:\\Users\\armaghan\\source\\repos\\blzZmq1\\blzZmq1\\Pages\\MonicaCharts\\MonicaHighchart.razor",
       "TargetPath": "Pages\\MonicaCharts\\MonicaHighchart.razor",
       "FileKind": "component"
@@ -68170,6 +68335,11 @@
       "FilePath": "c:\\Users\\armaghan\\source\\repos\\blzZmq1\\blzZmq1\\Pages\\_Host.cshtml",
       "TargetPath": "Pages\\_Host.cshtml",
       "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\armaghan\\source\\repos\\blzZmq1\\blzZmq1\\Pages\\MonicaCharts\\MonicaChartFromGithub.razor",
+      "TargetPath": "Pages\\MonicaCharts\\MonicaChartFromGithub.razor",
+      "FileKind": "component"
     },
     {
       "FilePath": "c:\\Users\\armaghan\\source\\repos\\blzZmq1\\blzZmq1\\Shared\\SurveyPrompt.razor",

@@ -5,15 +5,21 @@
 
 @code{
 
+    protected EventHandler UserSettingsUpdated;
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        var localUserSettings = await localStorage.GetItemAsync<UserSetting>(StaticFields.UserSettingsLocalStorageKey);
-
-        if (localUserSettings != null)
+        if (firstRender)
         {
-            UserSetting = localUserSettings;
+            var localUserSettings = await localStorage.GetItemAsync<UserSetting>(StaticFields.UserSettingsLocalStorageKey);
+
+            if (localUserSettings != null)
+            {
+                UserSetting = localUserSettings;
+            }
+            StateHasChanged();
+            UserSettingsUpdated?.Invoke(this, new EventArgs());
         }
-        StateHasChanged();
     }
 
     #region User Settings

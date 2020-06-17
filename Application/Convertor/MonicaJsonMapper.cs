@@ -11,66 +11,63 @@ namespace Application.Convertor
 {
     public class MonicaJsonMapper : IMonicaJsonMapper
     {
-        public List<MonicaBaseData> Map(StreamReader data)
+        public List<MonicaBaseData> Map(string data)
         {
             int dataCounter = 0;
             var lstMonicaBaseData = new List<MonicaBaseData>();
 
-            using (JsonTextReader reader = new JsonTextReader(data))
+            JObject jObject = JObject.Parse(data);
+
+            foreach (var mData in jObject["data"])
             {
-                JObject jObject = (JObject)JToken.ReadFrom(reader);
+                var monicaBaseData = new MonicaBaseData(dataCounter++);
 
-                foreach (var mData in jObject["data"])
+                string OrigSpec = (string)mData[MonicaConstFields.OrigSpec];
+                OrigSpec = OrigSpec.RemoveQuotation();
+                monicaBaseData.OrigSpec = OrigSpec;
+
+                int outputIdIndex = 0;
+
+                foreach (var outId in mData[MonicaConstFields.OutputIds])  // like Daily, Yearly, Crop
                 {
-                    var monicaBaseData = new MonicaBaseData(dataCounter++);
+                    var monicaSerie = new MonicaSerie();
+                    var outIdName = (string)outId[MonicaConstFields.Name];
+                    var results = (JArray)mData[MonicaConstFields.Results][outputIdIndex];
 
-                    string OrigSpec = (string)mData[MonicaConstFields.OrigSpec];
-                    OrigSpec = OrigSpec.RemoveQuotation();
-                    monicaBaseData.OrigSpec = OrigSpec;
-
-                    int outputIdIndex = 0;
-
-                    foreach (var outId in mData[MonicaConstFields.OutputIds])  // like Daily, Yearly, Crop
+                    if (results.Count > 0)
                     {
-                        var monicaSerie = new MonicaSerie();
-                        var outIdName = (string)outId[MonicaConstFields.Name];
-                        var results = (JArray)mData[MonicaConstFields.Results][outputIdIndex];
+                        var firstResult = results[0];
 
-                        if (results.Count > 0)
+                        if (firstResult is JArray) // the result is series of arrays
                         {
-                            var firstResult = results[0];
-
-                            if (firstResult is JArray) // the result is series of arrays
+                            for (int i = 0; i < ((JArray)firstResult).Count; i++)
                             {
-                                for (int i = 0; i < ((JArray)firstResult).Count; i++)
-                                {
-                                    monicaSerie = new MonicaSerie();
-                                    monicaSerie.SerieTitle = outIdName + "-" + (i + 1);
+                                monicaSerie = new MonicaSerie();
+                                monicaSerie.SerieTitle = outIdName + "-" + (i + 1);
 
-                                    foreach (var result in results)
-                                    {
-                                        monicaSerie.Values.Add(result[i].ToString().Replace(",", ".")); // replace , by . in numbers for sub arrays
-                                    }
-
-                                    monicaBaseData.MonicaSeries.Add(monicaSerie);
-                                }
-                            }
-                            else
-                            {
-                                monicaSerie.SerieTitle = outIdName;
                                 foreach (var result in results)
                                 {
-                                    monicaSerie.Values.Add(result.ToString().Replace(",", "."));
+                                    monicaSerie.Values.Add(result[i].ToString().Replace(",", ".")); // replace , by . in numbers for sub arrays
                                 }
+
                                 monicaBaseData.MonicaSeries.Add(monicaSerie);
                             }
                         }
-
-                        outputIdIndex++;
+                        else
+                        {
+                            monicaSerie.SerieTitle = outIdName;
+                            foreach (var result in results)
+                            {
+                                monicaSerie.Values.Add(result.ToString().Replace(",", "."));
+                            }
+                            monicaBaseData.MonicaSeries.Add(monicaSerie);
+                        }
                     }
 
-                    lstMonicaBaseData.Add(monicaBaseData);
+                    outputIdIndex++;
                 }
+
+                lstMonicaBaseData.Add(monicaBaseData);
             }
 
             return lstMonicaBaseData; //return data for selected chart

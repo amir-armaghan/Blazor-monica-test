@@ -8,6 +8,6 @@ namespace Application.Convertor
 {
     public interface IMonicaJsonMapper
     {
-        List<MonicaBaseData> Map(StreamReader data);
+        List<MonicaBaseData> Map(string data);
     }
 }
