@@ -83,19 +83,6 @@
                             <InputFile OnChange="ViewFile" />
                             @status
                         </div>
-
-                        @if (_files != null)
-                        {
-                            foreach (var file in _files)
-                            {
-                                <div class="file-row">
-                                    <h2>@file.File.Name</h2>
-                                    <div> <b>size</b> @file.File.Size</div>
-                                    <button class="btn btn-danger btn-sm" type="button" disabled="@file.IsUploaded" @onclick="(() => RemoveFile(file))">Remove</button>
-                                    <button class="btn btn-danger btn-sm" type="button" disabled="@file.IsUploaded">Upload result</button>
-                                </div>
-                            }
-                        }
                     </div>
                 </div>
 
@@ -189,7 +176,8 @@
     const string DefaultStatus = "Drop your JSON file here or just click to choose you file";
     const int MaxFileSize = 12 * 1024 * 1024; // 12MB
     string status = DefaultStatus;
-    private List<UploadedFilesModel> _files = new List<UploadedFilesModel>();
+    string fileName;
+    string fileTextContents = string.Empty;
 
     public List<MonicaBaseData> MonicaBaseDatas { get; set; } = null;
 
@@ -335,62 +323,40 @@
         }
     }
 
-    ///  upload json Part
+    ///  upload json, read to memory and call to load the chart
     async Task ViewFile(IFileListEntry[] files)
     {
-        if (files.Length == 0)
+        var file = files.FirstOrDefault();
+        if (file == null)
         {
             return;
         }
+        else if (file.Size > MaxFileSize)
+        {
+            status = $"That's too big. Max size: {MaxFileSize} bytes.";
+        }
         else
         {
-            for (int i = 0; i < files.Length; i++)
-            {
-                if (files[i].Size > MaxFileSize)
-                {
-                    status = $"That's too big. Max size: {MaxFileSize} bytes.";
-                    return;
-                }
-            }
-
             status = "Loading...";
 
-            for (int i = 0; i < files.Length; i++)
+            using (var reader = new StreamReader(file.Data))
             {
-                if (!_files.Any(file => file.File.Name == files[i].Name && file.File.Size == files[i].Size))
-                    _files.Add(new UploadedFilesModel() { File = files[i] });
+                //reader.Dispose();
+                fileTextContents = await reader.ReadToEndAsync(); //.ConfigureAwait(false); //.ConfigureAwait(continueOnCapturedContext: false);
+                fileName = file.Name;
+
             }
 
-            status = DefaultStatus;
+            status = $"Finished loading {file.Size} bytes from {file.Name}";
+            if (fileTextContents != null)
+            {
+                LoadMonicaBaseData(fileTextContents);
+            }
+            else
+            {
+                Console.WriteLine("File not found");
+            }
         }
-    }
-
-    private void RemoveFile(UploadedFilesModel file)
-    {
-        _files.Remove(file);
-    }
-
-    private async Task HandleFiles()
-    {
-        var filePathes = new List<string>();
-        FileUpload.DeleteExistingFiles();
-
-        foreach (var file in _files)
-        {
-            var filePath = await FileUpload.UploadAsync(file.File);
-            filePathes.Add(filePath);
-        }
-    }
-    class UploadedFilesModel
-    {
-        public UploadedFilesModel()
-        {
-            IsUploaded = false;
-        }
-
-        public IFileListEntry File { get; set; }
-
-        public bool IsUploaded { get; set; }
     }
 }
 

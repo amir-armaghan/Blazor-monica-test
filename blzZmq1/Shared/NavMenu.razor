@@ -1,4 +1,5 @@
 ﻿<div class="top-row pl-4 navbar navbar-dark">
+    <div><img src="../zalf-logo.png" /></div>
     <a class="navbar-brand" href="">Blazor4Monica</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
@@ -14,22 +15,18 @@
         </li>
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="uploadData" Match="NavLinkMatch.All">
-                <span class="oi oi-cloud-upload" aria-hidden="true"></span> Upload Data (Producer)
+                <span class="oi oi-cloud-upload" aria-hidden="true"></span> Upload Data
             </NavLink>
         </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="GetServerResult" Match="NavLinkMatch.All">
-                <span class="oi oi-cloud-download" aria-hidden="true"></span> ZMQ Consumer
-            </NavLink>
-        </li>
+        <!--
+    <li class="nav-item px-3">
+        <NavLink class="nav-link" href="GetServerResult" Match="NavLinkMatch.All">
+            <span class="oi oi-cloud-download" aria-hidden="true"></span> ZMQ Consumer
+        </NavLink>
+    </li>-->
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="monicaCharts/monicaChart" Match="NavLinkMatch.All">
-                <span class="oi oi-code" aria-hidden="true"></span> Rsults History
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="monicaCharts/monicaGitChart" Match="NavLinkMatch.All">
-                <span class="oi oi-code" aria-hidden="true"></span> Git History
+                <span class="oi oi-bar-chart" aria-hidden="true"></span> Result's Chart
             </NavLink>
         </li>
         <li class="nav-item px-3">
@@ -42,11 +39,13 @@
                 <span class="oi oi-code" aria-hidden="true"></span> Capnp-test
             </NavLink>
         </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="monicaParametersTree" Match="NavLinkMatch.All">
-                <span class="oi oi-code" aria-hidden="true"></span> File Folder test
-            </NavLink>
-        </li>
+        <!--
+    <li class="nav-item px-3">
+        <NavLink class="nav-link" href="monicaParametersTree" Match="NavLinkMatch.All">
+            <span class="oi oi-code" aria-hidden="true"></span> File Folder test
+        </NavLink>
+    </li>
+        -->
     </ul>
 </div>
 

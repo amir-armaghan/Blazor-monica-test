@@ -85,7 +85,7 @@
         <RadzenRadioButtonList @bind-Value="this._exportResultType" TValue="MonicaExportResultType" Orientation="Orientation.Vertical">
             <Items>
                 <RadzenRadioButtonListItem Text="Show me a download link" Value="MonicaExportResultType.DowloadLink" />
-                <RadzenRadioButtonListItem Visible="UserSetting.GithubLoggedIn" Text="Export it into my github (Needs your desire path on your github)" Value="MonicaExportResultType.Github">
+                <RadzenRadioButtonListItem Visible="UserSetting.GithubLoggedIn" Text="Export it into my github (Needs your desire full path on your github)" Value="MonicaExportResultType.Github">
                 </RadzenRadioButtonListItem>
             </Items>
         </RadzenRadioButtonList>
@@ -142,194 +142,223 @@ else
 
     @if (!string.IsNullOrWhiteSpace(SendToServerStatus))
     {
-        <div class="alert alert-success" role="alert">
-            @SendToServerStatus
-        </div>
-    }
-</div>
-@code {
-    const string DefaultStatus = "Drop your Sim, Site, Crop file(s) or just click here to choose you file(s)";
-    const int MaxFileSize = 5 * 1024 * 1024; // 5MB
-    string status = DefaultStatus;
-
-    private List<UploadedFilesModel> _files = new List<UploadedFilesModel>();
-    private bool IsDataSent = false;
-    private string SendToServerStatus = string.Empty;
-    bool isDataSending = false;
-    bool isExportDone = false;
-    string jsonDownloadPath = string.Empty;
-    string csvDownloadPath = string.Empty;
-
-
-    private MonicaParametersBasePathTypeEnum _basePathType = MonicaParametersBasePathTypeEnum.LocalServer;
-    private MonicaExportResultType _exportResultType = MonicaExportResultType.DowloadLink;
-
-
-    [Parameter]
-    public string jsonFullDownloadPath { get; set; } = string.Empty;
-    [Parameter]
-    public string csvFullDownloadPath { get; set; } = string.Empty;
-
-
-    protected override async Task OnInitializedAsync()
-    {
-        UserSettingsUpdated += OnAfterUserSettingsUpdatedAsync;
-    }
-
-    void OnAfterUserSettingsUpdatedAsync(object sender, EventArgs e)
-    {
-        StateHasChanged();
-    }
-
-    private async Task CopyTextToClipboard(string shareLink)
-    {
-        await JSRuntime.InvokeVoidAsync("clipboardCopy.copyText", shareLink);
-    }
-
-
-    async Task ViewFile(IFileListEntry[] files)
-    {
-        SendToServerStatus = string.Empty;
-
-
-        if (files.Length == 0)
-        {
-            return;
-        }
-        else
-        {
-            for (int i = 0; i < files.Length; i++)
-            {
-                if (files[i].Size > MaxFileSize)
+        <div class="col-sm-12 m-2 transition1">
+            <div class="alert transition1 @BgColor" role="alert">
+                @SendToServerStatus
+                @if (!isExportDone)
                 {
-                    status = $"That's too big. Max size: {MaxFileSize} bytes.";
+                    <div class="spinner-border"></div>
+                }
+            </div>
+        </div>
+            }
+        </div>
+        @code {
+            const string DefaultStatus = "Drop your Sim, Site, Crop file(s) or just click here to choose you file(s)";
+            const int MaxFileSize = 5 * 1024 * 1024; // 5MB
+            string status = DefaultStatus;
+
+            private List<UploadedFilesModel> _files = new List<UploadedFilesModel>();
+            private bool IsDataSent = false;
+            private string SendToServerStatus = string.Empty;
+            private string BgColor = string.Empty;
+            bool isDataSending = false;
+            bool isExportDone = false;
+            string jsonDownloadPath = string.Empty;
+            string csvDownloadPath = string.Empty;
+
+
+            private MonicaParametersBasePathTypeEnum _basePathType = MonicaParametersBasePathTypeEnum.LocalServer;
+            private MonicaExportResultType _exportResultType = MonicaExportResultType.DowloadLink;
+
+
+            [Parameter]
+            public string jsonFullDownloadPath { get; set; } = string.Empty;
+            [Parameter]
+            public string csvFullDownloadPath { get; set; } = string.Empty;
+
+
+            protected override async Task OnInitializedAsync()
+            {
+                UserSettingsUpdated += OnAfterUserSettingsUpdatedAsync;
+            }
+
+            void OnAfterUserSettingsUpdatedAsync(object sender, EventArgs e)
+            {
+                StateHasChanged();
+            }
+
+            private async Task CopyTextToClipboard(string shareLink)
+            {
+                await JSRuntime.InvokeVoidAsync("clipboardCopy.copyText", shareLink);
+            }
+
+
+            async Task ViewFile(IFileListEntry[] files)
+            {
+
+
+                if (files.Length == 0)
+                {
                     return;
+                }
+                else
+                {
+                    for (int i = 0; i < files.Length; i++)
+                    {
+                        if (files[i].Size > MaxFileSize)
+                        {
+                            status = $"That's too big. Max size: {MaxFileSize} bytes.";
+                            return;
+                        }
+                    }
+
+                    status = "Loading...";
+
+                    for (int i = 0; i < files.Length; i++)
+                    {
+                        if (!_files.Any(file => file.File.Name == files[i].Name && file.File.Size == files[i].Size))
+                            _files.Add(new UploadedFilesModel() { File = files[i] });
+                    }
+
+                    status = DefaultStatus;
                 }
             }
 
-            status = "Loading...";
-
-            for (int i = 0; i < files.Length; i++)
+            private void RemoveFile(UploadedFilesModel file)
             {
-                if (!_files.Any(file => file.File.Name == files[i].Name && file.File.Size == files[i].Size))
-                    _files.Add(new UploadedFilesModel() { File = files[i] });
+                _files.Remove(file);
             }
 
-            status = DefaultStatus;
-        }
-    }
-
-    private void RemoveFile(UploadedFilesModel file)
-    {
-        _files.Remove(file);
-    }
-
-    private async Task HandleFiles()
-    {
-        isDataSending = true;
-        SendToServerStatus = $"Uploading files [{DateTime.Now.ToString()}]" + Environment.NewLine;
-        StateHasChanged();
-
-        var filePathes = new List<string>();
-        FileUpload.DeleteExistingFiles();
-
-        foreach (var file in _files)
-        {
-            var filePath = await FileUpload.UploadAsync(file.File);
-            filePathes.Add(filePath);
-        }
-
-        SendToServerStatus += $"Creating Monica request file [{DateTime.Now.ToString()}]" + Environment.NewLine;
-        StateHasChanged();
-
-        var result = await ZmqProducer.RunProducerAsync(filePathes, UserSetting, _basePathType);
-
-        SendToServerStatus += $"Sending Monica request file [{DateTime.Now.ToString()}]" + Environment.NewLine;
-        StateHasChanged();
-
-        IsDataSent = MonicaZmqService.Send(result, UserSetting.ServerPushAddress, UserSetting.ServerPushPort);
-
-        if (IsDataSent)
-        {
-            _files = new List<UploadedFilesModel>();
-            await ExportResultAsync();
-        }
-        else
-        {
-
-        }
-    }
-
-    async Task ExportResultAsync() // call ZmqProducer calss
-    {
-        SendToServerStatus += $"Reciving Monica request file [{DateTime.Now.ToString()}]" + Environment.NewLine;
-        StateHasChanged();
-
-        await Task.Delay(2000);
-
-        using (var consumer = new PullSocket())
-        {
-            consumer.Connect(UserSetting.ServerPullAddress + ":" + UserSetting.ServerPullPort);
-            string answer = consumer.ReceiveFrameString();
-
-            await Task.Delay(2000);
-            consumer.Disconnect(UserSetting.ServerPullAddress + ":" + UserSetting.ServerPullPort);
-
-            string csvContent = ZmqConsumer.RunConsumer(answer);
-
-            // create path
-            string exportPath = "wwwroot/export/";
-
-            foreach (var file in Directory.GetFiles(exportPath))
+            private async Task HandleFiles()
             {
-                if (File.GetCreationTime(file) > DateTime.Now.AddDays(-7))
-                    File.Delete(file);
+                isDataSending = true;
+
+                await ResultStatusAsync("Uploading files", 1);
+
+                var filePathes = new List<string>();
+                FileUpload.DeleteExistingFiles();
+
+                foreach (var file in _files)
+                {
+                    var filePath = await FileUpload.UploadAsync(file.File);
+                    filePathes.Add(filePath);
+                }
+
+                await ResultStatusAsync("Creating Monica request file", 2);
+
+                var result = await ZmqProducer.RunProducerAsync(filePathes, UserSetting, _basePathType);
+
+                await ResultStatusAsync("Sending Monica request file", 3);
+                //SendToServerStatus += $"Sending Monica request file [{DateTime.Now.ToString()}]... " + Environment.NewLine;
+                //BgColor = "colorg3";
+                //StateHasChanged();
+
+                IsDataSent = MonicaZmqService.Send(result, UserSetting.ServerPushAddress, UserSetting.ServerPushPort);
+
+                if (IsDataSent)
+                {
+                    _files = new List<UploadedFilesModel>();
+                    await ExportResultAsync();
+                }
+                else
+                {
+
+                }
             }
 
-            if (_exportResultType == MonicaExportResultType.DowloadLink)
+            async Task ResultStatusAsync(string SendingStatus, int ColorNo)
             {
-                //get the base URI Address and remove / from its end
-                string baseUriAddress = new Uri(NavigationManager.BaseUri).ToString().TrimEnd('/');
-
-                string fileName = Guid.NewGuid().ToString();
-                jsonDownloadPath = Path.Combine(exportPath, fileName + ".json");
-
-                File.WriteAllText(jsonDownloadPath, answer);
-                jsonDownloadPath = Path.Combine(HostEnvironment.WebRootPath, jsonDownloadPath);
-                jsonDownloadPath = jsonDownloadPath.Substring(jsonDownloadPath.IndexOf("/"));
-                jsonFullDownloadPath = baseUriAddress + jsonDownloadPath;
-
-                //fileName = Guid.NewGuid().ToString();  // commented to use the old GUID for csv
-                csvDownloadPath = Path.Combine(exportPath, fileName + ".csv");
-                File.WriteAllText(csvDownloadPath, csvContent);
-                csvDownloadPath = csvDownloadPath.Substring(csvDownloadPath.IndexOf("/"));
-                csvFullDownloadPath = baseUriAddress + csvDownloadPath;
-            }
-            else if (_exportResultType == MonicaExportResultType.Github)
-            {
-                SendToServerStatus += $"Writing the result to github [{DateTime.Now.ToString()}]" + Environment.NewLine;
+                SendToServerStatus += SendingStatus + ": " + DateTime.Now.ToLongTimeString() + " ... " + Environment.NewLine;
+                switch (ColorNo)
+                {
+                    case 1:
+                        BgColor = "colorg1";
+                        break;
+                    case 2:
+                        BgColor = "colorg2";
+                        break;
+                    case 3:
+                        BgColor = "colorg3";
+                        break;
+                    case 4:
+                        BgColor = "colorg4";
+                        break;
+                    case 5:
+                        BgColor = "colorg5";
+                        break;
+                }
                 StateHasChanged();
+            }
 
-                string fileName = "MonicaResult_" + DateTime.Now.ToString("yyyyMMdd_hhmmss");
-                //commit the Json and CSV file
-                string repoPath = GithubService.GetRepoResultPath(UserSetting.MonicaResultsPathOnGithub);
-                GithubService.CommitOnGit(fileName, answer, csvContent, UserSetting.GithubUserName, UserSetting.GithubPassword, repoPath);
+            async Task ExportResultAsync() // call ZmqProducer calss
+            {
+                await ResultStatusAsync("Reciving Monica result file", 4);
+
+                await Task.Delay(2000);
+
+                using (var consumer = new PullSocket())
+                {
+                    consumer.Connect(UserSetting.ServerPullAddress + ":" + UserSetting.ServerPullPort);
+                    string answer = consumer.ReceiveFrameString();
+
+                    await Task.Delay(2000);
+                    consumer.Disconnect(UserSetting.ServerPullAddress + ":" + UserSetting.ServerPullPort);
+
+                    string csvContent = ZmqConsumer.RunConsumer(answer);
+
+                    // create path
+                    string exportPath = "wwwroot/export/";
+
+                    foreach (var file in Directory.GetFiles(exportPath))
+                    {
+                        if (File.GetCreationTime(file) > DateTime.Now.AddDays(-7))
+                            File.Delete(file);
+                    }
+
+                    if (_exportResultType == MonicaExportResultType.DowloadLink)
+                    {
+                        //get the base URI Address and remove / from its end
+                        string baseUriAddress = new Uri(NavigationManager.BaseUri).ToString().TrimEnd('/');
+
+                        string fileName = Guid.NewGuid().ToString();
+                        jsonDownloadPath = Path.Combine(exportPath, fileName + ".json");
+
+                        File.WriteAllText(jsonDownloadPath, answer);
+                        jsonDownloadPath = Path.Combine(HostEnvironment.WebRootPath, jsonDownloadPath);
+                        jsonDownloadPath = jsonDownloadPath.Substring(jsonDownloadPath.IndexOf("/"));
+                        jsonFullDownloadPath = baseUriAddress + jsonDownloadPath;
+
+                        //fileName = Guid.NewGuid().ToString();  // commented to use the old GUID for csv
+                        csvDownloadPath = Path.Combine(exportPath, fileName + ".csv");
+                        File.WriteAllText(csvDownloadPath, csvContent);
+                        csvDownloadPath = csvDownloadPath.Substring(csvDownloadPath.IndexOf("/"));
+                        csvFullDownloadPath = baseUriAddress + csvDownloadPath;
+                    }
+                    else if (_exportResultType == MonicaExportResultType.Github)
+                    {
+                        await ResultStatusAsync("Writing the result to github", 5);
+
+                        string fileName = "MonicaResult_" + DateTime.Now.ToString("yyyyMMdd_hhmmss");
+                        //commit the Json and CSV file
+                        string repoPath = GithubService.GetRepoResultPath(UserSetting.MonicaResultsPathOnGithub);
+                        GithubService.CommitOnGit(fileName, answer, csvContent, UserSetting.GithubUserName, UserSetting.GithubPassword, repoPath);
+                    }
+                }
+
+                isDataSending = false;
+                isExportDone = true;
+            }
+
+            class UploadedFilesModel
+            {
+                public UploadedFilesModel()
+                {
+                    IsUploaded = false;
+                }
+
+                public IFileListEntry File { get; set; }
+
+                public bool IsUploaded { get; set; }
             }
         }
-
-        isDataSending = false;
-        isExportDone = true;
-    }
-
-    class UploadedFilesModel
-    {
-        public UploadedFilesModel()
-        {
-            IsUploaded = false;
-        }
-
-        public IFileListEntry File { get; set; }
-
-        public bool IsUploaded { get; set; }
-    }
-}
