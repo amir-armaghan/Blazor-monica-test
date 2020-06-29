@@ -92,8 +92,8 @@ namespace blzZmq1.Services
             crop_site_sim.Add("sim", sim_json);
             crop_site_sim.Add("site", site_json);           
             crop_site_sim.Add("crop", crop_json);
-            crop_site_sim.Add("climate", "");
-            //crop_site_sim.Add("climate", climate_csv);
+            //crop_site_sim.Add("climate", "");
+            crop_site_sim.Add("climate", climate_csv);
 
             string parametersPath = string.Empty;
 
@@ -103,10 +103,11 @@ namespace blzZmq1.Services
                 parametersPath = userSetting.MonicaParametersPathOnGithub;
 
             var env = _monicaIO.create_env_json_from_json_config(crop_site_sim, parametersPath);
-            if (env != null)
+            if (env == null)//if (env != null)
             {
                 //env.Add("csvViaHeaderOptions", sim_json["climate.csv-options"]);
                 //env.Add("pathToClimateCSV", "C:/Users/armaghan/source/repos/blzZmq1/blzZmq1/Data/climate.csv");
+
                 env["pathToClimateCSV"] = "C:/Users/armaghan/source/repos/blzZmq1/blzZmq1/Data/dwd_row-400_col-300.csv"; // climate.csv";
 
                 //socket.SendFrame(new ZFrame(Encoding.UTF8.GetBytes(env.ToString())));
@@ -116,7 +117,9 @@ namespace blzZmq1.Services
                 string env2 = env.ToString();
                 return env2;
             }
-            return null;  // when env is null
+            //return null;  // when env is null
+            string env3 = env.ToString();
+            return env3;
         }
     }
 

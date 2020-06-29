@@ -1,5 +1,4 @@
 ﻿@page "/setting"
-@using blzZmq1.Services
 @using Core.Share
 
 @inherits Shared.BasePage
@@ -45,7 +44,7 @@
     <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon3">Password:</span>
     </div>
-    <input disabled type="password" class="form-control" aria-describedby="basic-addon3" @bind="UserSetting.GithubPassword" @onfocusout="UpdateLocalStorageSettingsAsync">
+    <input disabled type="password" class="form-control" aria-describedby="basic-addon3" value="@UserSetting.GithubPassword">
 </div>
 <div class="input-group mb-3">
     <div class="input-group-prepend">
@@ -135,7 +134,4 @@
     {
         await SaveUserSettingsInLocalStorageAsync();
     }
-
-
-
 }

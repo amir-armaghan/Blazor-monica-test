@@ -26,19 +26,22 @@
 
 @code{
 
-    UserSetting _userSetting = new UserSetting();
+        UserSetting _userSetting = new UserSetting();
 
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        var localUserSettings = await localStorage.GetItemAsync<UserSetting>(StaticFields.UserSettingsLocalStorageKey);
-
-        if (localUserSettings != null)
+        if (firstRender)
         {
-            _userSetting = localUserSettings;
-        }
+            var localUserSettings = await localStorage.GetItemAsync<UserSetting>(StaticFields.UserSettingsLocalStorageKey);
 
-        StateHasChanged();
+            if (localUserSettings != null)
+            {
+                _userSetting = localUserSettings;
+            }
+
+            StateHasChanged();
+        }
     }
 
     async Task LogoutAsync()

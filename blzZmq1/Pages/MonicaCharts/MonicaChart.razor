@@ -80,7 +80,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="drag-drop-zone">
-                            <InputFile OnChange="ViewFile" />
+                            <InputFile OnChange="HandleFile" />
                             @status
                         </div>
                     </div>
@@ -136,7 +136,7 @@
                         <span class="input-group-text" id="basic-addon3">Chart's x Axis</span>
                     </div>
                     <select id="chartXAxis" class="form-control" @onchange="ChangeXAxis">
-                        <option selected="@(_selectedCategoryId == null)" class="form-control"></option>
+                        <option selected="@(_selectedXAxisId == null)" class="form-control"></option>
                         @foreach (var chartXAxis in ChartXAxises)
                         {
                             <option value="@chartXAxis.Id">@chartXAxis.SerieTitle</option>
@@ -177,7 +177,6 @@
     const int MaxFileSize = 12 * 1024 * 1024; // 12MB
     string status = DefaultStatus;
     string fileName;
-    string fileTextContents = string.Empty;
 
     public List<MonicaBaseData> MonicaBaseDatas { get; set; } = null;
 
@@ -324,7 +323,7 @@
     }
 
     ///  upload json, read to memory and call to load the chart
-    async Task ViewFile(IFileListEntry[] files)
+    private async Task HandleFile(IFileListEntry[] files)
     {
         var file = files.FirstOrDefault();
         if (file == null)
@@ -339,23 +338,30 @@
         {
             status = "Loading...";
 
-            using (var reader = new StreamReader(file.Data))
-            {
-                //reader.Dispose();
-                fileTextContents = await reader.ReadToEndAsync(); //.ConfigureAwait(false); //.ConfigureAwait(continueOnCapturedContext: false);
-                fileName = file.Name;
-
-            }
+            await ReadFileContentAsync(file);
 
             status = $"Finished loading {file.Size} bytes from {file.Name}";
-            if (fileTextContents != null)
-            {
-                LoadMonicaBaseData(fileTextContents);
-            }
-            else
-            {
-                Console.WriteLine("File not found");
-            }
+
+        }
+    }
+
+    async Task ReadFileContentAsync(IFileListEntry file)
+    {
+        string fileTextContents = string.Empty;
+
+        using (var reader = new StreamReader(file.Data))
+        {
+            fileTextContents = await reader.ReadToEndAsync(); //.ConfigureAwait(false); //.ConfigureAwait(continueOnCapturedContext: false);
+            fileName = file.Name;
+        }
+
+        if (fileTextContents != null)
+        {
+            LoadMonicaBaseData(fileTextContents);
+        }
+        else
+        {
+            Console.WriteLine("File not found");
         }
     }
 }

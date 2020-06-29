@@ -7,7 +7,7 @@
 <InputFile OnChange="HandleFileSelected" />
 @if (file != null)
 {
-    <p>@env</p>  ////capnp by Michael   -  Capnp.Rcp & Mas.Rpc in using section also added
+    <p>@env</p>  ////capnp by Michael
     <p>Name: @file.Name</p>
     <p>Size in bytes: @file.Size</p>
     <p>File type: @file.Type</p>
@@ -18,11 +18,15 @@
     <p class="fixwidth">@fileTextContents</p>
 }
 @code {
+
+
     private Capnp.Rpc.TcpRpcClient EnvClient;   //capnp by Michael
     private String env = "nothing"; //capnp by Michael
+
     int numLines;
     IFileListEntry file;
     string fileTextContents;
+
     async Task HandleFileSelected(IFileListEntry[] files)
     {
         if (EnvClient == null)  //capnp by Michael

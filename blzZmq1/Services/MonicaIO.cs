@@ -550,20 +550,7 @@ namespace blzZmq1.Services
             env.Add("pathToClimateCSV", simj["climate.csv"]);
             env.Add("csvViaHeaderOptions", simj["climate.csv-options"]);
             env["csvViaHeaderOptions"]["latitude"] = sitej["SiteParameters"]["Latitude"];
-            var climate_csv_string = crop_site_sim.ContainsKey("climete") ? crop_site_sim["climate"] : "";
-            if (!string.IsNullOrEmpty(climate_csv_string.ToString()))
-            {
-                add_climate_data_to_env(env, simj, climate_csv_string.ToString());
-            }
-            return env;
-        }
-        private  JObject add_climate_data_to_env(JObject env, JToken simj, string climate_csv_string = "")
-        {
-            //if not climate_csv_string:
-            //    with open(simj["climate.csv"]) as _:
-            //        climate_csv_string = _.read()
-            //if climate_csv_string:
-            //    env["climateData"] = json.loads(monica_python.readClimateDataFromCSVStringViaHeadersToJsonString(climate_csv_string, json.dumps(simj["climate.csv-options"])))
+            env.Add("climateCSV", crop_site_sim.ContainsKey("climate") ? crop_site_sim["climate"] : "");
             return env;
         }
 

@@ -1,5 +1,5 @@
 ﻿@page "/"
-@using blzZmq1.Services
+@using Application.Share
 @using blzZmq1.Services.Github
 @using Core.Share
 
@@ -21,7 +21,7 @@ Using ZeroMQ for Producer-Consumer
 <p>
     <h2>Road Map</h2>
     <ul>
-        <li>Read json to memory await for first time problem should ne fixed</li>
+        <li>Read json to memory await for first time problem should be fixed</li>
         <li>Chart Loading problem for chart selection page</li>
         <li>Remove draw cahrt and load the chart just after list selection</li>
         <li>Secure the github login</li>
@@ -65,7 +65,7 @@ Using ZeroMQ for Producer-Consumer
         StateHasChanged();
 
         UserSetting.GithubUserName = args.Username;
-        UserSetting.GithubPassword = args.Password;
+        UserSetting.GithubPassword = args.Password.Encrypt();
         result = GithubService.Login(UserSetting.GithubUserName, UserSetting.GithubPassword);
         firstRun = false;
         UserSetting.GithubLoggedIn = result;
