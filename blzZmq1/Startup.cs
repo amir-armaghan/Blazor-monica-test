@@ -10,6 +10,7 @@ using blzZmq1.Services.MonicaCharts;
 using blzZmq1.Services.Github;
 using Microsoft.JSInterop;
 using Blazored.LocalStorage;
+using Radzen;
 
 namespace blzZmq1
 {
@@ -35,6 +36,8 @@ namespace blzZmq1
             services.AddTransient<IMonicaZmqService, MonicaParameters>();
 
             // My Services
+            services.AddScoped<DialogService>();
+            services.AddScoped<NotificationService>();
 
             services.AddBlazoredLocalStorage();
 

@@ -116,24 +116,44 @@ namespace blzZmq1.Services.Github
 
         public async Task<bool> IsExistPathAsync(string path, string username, string passowrd)
         {
-            var basicAuth = new Credentials(username, passowrd);
+            var basicAuth = new Credentials(username, passowrd.Decrypt());
             _gitHubClient.Connection.Credentials = basicAuth;
             return await _gitHubClient.Repository.Content.GetAllContents(RepoOwner, RepoName, path) != null;
         }
 
         public bool IsExistPath(string path, string username, string passowrd, string monicaResultsPathOnGithub)
         {
-            var basicAuth = new Credentials(username, passowrd);
+            var basicAuth = new Credentials(username, passowrd.Decrypt());
             _gitHubClient.Connection.Credentials = basicAuth;
 
-            //RepoOwner = username;
-            //RepoName = monicaResultsPathOnGithub;
+            /*if (RepoOwner == null)
+            {
+                RepoOwner = username;
+                RepoName = monicaResultsPathOnGithub;
+            }*/
+
             try
             {
                 var result = _gitHubClient.Repository.Content.GetAllContents(RepoOwner, RepoName).Result;
                 return result != null;
             }
-            catch
+            catch (Exception e)
+            {
+                return false;
+            }
+
+        }
+        public bool PathValidator(string path, string username, string passowrd, string monicaResultsPathOnGithub)
+        {
+            var basicAuth = new Credentials(username, passowrd.Decrypt());
+            _gitHubClient.Connection.Credentials = basicAuth;
+
+            try
+            {
+                var result = _gitHubClient.Repository.Content.GetAllContents(username, monicaResultsPathOnGithub).Result;
+                return result != null;
+            }
+            catch (Exception e)
             {
                 return false;
             }

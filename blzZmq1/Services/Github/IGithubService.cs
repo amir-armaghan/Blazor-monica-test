@@ -41,6 +41,7 @@ namespace blzZmq1.Services.Github
         string GetFileContentUsingSha(string Sha, string username, string password);
         Task<string> GetFileContentUsingShaAsync(string Sha, string username, string password);
         bool IsExistPath(string path, string username, string passowrd, string monicaResultsPathOnGithub);
+        bool PathValidator(string path, string username, string passowrd, string monicaResultsPathOnGithub);
         Task<bool> IsExistPathAsync(string path, string username, string passowrd);
         bool Login(string username, string password);
     }

@@ -18,10 +18,11 @@
 @inject ZmqConsumer ZmqConsumer
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
+@inject DialogService dialogService
 
 <h1>Upload data</h1>
-<h3>Select your files (sim, site, crop to use your own parameters, or just leave it empty to use the default parameters from our server)</h3>
-<h4>Old Monica users! The "include-file-base-path" will be ignored in the above files. Please use your desire path options, at the bottom of this page</h4>
+<h3>Select your files (sim, site, crop, climate to use your own parameters, or just leave it empty to use the default parameters from our server)</h3>
+<h4>Old Monica users! The "include-file-base-path" will be ignored in the above files. Please use your github path, in this page</h4>
 
 <div class="row">
     <div class="col-sm-12">
@@ -55,6 +56,54 @@
         </div>
     </div>
 }
+
+@if (showModal)
+{
+    <div class="modal fade show" id="myModal" style="display:block" aria-modal="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">You are sending some Defult data</h4>
+                    <button type="button" class="close" @onclick="@ModalCancel">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div>Default values are just for testing purposes</div>
+                    <p>Are You Sure?</p>
+                    @if (!sim)
+                    {
+                        <div>SIM: <span style="color:red;">Default Value</span></div>
+                    }
+                    @if (!crop)
+                    {
+                        <div>CROP: <span style="color:red;">Default Value</span></div>
+                    }
+                    @if (!site)
+                    {
+                        <div>SITE: <span style="color:red;">Default Value</span></div>
+                    }
+                    @if (!climate)
+                    {
+                        <div>CLIMATE: <span style="color:red;">Default Value</span></div>
+                    }
+                </div>
+
+
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn" @onclick="@ModalCancel">Cancel</button>
+                    <button type="button" class="btn btn-danger" @onclick=@HandleFiles>Send</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
 
 <div class="row">
     <div class="col-sm-12">
@@ -107,7 +156,15 @@
 }
 else
 {
-    <button class="btn btn-primary" @onclick="HandleFiles">Send to server</button>
+    if (sim && crop && site && climate)
+    {
+        <button class="btn btn-primary" @onclick="@HandleFiles">Send to server</button>
+    }
+    else
+    {
+        <button class="btn btn-primary" @onclick="@ModalShow">Send to server</button>
+    }
+
 }
 
 <div class="row" style="margin-bottom: 100px">
@@ -154,8 +211,8 @@ else
     }
 </div>
 @code {
-    const string DefaultStatus = "Drop your Sim, Site, Crop file(s) or just click here to choose you file(s)";
-    const int MaxFileSize = 5 * 1024 * 1024; // 5MB
+    const string DefaultStatus = "Drop your Sim, Site, Crop and Climate file(s) or just click here to choose you file(s)";
+    const int MaxFileSize = 6 * 1024 * 1024; // 6MB
     string status = DefaultStatus;
 
     private List<UploadedFilesModel> _files = new List<UploadedFilesModel>();
@@ -166,6 +223,14 @@ else
     bool isExportDone = false;
     string jsonDownloadPath = string.Empty;
     string csvDownloadPath = string.Empty;
+
+    bool sim = false;
+    bool crop = false;
+    bool site = false;
+    bool climate = false;
+
+    private string simValue = string.Empty;
+
 
 
     private MonicaParametersBasePathTypeEnum _basePathType = MonicaParametersBasePathTypeEnum.LocalServer;
@@ -208,7 +273,7 @@ else
             {
                 if (files[i].Size > MaxFileSize)
                 {
-                    status = $"That's too big. Max size: {MaxFileSize} bytes.";
+                    status = $"That's too big. Max size: {MaxFileSize/1024/1024} MB";
                     return;
                 }
             }
@@ -219,6 +284,25 @@ else
             {
                 if (!_files.Any(file => file.File.Name == files[i].Name && file.File.Size == files[i].Size))
                     _files.Add(new UploadedFilesModel() { File = files[i] });
+                // add a switch case and check if it is Sim change sim to true and etc,
+                // use these values in dialog and present if the file is default one or is uploaded
+                if (files[i].Name.Contains("sim"))
+                {
+                    sim = true;
+                }
+                else if (files[i].Name.Contains("crop"))
+                {
+                    crop = true;
+                }
+                else if (files[i].Name.Contains("site"))
+                {
+                    site = true;
+                }
+                else if (files[i].Name.Contains("climate"))
+                {
+                    climate = true;
+                }
+
             }
 
             status = DefaultStatus;
@@ -227,11 +311,30 @@ else
 
     private void RemoveFile(UploadedFilesModel file)
     {
+        // switch case - first check the name, if its Sim change its value to false then remove it
+        if (file.File.Name.Contains("sim"))
+        {
+            sim = false;
+        }
+        else if (file.File.Name.Contains("crop"))
+        {
+            crop = false;
+        }
+        else if (file.File.Name.Contains("site"))
+        {
+            site = false;
+        }
+        else if (file.File.Name.Contains("climate"))
+        {
+            climate = false;
+        }
+
         _files.Remove(file);
     }
 
     private async Task HandleFiles()
     {
+        showModal = false; // hide the modal
         isDataSending = true;
 
         await ResultStatusAsync("Uploading files", 1);
@@ -362,4 +465,26 @@ else
 
         public bool IsUploaded { get; set; }
     }
+
+    @* private async Task Close(dynamic result)
+        {
+            if(result == true)
+            {
+                await HandleFiles();
+                StateHasChanged();
+            }
+        }*@
+
+
+
+    bool showModal = false;
+
+    void ModalShow() => showModal = true;
+    void ModalCancel() => showModal = false;
+    void ModalOk()
+    {
+        Console.WriteLine("Modal ok");
+        showModal = false;
+    }
+
 }
