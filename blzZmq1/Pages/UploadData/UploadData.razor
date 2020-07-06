@@ -133,7 +133,7 @@
         Result Options
         <RadzenRadioButtonList @bind-Value="this._exportResultType" TValue="MonicaExportResultType" Orientation="Orientation.Vertical">
             <Items>
-                <RadzenRadioButtonListItem Text="Show me a download link" Value="MonicaExportResultType.DowloadLink" />
+                <RadzenRadioButtonListItem Text="Show me the download/share link" Value="MonicaExportResultType.DowloadLink" />
                 <RadzenRadioButtonListItem Visible="UserSetting.GithubLoggedIn" Text="Export it into my github (Needs your a full path on your github)" Value="MonicaExportResultType.Github">
                 </RadzenRadioButtonListItem>
             </Items>

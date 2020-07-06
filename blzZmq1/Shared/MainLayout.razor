@@ -29,7 +29,7 @@
 
 @code{
 
-        UserSetting _userSetting = new UserSetting();
+    UserSetting _userSetting = new UserSetting();
 
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -52,6 +52,7 @@
         _userSetting.GithubLoggedIn = false;
         _userSetting = new UserSetting();
         await localStorage.SetItemAsync<UserSetting>(StaticFields.UserSettingsLocalStorageKey, _userSetting);
+        StateHasChanged();
 
     }
 }

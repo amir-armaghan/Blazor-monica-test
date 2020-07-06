@@ -59,6 +59,7 @@ namespace blzZmq1.Services.Github
             var pathItems = repoPath.Split("/");
             RepoOwner = pathItems[3];
             RepoName = pathItems[4];
+
         }
 
         public string GetRepoPath(string repoPath)

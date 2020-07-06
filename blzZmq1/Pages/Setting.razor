@@ -50,7 +50,7 @@
     <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon3">github Path Validator:</span>
     </div>
-    @if (UserSetting.MonicaPathOnGitIsValid == false || UserSetting.MonicaParametersPathOnGithub == "") //show proper icon when is Not valid
+    @if (UserSetting.MonicaPathOnGitIsValid == false) //show proper icon when is Not valid
     {
         <div class="input-group-prepend tooltip2">
             <span class="input-group-text tooltip2" id="basic-addon3">&#9888;</span>
@@ -85,6 +85,12 @@
     {
         // do something
     }
+
+
+
+    //somePath = UserSetting.MonicaParametersPathOnGithub;
+
+
 
     async Task GithubPathValidation()
     {

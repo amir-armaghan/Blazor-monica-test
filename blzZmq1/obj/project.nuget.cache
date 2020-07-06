@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "MHXNPVAgj5bZUxAba5+q2TmrRrV8xGyabpq1PPyqqoLBKQ6v/d1yQaVcgsbLSO2PrkZC5ud9ngcFZJ2OZ59QMg==",
+  "dgSpecHash": "gE14v40CaLEwaRebZ+q5K9tmOhAHw4Hore14bTI+uFDutmExDDnXGPl/SDaDjxEWCkjjva3I9fDw+rk5A8XmyQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\armaghan\\source\\repos\\blzZmq1\\blzZmq1\\blzZmq1.csproj",
   "expectedPackageFiles": [
@@ -142,8 +142,7 @@
     "C:\\Users\\armaghan\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.3\\system.threading.tasks.extensions.4.5.3.nupkg.sha512",
     "C:\\Users\\armaghan\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Users\\armaghan\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
-    "C:\\Users\\armaghan\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\armaghan\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.2\\microsoft.aspnetcore.app.ref.3.1.2.nupkg.sha512"
+    "C:\\Users\\armaghan\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }

@@ -1,10 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5dANQ2CfkG596jBFZo9bdcgj1zLrILSPh4P/4CGAHG4yHLviCIRGbDtpAfM8vPkha9wPGyUo1ezHxfdqzx91kw==",
+  "dgSpecHash": "k1fkMC2XFAN6f63+6o0LuZJq47ZYydRv3p0plHaBNJyz5zw2/G2ZG0BKtC+k/jxFYmlbMYjGORSarixmRn5B+Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\armaghan\\source\\repos\\blzZmq1\\Core\\Core.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\armaghan\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.2\\microsoft.aspnetcore.app.ref.3.1.2.nupkg.sha512"
-  ],
+  "expectedPackageFiles": [],
   "logs": []
 }

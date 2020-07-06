@@ -173,7 +173,7 @@
     private MonicaViewReultType _monicaViewReultType = MonicaViewReultType.Github;
     private IEnumerable<RepositoryContent> githubResultFilesName;
 
-    const string DefaultStatus = "Drop your JSON file here or just click to choose you file";
+    const string DefaultStatus = "Drop your JSON file here or just click to choose your file";
     const int MaxFileSize = 12 * 1024 * 1024; // 12MB
     string status = DefaultStatus;
     string fileName;
@@ -198,7 +198,7 @@
 
     void OnAfterUserSettingsUpdatedAsync(object sender, EventArgs e)
     {
-        if (UserSetting.GithubLoggedIn)
+        if (UserSetting.GithubLoggedIn && !string.IsNullOrEmpty(UserSetting.MonicaResultsPathOnGithub))
         {
             GithubService.SetRepoInfo(UserSetting.MonicaResultsPathOnGithub);
             string repoPath = GithubService.GetRepoPath(UserSetting.MonicaResultsPathOnGithub);
