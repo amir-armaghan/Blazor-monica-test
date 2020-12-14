@@ -44,7 +44,7 @@
           "dependencies": {
             "AutoMapper": {
               "target": "Package",
-              "version": "[9.0.0, )"
+              "version": "[10.1.1, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -66,7 +66,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -113,7 +113,7 @@
           "dependencies": {
             "BlazorInputFile": {
               "target": "Package",
-              "version": "[0.1.0-preview-00002, )"
+              "version": "[0.2.0, )"
             },
             "BlazorPro.Spinkit": {
               "target": "Package",
@@ -121,15 +121,11 @@
             },
             "Blazored.LocalStorage": {
               "target": "Package",
-              "version": "[2.1.6, )"
+              "version": "[3.0.0, )"
             },
             "Capnp.Net.Runtime": {
               "target": "Package",
-              "version": "[1.2.189, )"
-            },
-            "CapnpC.CSharp.MsBuild.Generation": {
-              "target": "Package",
-              "version": "[1.2.138, )"
+              "version": "[1.3.118, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
@@ -137,7 +133,7 @@
             },
             "NetMQ": {
               "target": "Package",
-              "version": "[4.0.0.207, )"
+              "version": "[4.0.1.6, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -145,11 +141,11 @@
             },
             "Octokit": {
               "target": "Package",
-              "version": "[0.47.0, )"
+              "version": "[0.48.0, )"
             },
             "Radzen.Blazor": {
               "target": "Package",
-              "version": "[2.8.1, )"
+              "version": "[2.17.2, )"
             }
           },
           "imports": [
@@ -170,7 +166,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -222,7 +218,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
         }
       }
     }

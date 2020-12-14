@@ -61,16 +61,16 @@
             "Microsoft.AspNetCore.Components.WebAssembly.Build": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[3.2.0-rc1.20223.4, )"
+              "version": "[3.2.1, )"
             },
             "Microsoft.AspNetCore.Components.WebAssembly.DevServer": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[3.2.0-rc1.20223.4, )"
+              "version": "[5.0.0, )"
             },
             "NetMQ": {
               "target": "Package",
-              "version": "[4.0.0.207, )"
+              "version": "[4.0.1.6, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -78,11 +78,11 @@
             },
             "Radzen.Blazor": {
               "target": "Package",
-              "version": "[2.8.4, )"
+              "version": "[2.17.2, )"
             },
             "System.Net.Http.Json": {
               "target": "Package",
-              "version": "[3.2.0, )"
+              "version": "[5.0.0, )"
             }
           },
           "imports": [
@@ -100,7 +100,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
         }
       }
     }

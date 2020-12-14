@@ -57,7 +57,7 @@ app {
     }
 
     .sidebar .navbar-brand {
-        font-size: 1.1rem;
+        font-size: 0.9rem;
     }
 
     .sidebar .oi {
@@ -213,6 +213,10 @@ div .transition1 {
 
 .navbar{
     justify-content: space-evenly !important;
+}
+
+.modal {
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 /*  ------new css ends----------*/

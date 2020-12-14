@@ -11,6 +11,7 @@ using blzZmq1.Services.Github;
 using Microsoft.JSInterop;
 using Blazored.LocalStorage;
 using Radzen;
+using Microsoft.AspNetCore.Http.Features;
 
 namespace blzZmq1
 {
@@ -54,6 +55,14 @@ namespace blzZmq1
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
+            // Workaround for https://github.com/aspnet/AspNetCore/issues/13470
+            app.Use((context, next) =>
+            {
+                context.Features.Get<IHttpMaxRequestBodySizeFeature>().MaxRequestBodySize = null;
+                return next.Invoke();
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

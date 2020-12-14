@@ -41,6 +41,7 @@ obj\Debug\netstandard2.1\blazor\unlinked\System.Threading.Tasks.Extensions.dll
 obj\Debug\netstandard2.1\blazor\unlinked\System.Numerics.Vectors.dll
 obj\Debug\netstandard2.1\blazor\unlinked\BlazorInputFile.dll
 obj\Debug\netstandard2.1\blazor\unlinked\NetMQ.dll
+obj\Debug\netstandard2.1\blazor\unlinked\NaCl.dll
 obj\Debug\netstandard2.1\blazor\unlinked\AsyncIO.dll
 obj\Debug\netstandard2.1\blazor\unlinked\System.ServiceModel.Primitives.dll
 obj\Debug\netstandard2.1\blazor\unlinked\System.Runtime.dll
@@ -63,6 +64,5 @@ obj\Debug\netstandard2.1\blazor\unlinked\Microsoft.Extensions.Options.dll
 obj\Debug\netstandard2.1\blazor\unlinked\Microsoft.JSInterop.WebAssembly.dll
 obj\Debug\netstandard2.1\blazor\unlinked\Newtonsoft.Json.dll
 obj\Debug\netstandard2.1\blazor\unlinked\Web.pdb
-obj\Debug\netstandard2.1\blazor\unlinked\NetMQ.pdb
 obj\Debug\netstandard2.1\blazor\unlinked\AsyncIO.pdb
 obj\Debug\netstandard2.1\blazor\unlinked\System.Linq.Dynamic.Core.pdb
