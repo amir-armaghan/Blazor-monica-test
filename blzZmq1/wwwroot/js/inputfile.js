@@ -3,9 +3,13 @@
         init: function init(elem, componentInstance) {
             var nextFileId = 0;
 
+            elem._blazorFilesById = {}; // Added/moved here by Amr to fix ID problem
+
             elem.addEventListener('change', function handleInputFileChange(event) {
-                // Reduce to purely serializable data, plus build an index by ID
-                elem._blazorFilesById = {};
+
+                // elem._blazorFilesById = {}; Moved to up by Amr to fix ID problem
+
+                // Reduce to purely serializable data, plus build an index by ID         
                 var fileList = Array.prototype.map.call(elem.files, function (file) {
                     var result = {
                         id: ++nextFileId,
