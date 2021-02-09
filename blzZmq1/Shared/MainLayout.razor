@@ -15,11 +15,13 @@
     <div class="top-row px-4">
         @if (!_userSetting.GithubLoggedIn)
         {
-            <a href="">Login</a>
+            <a href="/Account/GithubLogin">Login</a>
         }
         else
         {
             <a @onclick="LogoutAsync" href="">Logout</a>//needs to empty the credential information
+          
+
         }
     </div>
     <div class="content px-4">

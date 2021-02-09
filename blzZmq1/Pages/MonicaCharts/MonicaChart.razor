@@ -202,7 +202,7 @@
         {
             GithubService.SetRepoInfo(UserSetting.MonicaResultsPathOnGithub);
             string repoPath = GithubService.GetRepoPath(UserSetting.MonicaResultsPathOnGithub);
-            githubResultFilesName = GithubService.GetContents(repoPath, UserSetting.GithubUserName, UserSetting.GithubPassword);
+            githubResultFilesName = GithubService.GetContents(repoPath, UserSetting.GithubUserName, UserSetting.GithubToken);
             githubResultFilesName = githubResultFilesName.Where(s => s.Type == ContentType.File && s.Name.Contains(".json"));
         }
         StateHasChanged();
@@ -250,7 +250,7 @@
 
         var monicaResultFile = githubResultFilesName.Where(s => s.Path == _selectedFile).First();
 
-        var monicaResultContent = await GithubService.GetFileContentUsingShaAsync(monicaResultFile.Sha, UserSetting.GithubUserName, UserSetting.GithubPassword);
+        var monicaResultContent = await GithubService.GetFileContentUsingShaAsync(monicaResultFile.Sha, UserSetting.GithubUserName, UserSetting.GithubToken);
 
         LoadMonicaBaseData(monicaResultContent);
     }

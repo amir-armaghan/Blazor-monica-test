@@ -274,10 +274,10 @@ namespace blzZmq1.Services
                 JObject ssjsn;
                 if (isGithubPath)
                 { 
-                    if(_githubService.IsExistPath(path, UserSettings.GithubUserName, UserSettings.GithubPassword, UserSettings.MonicaResultsPathOnGithub))
+                    if(_githubService.IsExistPath(path, UserSettings.GithubUserName, UserSettings.GithubToken, UserSettings.MonicaResultsPathOnGithub))
                     {
                         //_githubService.get
-                        ssjsn = JObject.Parse(_githubService.GetFileContent(path, UserSettings.GithubUserName, UserSettings.GithubPassword));
+                        ssjsn = JObject.Parse(_githubService.GetFileContent(path, UserSettings.GithubUserName, UserSettings.GithubToken));
                     }
                     else
                     {

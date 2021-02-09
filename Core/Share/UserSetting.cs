@@ -20,5 +20,6 @@ namespace Core.Share
         public string MonicaParametersPathOnGithub { get; set; } = "";
         public bool MonicaPathOnGitIsValid { get; set; } = false;
         public bool SaveResultInGit { get; set; }
+        public string GithubToken { get; set; }
     }
 }

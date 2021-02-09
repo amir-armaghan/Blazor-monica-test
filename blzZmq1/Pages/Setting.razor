@@ -98,7 +98,7 @@
         {
 
             string repoPath = GithubService.GetRepoResultPath(somePath);
-            UserSetting.MonicaPathOnGitIsValid = GithubService.PathValidator(UserSetting.MonicaResultsPathOnGithub, UserSetting.GithubUserName, UserSetting.GithubPassword, repoPath);
+            UserSetting.MonicaPathOnGitIsValid = GithubService.PathValidator(UserSetting.MonicaResultsPathOnGithub, UserSetting.GithubUserName, UserSetting.GithubToken, repoPath);
             await SaveUserSettingsInLocalStorageAsync();
         }
     }

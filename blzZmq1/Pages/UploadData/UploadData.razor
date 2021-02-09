@@ -446,7 +446,7 @@ else
                 string fileName = "MonicaResult_" + DateTime.Now.ToString("yyyy-MM-dd_hhmmss");
                 //commit the Json and CSV file
                 string repoPath = GithubService.GetRepoResultPath(UserSetting.MonicaResultsPathOnGithub);
-                GithubService.CommitOnGit(fileName, answer, csvContent, UserSetting.GithubUserName, UserSetting.GithubPassword, repoPath);
+                GithubService.CommitOnGit(fileName, answer, csvContent, UserSetting.GithubUserName, UserSetting.GithubToken, repoPath);
             }
         }
 

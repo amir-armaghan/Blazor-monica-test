@@ -7350,6 +7350,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "projectReferences": {
             "C:\\Users\\armaghan\\source\\repos\\blzZmq1\\Application\\Application.csproj": {
               "projectPath": "C:\\Users\\armaghan\\source\\repos\\blzZmq1\\Application\\Application.csproj"
@@ -7368,6 +7369,7 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "BlazorInputFile": {
             "target": "Package",
@@ -7424,7 +7426,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }

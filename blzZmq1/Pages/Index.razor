@@ -22,16 +22,21 @@
     <div class="card-header bg-transparent border-success">Your github status</div>
     @if (!UserSetting.GithubLoggedIn)
     {
-        <RadzenCard>
-            <RadzenLogin AllowRegister="false" AllowResetPassword="false" Login="@((args) => Login(args, "Github Authentication"))" Style="margin-bottom: 20px;" />
-        </RadzenCard>
+        @*<RadzenCard>
+                <RadzenLogin AllowRegister="false" AllowResetPassword="false" Login="@((args) => Login(args, "Github Authentication"))" Style="margin-bottom: 20px;" />
+            </RadzenCard>*@
+        @*<span class="bg-danger p-2">You are not loged-in</span>*@
+        <div class="card-body">
+            <h5 class="card-title">Not Logged in</h5>
+        </div>
+
     }
     else
     {
         <div class="card-body text-success">
-            <h5 class="card-title">Logged in successfully</h5>
+            <h5 class="card-title">Logged in</h5>
         </div>
-        <div class="card-footer bg-transparent border-success"><button class="btn btn-danger btn-sm" type="button" @onclick="(() => Logout())">Logout</button></div>
+        @*<div class="card-footer bg-transparent border-success"><button class="btn btn-danger btn-sm" type="button" @onclick="(() => Logout())">Logout</button></div>*@
     }
     @if (result == false && firstRun == false)
     {
